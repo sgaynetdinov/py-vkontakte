@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup
 
 setup(
-    name='pyvk',
-    version='2016.08',
-    packages=['pyvk'],
-    url='https://github.com/sgaynetdinov/pyvk',
+    name='py-vkontakte',
+    version='2016.8',
+    packages=['vk'],
+    url='https://github.com/sgaynetdinov/py-vkontakte',
     license='MIT License',
     author='Sergey Gaynetdinov',
     author_email='s.gaynetdinov@gmail.com',
