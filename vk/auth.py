@@ -2,6 +2,18 @@
 import urllib
 
 
+_ACCESS_TOKEN = None
+
+
+def set_access_token(access_token):
+    global _ACCESS_TOKEN
+    _ACCESS_TOKEN = access_token
+
+
+def get_access_token():
+    return _ACCESS_TOKEN
+
+
 def create_url_get_code(client_id, redirect_uri, display="page", scope=None, response_type="code", version=None, state=None):
     url = "https://oauth.vk.com/authorize"
     params = {
@@ -23,7 +35,7 @@ def create_url_get_code(client_id, redirect_uri, display="page", scope=None, res
     return u"{url}?{params}".format(url=url, params=urllib.urlencode(params))
 
 
-def get_access_token(client_id, client_secret, redirect_uri, code):
-    pass
+# def get_access_token(client_id, client_secret, redirect_uri, code):
+#     pass
 
 
