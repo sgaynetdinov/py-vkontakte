@@ -1,6 +1,7 @@
 # coding=utf-8
 from .database import getCitiesById, getCountriesById
 from .fetch import fetch, fetch_field
+from .wall import Wall
 
 
 def slice_items(items, start=0, stop=300):
@@ -418,6 +419,9 @@ class User(object):
 
     def get_friends_count(self):
         return Friends.get_friends_count(user_id=self.id)
+
+    def get_wall(self):
+        return Wall.get_wall(owner_id=self.id)
 
     def __repr__(self):
         if self.is_banned:
