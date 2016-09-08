@@ -9,7 +9,7 @@ def slice_items(items, start=0, stop=300):
         if not _slice:
             raise StopIteration
         yield _slice
-        start += stop
+        start = stop
         stop += stop
 
 
