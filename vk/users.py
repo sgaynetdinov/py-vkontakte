@@ -398,8 +398,8 @@ class User(object):
         raise NotImplementedError
 
     @property
-    @fetch_field('users.get')
-    def verified(self):
+    @fetch_field('users.get', field_name="verified")
+    def is_verified(self):
         """
         :return: bool
         """
