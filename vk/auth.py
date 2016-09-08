@@ -35,7 +35,5 @@ def create_url_get_code(client_id, redirect_uri, display="page", scope=None, res
     return u"{url}?{params}".format(url=url, params=urllib.urlencode(params))
 
 
-# def get_access_token(client_id, client_secret, redirect_uri, code):
-#     pass
-
-
+def create_access_token(client_id, client_secret, redirect_uri, code):
+    pass
