@@ -315,8 +315,8 @@ class User(object):
         raise NotImplementedError
 
     @property
-    @fetch_field('users.get')
-    def online(self):
+    @fetch_field('users.get', field_name="online")
+    def is_online(self):
         """
         :return: bool
         """
