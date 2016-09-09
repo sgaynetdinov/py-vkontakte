@@ -14,6 +14,17 @@ def slice_items(items, start=0, stop=300):
         stop += stop
 
 
+def get_user(slug_or_user_id):
+    """
+    :param slug_or_user_id: str or int
+    :return: User
+    """
+    if isinstance(slug_or_user_id, basestring) or isinstance(slug_or_user_id, int):
+        user_json_items = fetch('users.get', user_ids=slug_or_user_id)
+        return User(user_json_items[0])
+    raise ValueError
+
+
 def get_users(user_ids):
     if not user_ids:
         return []
