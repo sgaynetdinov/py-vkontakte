@@ -4,6 +4,7 @@ import urllib
 import requests
 
 from .error import VKError, VKParseJsonError
+from .auth import get_access_token
 
 
 def fetch_field(method_name, field_name=None):
@@ -32,8 +33,12 @@ def fetch_field(method_name, field_name=None):
 
 
 def fetch(method_name, **params):
-    params = urllib.urlencode(params)
     url = "https://api.vk.com/method/{method_name}".format(method_name=method_name)
+
+    if get_access_token():
+        params['access_token'] = get_access_token()
+
+    params = urllib.urlencode(params)
     res = requests.post(url + "?" + params)
 
     try:
