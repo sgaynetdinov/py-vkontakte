@@ -1,5 +1,8 @@
 # coding=utf-8
 import urllib
+import requests
+
+from .error import VKError
 
 
 _ACCESS_TOKEN = None
@@ -36,4 +39,17 @@ def create_url_get_code(client_id, redirect_uri, display="page", scope=None, res
 
 
 def create_access_token(client_id, client_secret, redirect_uri, code):
-    pass
+    url = "https://oauth.vk.com/access_token"
+    params = {
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "redirect_uri": redirect_uri,
+        "code": code
+    }
+    res = requests.post(url, params=params)
+    res_json = res.json()
+
+    if 'access_token' not in res_json:
+        raise VKError()
+
+    return res_json['access_token']
