@@ -1,4 +1,6 @@
 # coding=utf-8
+__all__ = ["get_user", "get_users"]
+
 from .database import getCitiesById, getCountriesById
 from .fetch import fetch, fetch_field
 from .wall import Wall
