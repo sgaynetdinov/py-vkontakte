@@ -14,7 +14,7 @@ def slice_items(items, start=0, stop=300):
         stop += stop
 
 
-def get_users(*user_ids):
+def get_users(user_ids):
     if not user_ids:
         return []
 
