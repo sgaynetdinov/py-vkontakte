@@ -10,9 +10,9 @@ Usage
 
 .. code-block:: python
 
-    from vk.users import get_users
+    import vk
 
-    user = get_users('durov')[0]
+    user = vk.get_user('durov')
     print(user.first)
 
 Create and use ACCESS_TOKEN
