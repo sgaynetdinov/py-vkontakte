@@ -77,6 +77,9 @@ class Wall(object):
     def is_pinned(self):
         return bool(self._data['is_pinned'])
 
+    def get_url(self):
+        return 'https://vk.com/wall{0}_{1}'.format(self.owner_id, self.id)
+
     @staticmethod
     def get_wall(owner_id):
         response = fetch("wall.get", owner_id=owner_id)
