@@ -44,7 +44,7 @@ class User(object):
     """
 
     def __init__(self, user_json):
-        self.id = user_json.get('uid')
+        self.id = user_json.get('id')
         self._data = user_json
         self.first_name = user_json.get('first_name')
         self.last_name = user_json.get('last_name')

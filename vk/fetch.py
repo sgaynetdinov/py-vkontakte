@@ -34,6 +34,7 @@ def fetch_field(method_name, field_name=None):
 
 def fetch(method_name, **params):
     url = "https://api.vk.com/method/{method_name}".format(method_name=method_name)
+    params['v'] = '5.53'
 
     if get_access_token():
         params['access_token'] = get_access_token()

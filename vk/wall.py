@@ -79,8 +79,8 @@ class Wall(object):
 
     @staticmethod
     def get_wall(owner_id):
-        post_items = fetch("wall.get", owner_id=owner_id)
-        wall_count, wall_items = post_items[0], post_items[1:]
+        response = fetch("wall.get", owner_id=owner_id)
+        wall_items = response['items']
         return [Wall(wall_json) for wall_json in wall_items]
 
     def __repr__(self):
