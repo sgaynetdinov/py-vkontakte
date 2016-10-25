@@ -13,7 +13,7 @@ Usage
     import vk
 
     user = vk.get_user('durov')
-    print(user.first)
+    print(user.first_name)
 
 Create and use ACCESS_TOKEN
 ===============================
