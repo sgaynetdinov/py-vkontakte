@@ -25,7 +25,7 @@ class Group(object):
         group.photo_100 = group_json.get("photo_100")
         group.photo_200 = group_json.get("photo_200")
         group.status = group_json.get("status")
-        group.is_verified = group_json.get("verified")
+        group.is_verified = bool(group_json.get("verified"))
         group.site = group_json.get("site")
         return group
 
