@@ -20,7 +20,7 @@ class Group(object):
         group.is_closed = True if group_json.get("is_closed") else False
         group.is_deactivated = True if group_json.get("deactivated") else False
         group.type = group_json.get("type")
-        group.has_photo = group_json.get("has_photo")
+        group.has_photo = bool(group_json.get("has_photo"))
         group.photo_50 = group_json.get("photo_50")
         group.photo_100 = group_json.get("photo_100")
         group.photo_200 = group_json.get("photo_200")
