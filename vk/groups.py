@@ -1,6 +1,8 @@
 # coding=utf-8
 from .fetch import fetch
 
+__all__ = ("groups",)
+
 
 class Group(object):
     """
