@@ -1,11 +1,11 @@
 # coding=utf-8
-__all__ = ["get_user", "get_users"]
-
 import itertools
 
 from .database import getCitiesById, getCountriesById
 from .fetch import fetch, fetch_field
 from .wall import Wall
+
+__all__ = ["get_user", "get_users"]
 
 
 def grouper(iterable, n):
