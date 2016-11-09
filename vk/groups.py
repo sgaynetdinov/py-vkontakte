@@ -1,5 +1,6 @@
 # coding=utf-8
 from .fetch import fetch
+from .users import get_users
 
 __all__ = ("groups",)
 
@@ -32,6 +33,21 @@ class Group(object):
     def get_description(self):
         response = fetch("groups.getById", group_ids=self.id, fields="description")
         return response[0]['description']
+
+    def get_members(self):
+        """
+        Docs: https://vk.com/dev/groups.getMembers
+        """
+        MAX_COUNT = 1000
+
+        offset = 0
+        while True:
+            res = fetch("groups.getMembers", group_id=self.id, count=MAX_COUNT, offset=offset)
+            user_ids = res['items']
+            if not user_ids:
+                raise StopIteration
+            yield get_users(user_ids)
+            offset += MAX_COUNT
 
     def get_members_count(self):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")
