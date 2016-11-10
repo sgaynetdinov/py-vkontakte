@@ -50,7 +50,7 @@ def get_users(user_ids):
 
 class User(object):
     """
-    User fields - https://vk.com/dev/fields
+    Docs: https://vk.com/dev/objects/user
     """
 
     def __init__(self, user_json):
