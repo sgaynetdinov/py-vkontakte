@@ -15,6 +15,20 @@ Usage
     user = vk.get_user('durov')
     print(user.first_name)
 
+Groups
+=========
+
+.. code-block:: python
+
+    >>> import vk
+
+    >>> vk.groups(1, 'devclub')
+    [<Group: apiclub>, <Group: devclub>]
+
+    >>> g = vk.groups('apiclub')[0]
+    >>> g.screen_name
+    u'apiclub'
+
 Create and use ACCESS_TOKEN
 ===============================
 
