@@ -46,7 +46,8 @@ class Group(object):
             user_ids = res['items']
             if not user_ids:
                 raise StopIteration
-            yield get_users(user_ids)
+            for user in get_users(user_ids):
+                yield user
             offset += MAX_COUNT
 
     def get_members_count(self):
