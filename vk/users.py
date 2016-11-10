@@ -1,19 +1,29 @@
 # coding=utf-8
-__all__ = ["get_user", "get_users"]
+import itertools
 
 from .database import getCitiesById, getCountriesById
 from .fetch import fetch, fetch_field
 from .wall import Wall
 
+__all__ = ["get_user", "get_users"]
 
-def slice_items(items, start=0, stop=300):
-    while True:
-        _slice = items[start:stop]
-        if not _slice:
-            raise StopIteration
-        yield _slice
-        start = stop
-        stop += stop
+
+def grouper(iterable, n):
+    """
+    grouper([0,1,2,3,4], 3) --> [(0,1,2), (3,4)]
+    https://docs.python.org/3/library/itertools.html#itertools-recipes
+    """
+    args = [iter(iterable)] * n
+    grouper_items = list(itertools.izip_longest(*args))
+
+    last_items = grouper_items[-1]
+    if last_items[-1] is None:
+        last_items_without_None = (i for i in last_items if i is not None)
+        without_last_items = grouper_items[:-1]
+        without_last_items.append(tuple(last_items_without_None))
+        return without_last_items
+
+    return grouper_items
 
 
 def get_user(slug_or_user_id):
@@ -32,7 +42,7 @@ def get_users(user_ids):
         return []
 
     user_items = []
-    for u_ids in slice_items(user_ids):
+    for u_ids in grouper(user_ids, 300):
         _user_ids = ",".join([str(i) for i in u_ids])
         user_items.append(fetch('users.get', user_ids=_user_ids))
     return [User(user_json) for user_json in sum(user_items, [])]

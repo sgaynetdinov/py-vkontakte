@@ -6,4 +6,4 @@ class VKError(Exception):
 
 
 class VKParseJsonError(Exception):
-        pass
+    pass
