@@ -10,6 +10,7 @@ setup(
     author='Sergey Gaynetdinov',
     author_email='s.gaynetdinov@gmail.com',
     description='Python API wrapper around vk.com API',
+    keywords='vk, vkontakte',
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7'
