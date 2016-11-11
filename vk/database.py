@@ -2,13 +2,26 @@
 from .fetch import fetch
 
 
-def getCountriesById(country_id):
+class Country(object):
     """
-    https://vk.com/dev/database.getCountriesById
+    Docs: https://vk.com/dev/database.getCountriesById
     """
-    country_items_json = fetch('database.getCountriesById', country_ids=country_id)
-    country_json = country_items_json[0]
-    return country_json['title']
+    __slots__ = ('id', 'title')
+
+    @classmethod
+    def from_json(cls, json_obj):
+        country = cls()
+        country.id = json_obj.get('id')
+        country.title = json_obj.get('title')
+        return country
+
+    @classmethod
+    def get_country_by_id(cls, country_id):
+        country_json = fetch('database.getCountriesById', country_ids=country_id)[0]
+        return cls.from_json(country_json)
+
+    def __repr__(self):
+        return u"<Country: {0}>".format(self.id)
 
 
 class City(object):
