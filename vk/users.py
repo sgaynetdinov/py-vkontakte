@@ -398,7 +398,7 @@ class User(object):
 
 
 class UserCareer(object):
-    __slots__ = ('group', 'company', 'country', 'city_id', 'city_name', 'start', 'end', 'position')
+    __slots__ = ('group', 'company', 'country', 'city', 'start', 'end', 'position')
 
     @classmethod
     def from_json(cls, json_obj):
@@ -406,8 +406,7 @@ class UserCareer(object):
         career.group = cls._get_group(json_obj.get("group_id"))
         career.company = json_obj.get("company")
         career.country = getCountriesById(json_obj.get("country_id"))
-        career.city_id = json_obj.get("city_id")
-        career.city_name = json_obj.get("city_name")
+        career.city = City.get_city_by_id(json_obj.get("city_id"))
         career.start = json_obj.get("from")
         career.end = json_obj.get("until")
         career.position = json_obj.get("position")
