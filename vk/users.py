@@ -93,8 +93,12 @@ class User(object):
         return []
 
     def get_city(self):
+        """
+        :return: City or None
+        """
         response = fetch("users.get", user_ids=self.id, fields="city")[0]
-        return response.get('city')['title']
+        if response.get('city'):
+            return City.from_json(response.get('city'))
 
     # @property
     # def common_count(self):
