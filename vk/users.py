@@ -410,7 +410,6 @@ class UserCareer(object):
         career.start = json_obj.get("from")
         career.end = json_obj.get("until")
         career.position = json_obj.get("position")
-
         return career
 
     @classmethod
