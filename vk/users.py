@@ -1,7 +1,7 @@
 # coding=utf-8
 import itertools
 
-from .database import getCitiesById, getCountriesById
+from .database import City, getCountriesById
 from .fetch import fetch, fetch_field
 from .wall import Wall
 

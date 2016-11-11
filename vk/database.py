@@ -11,9 +11,23 @@ def getCountriesById(country_id):
     return country_json['title']
 
 
-def getCitiesById(city_id):
+class City(object):
     """
-    https://vk.com/dev/database.getCities
+    Docs: https://vk.com/dev/database.getCitiesById
     """
-    city_json = fetch('database.getCitiesById', city_ids=city_id)[0]
-    return city_json['title']
+    __slots__ = ('id', 'title')
+
+    @classmethod
+    def from_json(cls, json_obj):
+        city = cls()
+        city.id = json_obj.get('id')
+        city.title = json_obj.get('title')
+        return city
+
+    @classmethod
+    def get_city_by_id(cls, city_id):
+        city_json = fetch('database.getCitiesById', city_ids=city_id)[0]
+        return cls.from_json(city_json)
+
+    def __repr__(self):
+        return u"<City: {0}>".format(self.id)
