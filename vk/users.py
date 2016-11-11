@@ -420,14 +420,14 @@ class User(object):
 
 
 class UserCareer(object):
-    __slots__ = ('group', 'company', 'country_id', 'city_id', 'city_name', 'start', 'end', 'position')
+    __slots__ = ('group', 'company', 'country', 'city_id', 'city_name', 'start', 'end', 'position')
 
     @classmethod
     def from_json(cls, json_obj):
         career = cls()
         career.group = cls._get_group(json_obj.get("group_id"))
         career.company = json_obj.get("company")
-        career.country_id = json_obj.get("country_id")
+        career.country = getCountriesById(json_obj.get("country_id"))
         career.city_id = json_obj.get("city_id")
         career.city_name = json_obj.get("city_name")
         career.start = json_obj.get("from")
