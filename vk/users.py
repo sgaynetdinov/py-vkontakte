@@ -32,9 +32,7 @@ def get_user(slug_or_user_id):
     :return: User
     """
     if isinstance(slug_or_user_id, basestring) or isinstance(slug_or_user_id, int):
-        user_json_items = fetch('users.get', user_ids=slug_or_user_id,
-                                fields=('id,first_name,last_name,is_deactivated,'
-                                        'is_deleted','is_banned','is_hidden','bdate'))
+        user_json_items = fetch('users.get', user_ids=slug_or_user_id, fields=User.USER_FIELDS)
         return User.from_json(user_json_items[0])
     raise ValueError
 
@@ -46,9 +44,7 @@ def get_users(user_ids):
     user_items = []
     for u_ids in grouper(user_ids, 300):
         _user_ids = ",".join([str(i) for i in u_ids])
-        user_items.append(fetch('users.get', user_ids=_user_ids,
-                                fields=('id,first_name,last_name,is_deactivated,'
-                                        'is_deleted', 'is_banned', 'is_hidden', 'bdate')))
+        user_items.append(fetch('users.get', user_ids=_user_ids, fields=User.USER_FIELDS))
     return [User.from_json(user_json) for user_json in sum(user_items, [])]
 
 
@@ -56,7 +52,8 @@ class User(object):
     """
     Docs: https://vk.com/dev/objects/user
     """
-    __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate')
+    USER_FIELDS = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate')
+    __slots__ = USER_FIELDS
 
     @classmethod
     def from_json(cls, json_obj):
@@ -107,10 +104,6 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="country")[0]
         if response.get('country'):
             return Country.from_json(response.get('country'))
-
-    @property
-    def crop_photo(self):
-        raise NotImplementedError
 
     # @property
     # @fetch_field('users.get')
