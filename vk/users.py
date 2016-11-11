@@ -92,35 +92,9 @@ class User(object):
             return [UserCareer.from_json(i) for i in response.get('career')]
         return []
 
-    # @property
-    # def can_post(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def can_see_all_posts(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def can_see_audio(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def can_send_friend_request(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def can_write_private_message(self):
-    #     raise NotImplementedError
-    #
-
-    # @property
-    # @fetch_field('users.get')
-    # def city(self):
-    #     """
-    #     :return: string
-    #     """
-    #     city_id = self._data['city']
-    #     return getCitiesById(city_id)
+    def get_city(self):
+        response = fetch("users.get", user_ids=self.id, fields="city")[0]
+        return response.get('city')['title']
 
     # @property
     # def common_count(self):
