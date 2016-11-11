@@ -100,30 +100,13 @@ class User(object):
         if response.get('city'):
             return City.from_json(response.get('city'))
 
-    # @property
-    # def common_count(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def connections(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def contacts(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def counters(self):
-    #     raise NotImplementedError
-
-    # @property
-    # @fetch_field('users.get')
-    # def country(self):
-    #     """
-    #     :return: string
-    #     """
-    #     country_id = self._data['country']
-    #     return getCountriesById(country_id)
+    def get_country(self):
+        """
+        :return: Country or None
+        """
+        response = fetch("users.get", user_ids=self.id, fields="country")[0]
+        if response.get('country'):
+            return Country.from_json(response.get('country'))
 
     @property
     def crop_photo(self):
