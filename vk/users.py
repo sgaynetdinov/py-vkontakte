@@ -1,7 +1,7 @@
 # coding=utf-8
 import itertools
 
-from .database import City, getCountriesById
+from .database import City, Country
 from .fetch import fetch, fetch_field
 from .wall import Wall
 
@@ -405,7 +405,7 @@ class UserCareer(object):
         career = cls()
         career.group = cls._get_group(json_obj.get("group_id"))
         career.company = json_obj.get("company")
-        career.country = getCountriesById(json_obj.get("country_id"))
+        career.country = Country.get_country_by_id(json_obj.get("country_id"))
         career.city = City.get_city_by_id(json_obj.get("city_id"))
         career.start = json_obj.get("from")
         career.end = json_obj.get("until")
