@@ -5,7 +5,7 @@ from .database import getCitiesById, getCountriesById
 from .fetch import fetch, fetch_field
 from .wall import Wall
 
-__all__ = ["get_user", "get_users"]
+__all__ = ["get_user"]
 
 
 def grouper(iterable, n):
@@ -46,8 +46,10 @@ def get_users(user_ids):
     user_items = []
     for u_ids in grouper(user_ids, 300):
         _user_ids = ",".join([str(i) for i in u_ids])
-        user_items.append(fetch('users.get', user_ids=_user_ids))
-    return [User(user_json) for user_json in sum(user_items, [])]
+        user_items.append(fetch('users.get', user_ids=_user_ids,
+                                fields=('id,first_name,last_name,is_deactivated,'
+                                        'is_deleted', 'is_banned', 'is_hidden', 'bdate')))
+    return [User.from_json(user_json) for user_json in sum(user_items, [])]
 
 
 class User(object):
@@ -85,11 +87,10 @@ class User(object):
         return response.get('books')
 
     def get_career(self):
-        raise NotImplementedError
-
-
-
-
+        response = fetch("users.get", user_ids=self.id, fields="career")[0]
+        if response.get('career'):
+            return [UserCareer.from_json(i) for i in response.get('career')]
+        return []
 
     # @property
     # def can_post(self):
@@ -418,4 +419,32 @@ class User(object):
         return u"<User id{0}>".format(self.id)
 
 
+class UserCareer(object):
+    __slots__ = ('group', 'company', 'country_id', 'city_id', 'city_name', 'start', 'end', 'position')
+
+    @classmethod
+    def from_json(cls, json_obj):
+        career = cls()
+        career.group = cls._get_group(json_obj.get("group_id"))
+        career.company = json_obj.get("company")
+        career.country_id = json_obj.get("country_id")
+        career.city_id = json_obj.get("city_id")
+        career.city_name = json_obj.get("city_name")
+        career.start = json_obj.get("from")
+        career.end = json_obj.get("until")
+        career.position = json_obj.get("position")
+
+        return career
+
+    @classmethod
+    def _get_group(cls, group_id):
+        if group_id:
+            return groups(group_id)[0]
+
+    def __repr__(self):
+        career_name = self.company or self.group.screen_name
+        return u"<Career: {0}>".format(career_name)
+
+
+from .groups import groups
 from .friends import Friends
