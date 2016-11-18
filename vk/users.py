@@ -52,7 +52,7 @@ class User(object):
     """
     Docs: https://vk.com/dev/objects/user
     """
-    USER_FIELDS = ('bdate', 'domain')
+    USER_FIELDS = ('bdate', 'domain', 'sex')
     __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden') + USER_FIELDS
 
     @classmethod
@@ -69,6 +69,7 @@ class User(object):
 
         user.bdate = json_obj.get('bdate')
         user.domain = json_obj.get('domain')
+        user.sex = cls._sex(json_obj.get('sex'))
 
         return user
 
@@ -106,248 +107,18 @@ class User(object):
         if response.get('country'):
             return Country.from_json(response.get('country'))
 
-    @property
-    def education(self):
-        raise NotImplementedError
+    @classmethod
+    def _sex(cls, sex):
+        """
+        :param sex: {integer}
+        :return: {string, None}
+        """
+        sex_items = {
+            1: 'female',
+            2: 'male'
+        }
+        return sex_items.get(sex)
 
-    @property
-    def exports(self):
-        raise NotImplementedError
-
-    # first_name_{case}
-
-    # @property
-    # @fetch_field('users.get')
-    # def followers_count(self):
-    #     """
-    #     :return: integer
-    #     """
-    #     return self._data['followers_count']
-
-    @property
-    def friend_status(self):
-        raise NotImplementedError
-
-    # @property
-    # @fetch_field('users.get')
-    # def games(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['games']
-
-    # @property
-    # @fetch_field('users.get')
-    # def has_mobile(self):
-    #     """
-    #     :return: bool
-    #     """
-    #     return bool(self._data['has_mobile'])
-
-    # @property
-    # @fetch_field('users.get')
-    # def has_photo(self):
-    #     """
-    #     :return: bool
-    #     """
-    #     return bool(self._data['has_photo'])
-
-    # @property
-    # @fetch_field('users.get')
-    # def home_town(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['home_town']
-    #
-    # @property
-    # @fetch_field('users.get')
-    # def interests(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['interests']
-
-    @property
-    def is_favorite(self):
-        raise NotImplementedError
-
-    @property
-    def is_friend(self):
-        raise NotImplementedError
-
-    @property
-    def is_hidden_from_feed(self):
-        raise NotImplementedError
-
-    # last_name_{case}
-
-    # @property
-    # @fetch_field('users.get')
-    # def last_seen(self):
-    #     """
-    #     :return: unix-time
-    #     """
-    #     return self._data["last_seen"]["time"]
-    #
-    # @property
-    # @fetch_field('users.get', field_name="last_seen")
-    # def platform(self):
-    #     """
-    #     :return: {string, None}
-    #     """
-    #     platform = self._data["last_seen"].get("platform")
-    #     platform_items = {
-    #         1: 'mobile',
-    #         2: 'iPhone',
-    #         3: 'iPad',
-    #         4: 'Android',
-    #         5: 'Windows Phone',
-    #         6: 'Windows 8',
-    #         7: 'web'
-    #     }
-    #
-    #     return platform_items.get(platform, None)
-
-    @property
-    def list(self):
-        raise NotImplementedError
-
-    @property
-    def maiden_name(self):
-        raise NotImplementedError
-
-    @property
-    def military(self):
-        raise NotImplementedError
-
-    # @property
-    # @fetch_field('users.get')
-    # def movies(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['movies']
-    #
-    # @property
-    # @fetch_field('users.get')
-    # def music(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['music']
-    #
-    # @property
-    # @fetch_field('users.get')
-    # def nickname(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['nickname']
-    #
-    # @property
-    # def occupation(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # @fetch_field('users.get', field_name="online")
-    # def is_online(self):
-    #     """
-    #     :return: bool
-    #     """
-    #     return bool(self._data['online'])
-
-    @property
-    def personal(self):
-        raise NotImplementedError
-
-    # photos fields
-
-    # @property
-    # @fetch_field('users.get')
-    # def quotes(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['quotes']
-
-    @property
-    def relatives(self):
-        raise NotImplementedError
-
-    @property
-    def relation(self):
-        raise NotImplementedError
-
-    @property
-    def schools(self):
-        raise NotImplementedError
-    #
-    # @property
-    # @fetch_field('users.get')
-    # def screen_name(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['screen_name']
-    #
-    # @property
-    # @fetch_field('users.get')
-    # def sex(self):
-    #     """
-    #     :return: {string, None}
-    #     """
-    #     _sex = self._data['sex']
-    #     sex_items = {
-    #         1: 'female',
-    #         2: 'male'
-    #     }
-    #     return sex_items.get(_sex, None)
-
-    # @property
-    # @fetch_field('users.get')
-    # def site(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['site']
-    #
-    # @property
-    # def status(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # def timezone(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # @fetch_field('users.get')
-    # def tv(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['tv']
-    #
-    # @property
-    # def universities(self):
-    #     raise NotImplementedError
-    #
-    # @property
-    # @fetch_field('users.get', field_name="verified")
-    # def is_verified(self):
-    #     """
-    #     :return: bool
-    #     """
-    #     return bool(self._data['verified'])
-    #
-    # @property
-    # @fetch_field('users.get')
-    # def wall_comments(self):
-    #     """
-    #     :return: bool
-    #     """
-    #     return bool(self._data['wall_comments'])
-    #
     # def get_friends(self):
     #     return Friends.get_friends(user_id=self.id)
     #
