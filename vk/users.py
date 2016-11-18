@@ -52,8 +52,8 @@ class User(object):
     """
     Docs: https://vk.com/dev/objects/user
     """
-    USER_FIELDS = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate')
-    __slots__ = USER_FIELDS
+    __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate')
+    USER_FIELDS = __slots__
 
     @classmethod
     def from_json(cls, json_obj):
@@ -104,14 +104,6 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="country")[0]
         if response.get('country'):
             return Country.from_json(response.get('country'))
-
-    # @property
-    # @fetch_field('users.get')
-    # def domain(self):
-    #     """
-    #     :return: string
-    #     """
-    #     return self._data['domain']
 
     @property
     def education(self):
