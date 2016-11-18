@@ -39,6 +39,9 @@ def fetch(method_name, **params):
     if get_access_token():
         params['access_token'] = get_access_token()
 
+    if params.get('fields'):
+        params['fields'] = convert_list2str(params.get('fields'))
+
     params = urllib.urlencode(params)
     res = requests.post(url + "?" + params)
 
@@ -52,3 +55,13 @@ def fetch(method_name, **params):
 
     if 'response' in data_json:
         return data_json.get('response')
+
+
+def convert_list2str(fields):
+    """
+    :param fields: ('bdate', 'domain')
+    :return: 'bdate,domain'
+    """
+    if isinstance(fields, tuple) or isinstance(fields, list):
+        return ','.join(fields)
+    return fields
