@@ -51,7 +51,11 @@ def fetch(method_name, **params):
         raise VKParseJsonError
 
     if 'error' in data_json:
-        raise VKError
+        error_msg = data_json['error']['error_msg']
+        error_code = data_json['error']['error_code']
+        raise VKError(
+            u"{error_msg} Error code: {error_code}\nhttps://vk.com/dev/errors".format(error_msg=error_msg,
+                                                                                      error_code=error_code))
 
     if 'response' in data_json:
         return data_json.get('response')
