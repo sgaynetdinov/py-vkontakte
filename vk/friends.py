@@ -11,5 +11,5 @@ class Friends(object):
 
     @staticmethod
     def get_friends_count(user_id):
-        user_id_items = fetch('friends.get', user_id=user_id)
-        return len(user_id_items)
+        response = fetch('friends.get', user_id=user_id, count=1)
+        return response["count"]
