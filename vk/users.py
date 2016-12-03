@@ -140,6 +140,10 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="movies")[0]
         return response.get('movies')
 
+    def get_music(self):
+        response = fetch("users.get", user_ids=self.id, fields="music")[0]
+        return response.get('music')
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
