@@ -1,11 +1,10 @@
 # coding=utf-8
-__all__ = ["set_access_token", "get_access_token", "create_access_token", "create_url_get_code"]
-
 import urllib
 import requests
 
 from .error import VKError
 
+__all__ = ["set_access_token", "get_access_token", "create_access_token", "create_url_get_code"]
 
 _ACCESS_TOKEN = None
 
