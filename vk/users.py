@@ -129,7 +129,13 @@ class User(object):
 
     def get_friends_count(self):
         return Friends.get_friends_count(user_id=self.id)
-    #
+
+    def get_military(self):
+        response = fetch("users.get", user_ids=self.id, fields="military")[0]
+        if response.get('military'):
+            return [UserMilitary.from_json(json_military) for json_military in response.get('military')]
+        return []
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
@@ -165,6 +171,23 @@ class UserCareer(object):
     def __repr__(self):
         career_name = self.company or self.group.screen_name
         return u"<Career: {0}>".format(career_name)
+
+
+class UserMilitary(object):
+    __slots__ = ('unit', 'unit_id', 'country_id', 'start', 'finish')
+
+    @classmethod
+    def from_json(cls, military_json):
+        military = cls()
+        military.unit = military_json.get('unit')
+        military.unit_id = military_json.get('unit_id')
+        military.country_id = military_json.get('country_id')
+        military.start = military_json.get('from')
+        military.finish = military_json.get('until')
+        return military
+
+    def __repr__(self):
+        return u"<Military: {0}>".format(self.unit_id)
 
 
 from .groups import groups
