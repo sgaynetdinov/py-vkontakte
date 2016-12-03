@@ -56,9 +56,9 @@ class User(object):
     Docs: https://vk.com/dev/objects/user
     """
     USER_FIELDS = ('bdate', 'domain', 'sex',
-                   'maiden_name', 'nickname', 'online')
+                   'maiden_name', 'nickname')
     __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate', 'domain', 'sex',
-                 'maiden_name', 'nickname', 'is_online')
+                 'maiden_name', 'nickname')
 
     @classmethod
     def from_json(cls, json_obj):
@@ -77,9 +77,13 @@ class User(object):
         user.bdate = json_obj.get('bdate')
         user.domain = json_obj.get('domain')
         user.sex = cls._sex(json_obj.get('sex'))
-        user.is_online = bool(json_obj.get('online'))
 
         return user
+
+    @property
+    def is_online(self):
+        response = fetch("users.get", user_ids=self.id, fields="online")[0]
+        return bool(response.get('online'))
 
     def get_about(self):
         response = fetch("users.get", user_ids=self.id, fields="about")[0]
