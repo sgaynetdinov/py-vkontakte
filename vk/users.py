@@ -153,6 +153,11 @@ class User(object):
             return UserOccupation.from_json(response.get('occupation'))
         return None
 
+    def get_photos(self):
+        PHOTOS_FIELDS = "photo_50", "photo_100", "photo_200_orig", "photo_200", "photo_400_orig"
+        response = fetch("users.get", user_ids=self.id, fields=",".join(PHOTOS_FIELDS))[0]
+        return {key: value for key, value in response.items() if key in PHOTOS_FIELDS}
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
