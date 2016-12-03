@@ -136,6 +136,10 @@ class User(object):
             return [UserMilitary.from_json(json_military) for json_military in response.get('military')]
         return []
 
+    def get_movies(self):
+        response = fetch("users.get", user_ids=self.id, fields="movies")[0]
+        return response.get('movies')
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
