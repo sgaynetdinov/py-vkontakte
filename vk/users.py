@@ -145,6 +145,12 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="music")[0]
         return response.get('music')
 
+    def get_occupation(self):
+        response = fetch("users.get", user_ids=self.id, fields="occupation")[0]
+        if response.get('occupation'):
+            return UserOccupation.from_json(response.get('occupation'))
+        return None
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
@@ -197,6 +203,21 @@ class UserMilitary(object):
 
     def __repr__(self):
         return u"<Military: {0}>".format(self.unit_id)
+
+
+class UserOccupation(object):
+    __slots__ = ('type', 'id', 'name')
+
+    @classmethod
+    def from_json(cls, occupation_json):
+        occupation = cls()
+        occupation.type = occupation_json.get('type')
+        occupation.id = occupation_json.get('id')
+        occupation.name = occupation_json.get('name')
+        return occupation
+
+    def __repr__(self):
+        return u"<Occupation: {0}>".format(self.type)
 
 
 from .groups import groups
