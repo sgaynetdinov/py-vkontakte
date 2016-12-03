@@ -41,12 +41,12 @@ def get_users(user_ids):
     if not user_ids:
         raise StopIteration
 
-    for u_ids in grouper(user_ids, 300):
-        if not u_ids:
+    for user_id_items in grouper(user_ids, 300):
+        if not user_id_items:
             raise StopIteration
 
-        _user_ids = ",".join([str(i) for i in u_ids])
-        user_json_items = fetch('users.get', user_ids=_user_ids, fields=User.USER_FIELDS)
+        user_id_items_str_inline = ",".join([str(i) for i in user_id_items])
+        user_json_items = fetch('users.get', user_ids=user_id_items_str_inline, fields=User.USER_FIELDS)
         for user in [User.from_json(user_json) for user_json in user_json_items]:
             yield user
 
