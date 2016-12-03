@@ -158,6 +158,10 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields=",".join(PHOTOS_FIELDS))[0]
         return {key: value for key, value in response.items() if key in PHOTOS_FIELDS}
 
+    def get_quotes(self):
+        response = fetch("users.get", user_ids=self.id, fields="quotes")[0]
+        return response.get('quotes')
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
