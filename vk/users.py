@@ -39,13 +39,16 @@ def get_user(slug_or_user_id):
 
 def get_users(user_ids):
     if not user_ids:
-        return []
+        raise StopIteration
 
-    user_items = []
     for u_ids in grouper(user_ids, 300):
+        if not u_ids:
+            raise StopIteration
+
         _user_ids = ",".join([str(i) for i in u_ids])
-        user_items.append(fetch('users.get', user_ids=_user_ids, fields=User.USER_FIELDS))
-    return [User.from_json(user_json) for user_json in sum(user_items, [])]
+        user_json_items = fetch('users.get', user_ids=_user_ids, fields=User.USER_FIELDS)
+        for user in [User.from_json(user_json) for user_json in user_json_items]:
+            yield user
 
 
 class User(object):
@@ -119,11 +122,11 @@ class User(object):
         }
         return sex_items.get(sex)
 
-    # def get_friends(self):
-    #     return Friends.get_friends(user_id=self.id)
-    #
-    # def get_friends_count(self):
-    #     return Friends.get_friends_count(user_id=self.id)
+    def get_friends(self):
+        return Friends.get_friends(user_id=self.id)
+
+    def get_friends_count(self):
+        return Friends.get_friends_count(user_id=self.id)
     #
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
