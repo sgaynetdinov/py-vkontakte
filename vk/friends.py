@@ -6,7 +6,8 @@ from .users import get_users
 class Friends(object):
     @staticmethod
     def get_friends(user_id):
-        user_id_items = fetch('friends.get', user_id=user_id)
+        response = fetch('friends.get', user_id=user_id)
+        user_id_items = response["items"]
         return get_users(user_id_items)
 
     @staticmethod
