@@ -55,7 +55,8 @@ class User(object):
     """
     Docs: https://vk.com/dev/objects/user
     """
-    USER_FIELDS = ('bdate', 'domain', 'sex')
+    USER_FIELDS = ('bdate', 'domain', 'sex',
+                   'maiden_name')
     __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden') + USER_FIELDS
 
     @classmethod
@@ -64,6 +65,7 @@ class User(object):
         user.id = json_obj.get('id')
         user.first_name = json_obj.get('first_name')
         user.last_name = json_obj.get('last_name')
+        user.maiden_name = json_obj.get('maiden_name')
 
         user.is_deactivated = bool(json_obj.get('deactivated'))
         user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
