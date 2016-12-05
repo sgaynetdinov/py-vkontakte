@@ -74,7 +74,7 @@ class WallObjectTest(unittest.TestCase):
         }
 
     def test_create_wall_object(self):
-        wall = Wall(self.wall_dict)
+        wall = Wall.from_json(self.wall_dict)
         self.assertEqual(wall.id, self.wall_dict.get("id"))
         self.assertEqual(wall.owner_id, self.wall_dict.get("owner_id"))
         self.assertEqual(wall.from_id, self.wall_dict.get("from_id"))
@@ -90,7 +90,7 @@ class WallObjectTest(unittest.TestCase):
         self.assertEqual(wall.is_pinned, bool(self.wall_dict.get("is_pinned")))
 
     def test_wall_get_url(self):
-        wall = Wall(self.wall_dict)
+        wall = Wall.from_json(self.wall_dict)
         self.assertEqual('https://vk.com/wall-1_340393', wall.get_url())
 
 
