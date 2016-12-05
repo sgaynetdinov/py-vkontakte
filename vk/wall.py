@@ -11,51 +11,51 @@ class Wall(object):
 
     @property
     def id(self):
-        return self._data['id']
+        return self._data.get('id')
 
     @property
     def owner_id(self):
-        return self._data['owner_id']
+        return self._data.get('owner_id')
 
     @property
     def from_id(self):
-        return self._data['from_id']
+        return self._data.get('from_id')
 
     @property
     def date(self):
-        return self._data['date']
+        return self._data.get('date')
 
     @property
     def text(self):
-        return self._data['text']
+        return self._data.get('text')
 
     @property
     def reply_owner_id(self):
-        return self._data['reply_owner_id']
+        return self._data.get('reply_owner_id')
 
     @property
     def reply_post_id(self):
-        return self._data['reply_post_id']
+        return self._data.get('reply_post_id')
 
     @property
     def friends_only(self):
-        return self._data['friends_only']
+        return self._data.get('friends_only')
 
     @property
     def comments_count(self):
-        return self._data['comments']['count']
+        return self._data.get('comments')['count']
 
     @property
     def likes_count(self):
-        return self._data['likes']['count']
+        return self._data.get('likes')['count']
 
     @property
     def reposts_count(self):
-        return self._data['reposts']['count']
+        return self._data.get('reposts')['count']
 
     @property
     def post_type(self):
-        return self._data['post_type']
+        return self._data.get('post_type')
 
     @property
     def attachments(self):
@@ -75,7 +75,7 @@ class Wall(object):
 
     @property
     def is_pinned(self):
-        return bool(self._data['is_pinned'])
+        return bool(self._data.get('is_pinned'))
 
     def get_url(self):
         return 'https://vk.com/wall{0}_{1}'.format(self.owner_id, self.id)
