@@ -195,6 +195,12 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="tv")[0]
         return response.get('tv')
 
+    def get_universities(self):
+        response = fetch("users.get", user_ids=self.id, fields="universities")[0]
+        if response.get('universities'):
+            return [UserUniversity.from_json(university_json) for university_json in response.get('universities')]
+        return []
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
@@ -285,6 +291,29 @@ class UserSchool(object):
 
     def __repr__(self):
         return u"<UserSchool: {0}>".format(self.id)
+
+
+class UserUniversity(object):
+    __slots__ = ('id', 'country', 'city', 'name', 'faculty', 'faculty_name', 'chair', 'chair_name', 'graduation', 'education_form', 'education_status')
+
+    @classmethod
+    def from_json(cls, university_json):
+        university = cls()
+        university.id = university_json.get("id")
+        university.country = Country.get_country_by_id(university_json.get("country"))
+        university.city = City.get_city_by_id(university_json.get("city"))
+        university.name = university_json.get("name")
+        university.faculty = university_json.get("faculty")
+        university.faculty_name = university_json.get("faculty_name")
+        university.chair = university_json.get("chair")
+        university.chair_name = university_json.get("chair_name")
+        university.graduation = university_json.get("graduation")
+        university.education_form = university_json.get("education_form")
+        university.education_status = university_json.get("education_status")
+        return university
+
+    def __repr__(self):
+        return u"<University: {0}>".format(self.id)
 
 
 from .groups import groups
