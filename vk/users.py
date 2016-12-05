@@ -169,6 +169,10 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="quotes")[0]
         return response.get('quotes')
 
+    def get_relatives(self):
+        response = fetch("users.get", user_ids=self.id, fields="relatives")[0]
+        return response.get('relatives')
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
