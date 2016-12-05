@@ -4,7 +4,7 @@ from .fetch import fetch, fetch_field
 
 class Wall(object):
     """
-    https://vk.com/dev/post
+    Docs: https://vk.com/dev/objects/post
     """
     def __init__(self, data_json):
         self._data = data_json
