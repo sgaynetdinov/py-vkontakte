@@ -174,9 +174,9 @@ class User(object):
         return response.get('relatives')
 
     def get_schools(self):
-        response = fetch("users.get", user_ids=self.id, fields="military")[0]
+        response = fetch("users.get", user_ids=self.id, fields="schools")[0]
         if response.get('schools'):
-            return [UserMilitary.from_json(school_json) for school_json in response.get('schools')]
+            return [UserSchool.from_json(school_json) for school_json in response.get('schools')]
         return []
 
     @property
