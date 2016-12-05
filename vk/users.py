@@ -187,6 +187,9 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="site")[0]
         return response.get('site')
 
+    def get_status(self):
+        response = fetch("users.get", user_ids=self.id, fields="status")[0]
+        return response.get('status')
 
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
