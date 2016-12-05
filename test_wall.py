@@ -89,6 +89,10 @@ class WallObjectTest(unittest.TestCase):
         self.assertEqual(wall.post_type, self.wall_dict.get("post_type"))
         self.assertEqual(wall.is_pinned, bool(self.wall_dict.get("is_pinned")))
 
+    def test_wall_get_url(self):
+        wall = Wall(self.wall_dict)
+        self.assertEqual('https://vk.com/wall-1_340393', wall.get_url())
+
 
 if __name__ == "__main__":
     unittest.main()
