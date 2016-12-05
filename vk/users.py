@@ -173,6 +173,12 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="relatives")[0]
         return response.get('relatives')
 
+    def get_schools(self):
+        response = fetch("users.get", user_ids=self.id, fields="military")[0]
+        if response.get('schools'):
+            return [UserMilitary.from_json(school_json) for school_json in response.get('schools')]
+        return []
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
@@ -240,6 +246,29 @@ class UserOccupation(object):
 
     def __repr__(self):
         return u"<Occupation: {0}>".format(self.type)
+
+
+class UserSchool(object):
+    __slots__ = ('id', 'country', 'city', 'name', 'year_start', 'year_finish', 'year_graduated', 'class_letter', 'speciality', 'type', 'type_str')
+
+    @classmethod
+    def from_json(cls, school_json):
+        school = cls()
+        school.id = school_json.get("id")
+        school.country = Country.get_country_by_id(school_json.get("country"))
+        school.city = City.get_city_by_id(school_json.get("city"))
+        school.name = school_json.get("name")
+        school.year_start = school_json.get("year_from")
+        school.year_finish = school_json.get("year_to")
+        school.year_graduated = school_json.get("year_graduated")
+        school.class_letter = school_json.get('class')
+        school.speciality = school_json.get("speciality")
+        school.type = school_json.get("type")
+        school.type_str = school_json.get("type_str")
+        return school
+
+    def __repr__(self):
+        return u"<UserSchool: {0}>".format(self.id)
 
 
 from .groups import groups
