@@ -213,6 +213,9 @@ class User(object):
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
+    def get_wall_count(self):
+        return Wall.get_wall_count(owner_id=self.id)
+
     def __repr__(self):
         if self.is_banned:
             return u"<User BANNED id{0}>".format(self.id)
