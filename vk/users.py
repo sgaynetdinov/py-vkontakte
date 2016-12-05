@@ -179,6 +179,10 @@ class User(object):
             return [UserMilitary.from_json(school_json) for school_json in response.get('schools')]
         return []
 
+    @property
+    def screen_name(self):
+        return self.domain
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
