@@ -1,6 +1,7 @@
 # coding=utf-8
 from .fetch import fetch
 from .users import get_users
+from .wall import Wall
 
 __all__ = ("groups",)
 
@@ -53,6 +54,10 @@ class Group(object):
     def get_members_count(self):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")
         return response[0]['members_count']
+
+    def get_wall_count(self):
+        gid = self.id*-1
+        return Wall.get_wall_count(owner_id=gid)
 
     def __repr__(self):
         return u"<Group: {0}>".format(self.screen_name)
