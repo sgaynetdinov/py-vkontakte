@@ -35,7 +35,11 @@ Create and use ACCESS_TOKEN
 .. code-block:: python
 
     import vk
+
     vk.create_url_get_code(<YOUR_CLIENT_ID>, <REDIRECT_URI>)  # `code`
+
+    # Use scope https://vk.com/dev/permissions
+    # vk.create_url_get_code(<YOUR_CLIENT_ID>, <REDIRECT_URI>, scope="friends,photos")
 
     access_token = vk.create_access_token(<YOUR_CLIENT_ID>, <YOUR_CLIENT_SECRET>, <REDIRECT_URI>, <YOUR_CODE>)
     vk.set_access_token(access_token)
