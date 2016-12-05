@@ -83,11 +83,11 @@ class WallObjectTest(unittest.TestCase):
         self.assertEqual(wall.reply_owner_id, self.wall_dict.get("reply_owner_id"))
         self.assertEqual(wall.reply_post_id, self.wall_dict.get("reply_post_id"))
         self.assertEqual(wall.friends_only, self.wall_dict.get("friends_only"))
-        self.assertEqual(wall.comments_count, self.wall_dict.get("comments_count"))
-        self.assertEqual(wall.likes_count, self.wall_dict.get("likes_count"))
-        self.assertEqual(wall.reposts_count, self.wall_dict.get("reposts_count"))
+        self.assertEqual(wall.comments_count, self.wall_dict.get("comments")['count'])
+        self.assertEqual(wall.likes_count, self.wall_dict.get("likes")['count'])
+        self.assertEqual(wall.reposts_count, self.wall_dict.get("reposts")["count"])
         self.assertEqual(wall.post_type, self.wall_dict.get("post_type"))
-        self.assertEqual(wall.is_pinned, self.wall_dict.get("is_pinned"))
+        self.assertEqual(wall.is_pinned, bool(self.wall_dict.get("is_pinned")))
 
 
 if __name__ == "__main__":
