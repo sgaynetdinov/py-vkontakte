@@ -183,6 +183,11 @@ class User(object):
     def screen_name(self):
         return self.domain
 
+    def get_site(self):
+        response = fetch("users.get", user_ids=self.id, fields="site")[0]
+        return response.get('site')
+
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
