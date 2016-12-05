@@ -80,11 +80,6 @@ class User(object):
 
         return user
 
-    @property
-    def is_online(self):
-        response = fetch("users.get", user_ids=self.id, fields="online")[0]
-        return bool(response.get('online'))
-
     def get_about(self):
         response = fetch("users.get", user_ids=self.id, fields="about")[0]
         return response.get('about')
@@ -156,6 +151,11 @@ class User(object):
         if response.get('occupation'):
             return UserOccupation.from_json(response.get('occupation'))
         return None
+
+    @property
+    def is_online(self):
+        response = fetch("users.get", user_ids=self.id, fields="online")[0]
+        return bool(response.get('online'))
 
     def get_photos(self):
         PHOTOS_FIELDS = "photo_50", "photo_100", "photo_200_orig", "photo_200", "photo_400_orig"
