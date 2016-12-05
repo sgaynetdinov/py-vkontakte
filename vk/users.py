@@ -127,6 +127,10 @@ class User(object):
         }
         return sex_items.get(sex)
 
+    def get_games(self):
+        response = fetch("users.get", user_ids=self.id, fields="games")[0]
+        return response.get('games')
+
     def get_followers_count(self):
         response = fetch("users.get", user_ids=self.id, fields="followers_count")[0]
         return response.get('followers_count')
