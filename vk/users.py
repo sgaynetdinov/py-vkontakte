@@ -157,6 +157,9 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="online")[0]
         return bool(response.get('online'))
 
+    def get_personal(self):
+        raise NotImplementedError
+
     def get_photos(self):
         PHOTOS_FIELDS = "photo_50", "photo_100", "photo_200_orig", "photo_200", "photo_400_orig"
         response = fetch("users.get", user_ids=self.id, fields=",".join(PHOTOS_FIELDS))[0]
