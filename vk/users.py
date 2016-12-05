@@ -191,6 +191,10 @@ class User(object):
         response = fetch("users.get", user_ids=self.id, fields="status")[0]
         return response.get('status')
 
+    def get_tv(self):
+        response = fetch("users.get", user_ids=self.id, fields="tv")[0]
+        return response.get('tv')
+
     # def get_wall(self):
     #     return Wall.get_wall(owner_id=self.id)
 
