@@ -62,6 +62,15 @@ class Group(object):
     def __repr__(self):
         return u"<Group: {0}>".format(self.screen_name)
 
+    def __hash__(self):
+        class_name = type(self).__name__
+        return hash(class_name) ^ hash(self.id)
+
+    def __eq__(self, other):
+        if isinstance(other, type(self)):
+            return hash(self) == hash(other)
+        raise NotImplementedError
+
 
 def groups(*group_ids):
     group_ids = ",".join((str(i) for i in group_ids))
