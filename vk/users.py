@@ -57,7 +57,7 @@ class User(object):
     """
     USER_FIELDS = ('bdate', 'domain', 'sex',
                    'maiden_name', 'nickname', 'verified')
-    __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate', 'domain', 'sex',
+    __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate', 'domain', 'screen_name', 'sex',
                  'maiden_name', 'nickname', 'is_verified')
 
     @classmethod
@@ -74,8 +74,10 @@ class User(object):
         user.is_banned = bool(json_obj.get('deactivated') == 'banned')
         user.is_hidden = bool(json_obj.get('hidden'))
 
-        user.bdate = json_obj.get('bdate')
         user.domain = json_obj.get('domain')
+        user.screen_name = user.domain
+
+        user.bdate = json_obj.get('bdate')
         user.sex = cls._sex(json_obj.get('sex'))
         user.is_verified = bool(json_obj.get('verified'))
 
@@ -187,10 +189,6 @@ class User(object):
         if response.get('schools'):
             return [UserSchool.from_json(school_json) for school_json in response.get('schools')]
         return []
-
-    @property
-    def screen_name(self):
-        return self.domain
 
     def get_site(self):
         response = fetch("users.get", user_ids=self.id, fields="site")[0]
