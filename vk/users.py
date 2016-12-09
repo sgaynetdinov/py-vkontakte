@@ -222,7 +222,7 @@ class User(object):
         if self.is_deleted:
             return u"<User DELETED id{0}>".format(self.id)
 
-        return u"<User id{0}>".format(self.id)
+        return u"<User: {0}>".format(self.domain)
 
 
 class UserCareer(object):
