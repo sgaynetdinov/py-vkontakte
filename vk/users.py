@@ -216,9 +216,9 @@ class User(object):
 
     def __repr__(self):
         if self.is_banned:
-            return u"<User BANNED id{0}>".format(self.id)
+            return u"<User: {0} (BANNED)>".format(self.domain)
         if self.is_deleted:
-            return u"<User DELETED id{0}>".format(self.id)
+            return u"<User: {0} (DELETED)>".format(self.domain)
 
         return u"<User: {0}>".format(self.domain)
 
