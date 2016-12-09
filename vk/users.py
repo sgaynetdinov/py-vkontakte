@@ -5,7 +5,7 @@ from .database import City, Country
 from .fetch import fetch, fetch_field
 from .wall import Wall
 
-__all__ = ["get_user"]
+__all__ = ["get_user", "get_users"]
 
 
 def grouper(iterable, n):
