@@ -56,7 +56,7 @@ class Group(object):
         return response[0]['members_count']
 
     def get_wall_count(self):
-        gid = self.id*-1
+        gid = self.id * (-1)
         return Wall.get_wall_count(owner_id=gid)
 
     def __repr__(self):
