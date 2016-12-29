@@ -1,5 +1,5 @@
 # coding=utf-8
-from .fetch import fetch, fetch_field
+from .fetch import fetch
 
 
 class Wall(object):
