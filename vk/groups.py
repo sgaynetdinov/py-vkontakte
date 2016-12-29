@@ -55,6 +55,10 @@ class Group(object):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")
         return response[0]['members_count']
 
+    def get_wall(self):
+        gid = self.id * (-1)
+        return Wall.get_wall(owner_id=gid)
+
     def get_wall_count(self):
         gid = self.id * (-1)
         return Wall.get_wall_count(owner_id=gid)

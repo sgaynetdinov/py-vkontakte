@@ -49,9 +49,17 @@ class Wall(object):
 
     @staticmethod
     def get_wall(owner_id):
-        response = fetch("wall.get", owner_id=owner_id)
-        wall_items = response['items']
-        return [Wall.from_json(wall_json) for wall_json in wall_items]
+        MAX_COUNT = 100
+
+        offset = 0
+        while True:
+            res = fetch("wall.get", owner_id=owner_id, count=MAX_COUNT, offset=offset)
+            wall_items = res['items']
+            if not wall_items:
+                raise StopIteration
+            for user in (Wall.from_json(wall_json) for wall_json in wall_items):
+                yield user
+            offset += MAX_COUNT
 
     @staticmethod
     def get_wall_count(owner_id):
