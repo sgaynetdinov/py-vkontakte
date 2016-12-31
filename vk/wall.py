@@ -10,7 +10,7 @@ class Wall(object):
     Docs: https://vk.com/dev/objects/post
     """
     __slots__ = ('id', 'owner_id', 'from_id', 'unixtime', 'date', 'text', 'reply_owner_id', 'reply_post_id', 'friends_only', 'comments_count', 'likes_count',
-                 'reposts_count', 'post_type', 'is_pinned', 'is_ads', 'attachments')
+                 'reposts_count', 'post_type', 'is_pinned', 'is_ads', 'attachments', 'signer_id')
 
     @classmethod
     def from_json(cls, wall_json):
@@ -31,14 +31,11 @@ class Wall(object):
         wall.is_pinned = bool(wall_json.get("is_pinned"))
         wall.is_ads = bool(wall_json.get("marked_as_ads"))
         wall.attachments = get_attachments(wall_json.get("attachments"))
+        wall.signer_id = wall_json.get("signer_id")
         return wall
 
     @property
     def geo(self):
-        raise NotImplementedError
-
-    @property
-    def signer_id(self):
         raise NotImplementedError
 
     @property
