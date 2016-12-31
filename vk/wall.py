@@ -32,7 +32,7 @@ class Wall(object):
         return wall
 
     @property
-    def attachments(self):
+    def get_attachments(self):
         raise NotImplementedError
 
     @property
