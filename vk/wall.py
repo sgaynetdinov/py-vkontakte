@@ -1,4 +1,6 @@
 # coding=utf-8
+from datetime import datetime
+
 from .fetch import fetch
 
 
@@ -6,7 +8,7 @@ class Wall(object):
     """
     Docs: https://vk.com/dev/objects/post
     """
-    __slots__ = ('id', 'owner_id', 'from_id', 'unixtime', 'text', 'reply_owner_id', 'reply_post_id', 'friends_only', 'comments_count', 'likes_count',
+    __slots__ = ('id', 'owner_id', 'from_id', 'unixtime', 'date', 'text', 'reply_owner_id', 'reply_post_id', 'friends_only', 'comments_count', 'likes_count',
                  'reposts_count', 'post_type', 'is_pinned', 'is_ads')
 
     @classmethod
@@ -16,6 +18,7 @@ class Wall(object):
         wall.owner_id = wall_json.get("owner_id")
         wall.from_id = wall_json.get("from_id")
         wall.unixtime = wall_json.get("date")
+        wall.date = datetime.utcfromtimestamp(wall.unixtime)
         wall.text = wall_json.get("text")
         wall.reply_owner_id = wall_json.get("reply_owner_id")
         wall.reply_post_id = wall_json.get("reply_post_id")
