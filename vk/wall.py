@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from .fetch import fetch
+from .attachments import get_attachments
 
 
 class Wall(object):
@@ -9,7 +10,7 @@ class Wall(object):
     Docs: https://vk.com/dev/objects/post
     """
     __slots__ = ('id', 'owner_id', 'from_id', 'unixtime', 'date', 'text', 'reply_owner_id', 'reply_post_id', 'friends_only', 'comments_count', 'likes_count',
-                 'reposts_count', 'post_type', 'is_pinned', 'is_ads')
+                 'reposts_count', 'post_type', 'is_pinned', 'is_ads', 'attachments')
 
     @classmethod
     def from_json(cls, wall_json):
@@ -29,11 +30,8 @@ class Wall(object):
         wall.post_type = wall_json.get("post_type")
         wall.is_pinned = bool(wall_json.get("is_pinned"))
         wall.is_ads = bool(wall_json.get("marked_as_ads"))
+        wall.attachments = get_attachments(wall_json.get("attachments"))
         return wall
-
-    @property
-    def get_attachments(self):
-        raise NotImplementedError
 
     @property
     def geo(self):
