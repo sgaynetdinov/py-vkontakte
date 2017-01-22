@@ -13,6 +13,9 @@ def get_attachments(attachments_json):
 
 
 class AttachmentPhoto(object):
+    """
+    https://vk.com/dev/objects/photo
+    """
     __slots__ = ("id", "album_id", "owner_id", "user_id", "text", "type", "unixtime", "photo_75", "photo_130", "photo_604", "photo_807", "photo_1280",
                  "photo_2560")
 
