@@ -13,7 +13,7 @@ def get_attachments(attachments_json):
 
 
 class AttachmentPhoto(object):
-    __slots__ = ("id", "album_id", "owner_id", "user_id", "text", "unixtime", "photo_75", "photo_130", "photo_604", "photo_807", "photo_1280",
+    __slots__ = ("id", "album_id", "owner_id", "user_id", "text", "type", "unixtime", "photo_75", "photo_130", "photo_604", "photo_807", "photo_1280",
                  "photo_2560")
 
     @classmethod
@@ -24,6 +24,7 @@ class AttachmentPhoto(object):
         attachment.owner_id = attachment_json.get("owner_id")
         attachment.user_id = attachment_json.get("user_id")
         attachment.text = attachment_json.get("text")
+        attachment.type = attachment_json.get("type")
         attachment.unixtime = attachment_json.get("date")
         attachment.photo_75 = attachment_json.get("photo_75")
         attachment.photo_130 = attachment_json.get("photo_130")
