@@ -4,7 +4,7 @@ import requests
 
 from .error import VKError
 
-__all__ = ["set_access_token", "get_access_token", "create_access_token", "create_url_get_code"]
+__all__ = ["set_access_token", "get_access_token", "get_url_implicit_flow_user", "create_access_token", "create_url_get_code"]
 
 _ACCESS_TOKEN = None
 
@@ -16,6 +16,30 @@ def set_access_token(access_token):
 
 def get_access_token():
     return _ACCESS_TOKEN
+
+
+def get_url_implicit_flow_user(client_id, scope,
+                               redirect_uri='https://oauth.vk.com/blank.html ', display='page',
+                               response_type='token', version=None, state=None, revoke=1):
+    """
+    https://vk.com/dev/implicit_flow_user
+
+    :return: url
+    """
+    url = "https://oauth.vk.com/authorize"
+    params = {
+        "client_id": client_id,
+        "scope": scope,
+        "redirect_uri": redirect_uri,
+        "display": display,
+        "response_type": response_type,
+        "version": version,
+        "state": state,
+        "revoke": revoke
+    }
+
+    params = {key: value for key, value in params.items() if value is not None}
+    return u"{url}?{params}".format(url=url, params=urllib.urlencode(params))
 
 
 def create_url_get_code(client_id, redirect_uri, display="page", scope=None, response_type="code", version=None, state=None):
