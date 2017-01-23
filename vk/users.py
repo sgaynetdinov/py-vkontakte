@@ -208,8 +208,8 @@ class User(object):
             return [UserUniversity.from_json(university_json) for university_json in response.get('universities')]
         return []
 
-    # def get_wall(self):
-    #     return Wall.get_wall(owner_id=self.id)
+    def get_wall(self):
+        return Wall.get_wall(owner_id=self.id)
 
     def get_wall_count(self):
         return Wall.get_wall_count(owner_id=self.id)
