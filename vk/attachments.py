@@ -37,5 +37,8 @@ class AttachmentPhoto(object):
         attachment.photo_2560 = attachment_json.get("photo_2560")
         return attachment
 
+    def get_url(self):
+        return 'https://vk.com/{type}{owner_id}_{id}'.format(type=self.type, owner_id=self.owner_id, id=self.id)
+
     def __repr__(self):
         return u"<AttachmentPhoto: id{0}>".format(self.id)
