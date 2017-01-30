@@ -27,7 +27,7 @@ class AttachmentPhoto(object):
         attachment.owner_id = attachment_json.get("owner_id")
         attachment.user_id = attachment_json.get("user_id")
         attachment.text = attachment_json.get("text")
-        attachment.type = attachment_json.get("type")
+        attachment.type = "photo"
         attachment.unixtime = attachment_json.get("date")
         attachment.photo_75 = attachment_json.get("photo_75")
         attachment.photo_130 = attachment_json.get("photo_130")
