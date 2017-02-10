@@ -9,8 +9,8 @@ class Wall(object):
     """
     Docs: https://vk.com/dev/objects/post
     """
-    __slots__ = ('id', 'owner_id', 'from_id', 'unixtime', 'date', 'text', 'reply_owner_id', 'reply_post_id', 'friends_only', 'comments_count', 'likes_count',
-                 'reposts_count', 'post_type', 'is_pinned', 'is_ads', 'attachments', 'signer_id')
+    __slots__ = ('id', 'owner_id', 'from_id', 'unixtime', 'date', 'text', 'reply_owner_id', 'reply_post_id', 'friends_only', 'comments_count',
+                 'likes_count', 'reposts_count', 'post_type', 'is_pinned', 'is_ads', 'attachments', 'signer_id')
 
     @classmethod
     def from_json(cls, wall_json):
