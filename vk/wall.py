@@ -34,6 +34,14 @@ class Wall(object):
         wall.signer_id = wall_json.get("signer_id")
         return wall
 
+    def pin(self):
+        response = fetch("wall.pin", owner_id=self.owner_id, post_id=self.id)
+        return bool(response)
+
+    def unpin(self):
+        response = fetch("wall.unpin", owner_id=self.owner_id, post_id=self.id)
+        return bool(response)
+
     @property
     def geo(self):
         raise NotImplementedError
