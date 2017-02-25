@@ -59,6 +59,10 @@ class Group(object):
         gid = self.id * (-1)
         return Wall.get_wall(owner_id=gid)
 
+    def get_wall_by_id(self, wall_id):
+        gid = self.id * (-1)
+        return Wall.get_wall_by_id(owner_id=gid, wall_id=wall_id)
+
     def get_wall_count(self):
         gid = self.id * (-1)
         return Wall.get_wall_count(owner_id=gid)

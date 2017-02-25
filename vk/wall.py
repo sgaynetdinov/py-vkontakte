@@ -68,6 +68,14 @@ class Wall(object):
             offset += MAX_COUNT
 
     @staticmethod
+    def get_wall_by_id(owner_id, wall_id):
+        posts = "{0}_{1}".format(owner_id, wall_id)
+        response = fetch("wall.getById", posts=posts)
+        if not response:
+            return None
+        return Wall.from_json(response[0])
+
+    @staticmethod
     def get_wall_count(owner_id):
         response = fetch("wall.get", owner_id=owner_id, count=1)
         wall_count = response.get('count')

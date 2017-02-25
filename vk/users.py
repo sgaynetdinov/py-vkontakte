@@ -211,6 +211,9 @@ class User(object):
     def get_wall(self):
         return Wall.get_wall(owner_id=self.id)
 
+    def get_wall_by_id(self, wall_id):
+        return Wall.get_wall_by_id(self.id, wall_id)
+
     def get_wall_count(self):
         return Wall.get_wall_count(owner_id=self.id)
 
