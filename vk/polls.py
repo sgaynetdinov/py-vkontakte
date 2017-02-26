@@ -1,8 +1,9 @@
 # coding=utf-8
+from .base import VKObject
 from .fetch import fetch
 
 
-class Poll(object):
+class Poll(VKObject):
     """
     https://vk.com/dev/objects/poll
     """
@@ -22,11 +23,8 @@ class Poll(object):
         poll.is_anonymous = bool(poll_json.get("anonymous"))
         return poll
 
-    def __repr__(self):
-        return u"<Poll: id{0}>".format(self.id)
 
-
-class PollAnswer(object):
+class PollAnswer(VKObject):
     __slots__ = ('id', 'text', 'count_votes', 'rate', 'users')
 
     @classmethod
@@ -58,6 +56,3 @@ class PollAnswer(object):
         response = fetch("polls.getVoters", owner_id=owner_id, poll_id=poll_id, answer_ids=answer_id)
         user_items = response[0].get("users").get("items")
         yield user_items
-
-    def __repr__(self):
-        return u"PollAnswer: id{0}".format(self.id)

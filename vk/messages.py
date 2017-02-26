@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import random
+
+from .base import VKObject
 from .fetch import fetch
 
 
-class Message(object):
+class Message(VKObject):
     """
     https://vk.com/dev/objects/message
     """
@@ -46,6 +48,3 @@ class Message(object):
         """
         message_id = fetch("messages.send", user_id=user_id, message=message, random_id=random.randint(1, 10**6))
         return message_id
-
-    def __repr__(self):
-        return u"<Message: {0}>".format(self.id)

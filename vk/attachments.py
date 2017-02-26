@@ -1,4 +1,5 @@
 # coding=utf-8
+from .base import VKObject
 from .polls import Poll
 
 
@@ -20,7 +21,7 @@ def get_attachments(attachments_json):
     return attachment_items
 
 
-class AttachmentPhoto(object):
+class AttachmentPhoto(VKObject):
     """
     https://vk.com/dev/objects/photo
     """
@@ -47,6 +48,3 @@ class AttachmentPhoto(object):
 
     def get_url(self):
         return 'https://vk.com/{type}{owner_id}_{id}'.format(type=self.type, owner_id=self.owner_id, id=self.id)
-
-    def __repr__(self):
-        return u"<AttachmentPhoto: id{0}>".format(self.id)

@@ -1,8 +1,9 @@
 # coding=utf-8
+from .base import VKObject
 from .fetch import fetch
 
 
-class Country(object):
+class Country(VKObject):
     """
     Docs: https://vk.com/dev/database.getCountriesById
     """
@@ -20,11 +21,8 @@ class Country(object):
         country_json = fetch('database.getCountriesById', country_ids=country_id)[0]
         return cls.from_json(country_json)
 
-    def __repr__(self):
-        return u"<Country: {0}>".format(self.id)
 
-
-class City(object):
+class City(VKObject):
     """
     Docs: https://vk.com/dev/database.getCitiesById
     """
@@ -41,6 +39,3 @@ class City(object):
     def get_city_by_id(cls, city_id):
         city_json = fetch('database.getCitiesById', city_ids=city_id)[0]
         return cls.from_json(city_json)
-
-    def __repr__(self):
-        return u"<City: {0}>".format(self.id)

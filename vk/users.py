@@ -1,6 +1,7 @@
 # coding=utf-8
 import itertools
 
+from .base import VKObject
 from .database import City, Country
 from .fetch import fetch
 from .wall import Wall
@@ -51,7 +52,7 @@ def get_users(user_ids):
             yield user
 
 
-class User(object):
+class User(VKObject):
     """
     Docs: https://vk.com/dev/objects/user
     """
@@ -217,14 +218,6 @@ class User(object):
     def get_wall_count(self):
         return Wall.get_wall_count(owner_id=self.id)
 
-    def __repr__(self):
-        if self.is_banned:
-            return u"<User: {0} (BANNED)>".format(self.domain)
-        if self.is_deleted:
-            return u"<User: {0} (DELETED)>".format(self.domain)
-
-        return u"<User: {0}>".format(self.domain)
-
     def __hash__(self):
         class_name = type(self).__name__
         return hash(class_name) ^ hash(self.id)
@@ -235,7 +228,7 @@ class User(object):
         raise NotImplementedError
 
 
-class UserCareer(object):
+class UserCareer(VKObject):
     __slots__ = ('group', 'company', 'country', 'city', 'start', 'end', 'position')
 
     @classmethod
@@ -255,12 +248,8 @@ class UserCareer(object):
         if group_id:
             return groups(group_id)[0]
 
-    def __repr__(self):
-        career_name = self.company or self.group.screen_name
-        return u"<Career: {0}>".format(career_name)
 
-
-class UserMilitary(object):
+class UserMilitary(VKObject):
     __slots__ = ('unit', 'unit_id', 'country_id', 'start', 'finish')
 
     @classmethod
@@ -273,11 +262,8 @@ class UserMilitary(object):
         military.finish = military_json.get('until')
         return military
 
-    def __repr__(self):
-        return u"<Military: {0}>".format(self.unit_id)
 
-
-class UserOccupation(object):
+class UserOccupation(VKObject):
     __slots__ = ('type', 'id', 'name')
 
     @classmethod
@@ -288,11 +274,8 @@ class UserOccupation(object):
         occupation.name = occupation_json.get('name')
         return occupation
 
-    def __repr__(self):
-        return u"<Occupation: {0}>".format(self.type)
 
-
-class UserSchool(object):
+class UserSchool(VKObject):
     __slots__ = ('id', 'country', 'city', 'name', 'year_start', 'year_finish', 'year_graduated', 'class_letter', 'speciality', 'type', 'type_str')
 
     @classmethod
@@ -311,11 +294,8 @@ class UserSchool(object):
         school.type_str = school_json.get("type_str")
         return school
 
-    def __repr__(self):
-        return u"<UserSchool: {0}>".format(self.id)
 
-
-class UserUniversity(object):
+class UserUniversity(VKObject):
     __slots__ = ('id', 'country', 'city', 'name', 'faculty', 'faculty_name', 'chair', 'chair_name', 'graduation', 'education_form', 'education_status')
 
     @classmethod
@@ -333,9 +313,6 @@ class UserUniversity(object):
         university.education_form = university_json.get("education_form")
         university.education_status = university_json.get("education_status")
         return university
-
-    def __repr__(self):
-        return u"<University: {0}>".format(self.id)
 
 
 from .groups import groups

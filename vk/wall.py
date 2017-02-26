@@ -1,11 +1,12 @@
 # coding=utf-8
 from datetime import datetime
 
+from .base import VKObject
 from .fetch import fetch
 from .attachments import get_attachments
 
 
-class Wall(object):
+class Wall(VKObject):
     """
     Docs: https://vk.com/dev/objects/post
     """
@@ -80,6 +81,3 @@ class Wall(object):
         response = fetch("wall.get", owner_id=owner_id, count=1)
         wall_count = response.get('count')
         return wall_count
-
-    def __repr__(self):
-        return u"<Wall id{0}>".format(self.id)

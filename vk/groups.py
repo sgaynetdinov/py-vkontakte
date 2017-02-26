@@ -1,4 +1,5 @@
 # coding=utf-8
+from .base import VKObject
 from .fetch import fetch
 from .users import get_users
 from .wall import Wall
@@ -6,7 +7,7 @@ from .wall import Wall
 __all__ = ("groups",)
 
 
-class Group(object):
+class Group(VKObject):
     """
     Docs: https://vk.com/dev/objects/groups
     """
@@ -66,9 +67,6 @@ class Group(object):
     def get_wall_count(self):
         gid = self.id * (-1)
         return Wall.get_wall_count(owner_id=gid)
-
-    def __repr__(self):
-        return u"<Group: {0}>".format(self.screen_name)
 
     def __hash__(self):
         class_name = type(self).__name__
