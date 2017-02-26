@@ -32,10 +32,8 @@ def get_user(slug_or_user_id):
     :param slug_or_user_id: str or int
     :return: User
     """
-    if isinstance(slug_or_user_id, basestring) or isinstance(slug_or_user_id, int):
-        user_json_items = fetch('users.get', user_ids=slug_or_user_id, fields=User.USER_FIELDS)
-        return User.from_json(user_json_items[0])
-    raise ValueError
+    user_json_items = fetch('users.get', user_ids=slug_or_user_id, fields=User.USER_FIELDS)
+    return User.from_json(user_json_items[0])
 
 
 def get_users(user_ids):
