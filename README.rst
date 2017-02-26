@@ -1,4 +1,6 @@
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/py-vkontakte"><img src="https://img.shields.io/pypi/pyversions/py-vkontakte.svg"></a>
+.. image:: https://img.shields.io/pypi/l/py-vkontakte.svg   :target:
+.. image:: https://img.shields.io/pypi/wheel/py-vkontakte.svg   :target:
+.. image:: https://img.shields.io/pypi/pyversions/py-vkontakte.svg   :target:
 
 Install
 =======
