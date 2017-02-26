@@ -10,9 +10,12 @@ from .auth import get_access_token
 from .error import VKError, VKParseJsonError
 
 
+VERSION_API = '5.53'
+
+
 def fetch(method_name, **params):
     url = "https://api.vk.com/method/{method_name}".format(method_name=method_name)
-    params['v'] = '5.53'
+    params['v'] = VERSION_API
 
     if get_access_token():
         params['access_token'] = get_access_token()
