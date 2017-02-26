@@ -1,9 +1,10 @@
 # coding=utf-8
 import urllib
+
 import requests
 
-from .error import VKError, VKParseJsonError
 from .auth import get_access_token
+from .error import VKError, VKParseJsonError
 
 
 def fetch(method_name, **params):

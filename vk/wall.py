@@ -1,9 +1,9 @@
 # coding=utf-8
 from datetime import datetime
 
+from .attachments import get_attachments
 from .base import VKObject
 from .fetch import fetch
-from .attachments import get_attachments
 
 
 class Wall(VKObject):
