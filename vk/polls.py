@@ -7,7 +7,7 @@ class Poll(VKObject):
     """
     https://vk.com/dev/objects/poll
     """
-    __slots__ = ('id', 'type', 'owner_id', 'unixtime', 'question', 'count_votes', 'answer_id', 'answers', 'is_anonymous')
+    __slots__ = ('id', 'type', 'owner_id', 'unixtime', 'question', 'count_votes', 'answers', 'is_anonymous')
 
     @classmethod
     def from_json(cls, poll_json):
@@ -18,7 +18,6 @@ class Poll(VKObject):
         poll.unixtime = poll_json.get("created")
         poll.question = poll_json.get("question")
         poll.count_votes = poll_json.get("votes")
-        poll.answer_id = poll_json.get("answer_id")
         poll.answers = PollAnswer.get_answers(poll_json.get("answers"), poll.owner_id, poll.id)
         poll.is_anonymous = bool(poll_json.get("anonymous"))
         return poll
