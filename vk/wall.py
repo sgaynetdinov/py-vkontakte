@@ -3,6 +3,7 @@ from datetime import datetime
 
 from .attachments import get_attachments
 from .base import VKObject
+from .comment import Comment
 from .fetch import fetch, fetch_items
 
 
@@ -42,6 +43,9 @@ class Wall(VKObject):
     def unpin(self):
         response = fetch("wall.unpin", owner_id=self.owner_id, post_id=self.id)
         return bool(response)
+
+    def get_comments(self):
+        return Comment.get_comments(group_or_user_id=self.owner_id, wall_id=self.id)
 
     @property
     def geo(self):
