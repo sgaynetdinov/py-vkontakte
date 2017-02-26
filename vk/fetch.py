@@ -1,5 +1,8 @@
 # coding=utf-8
-import urllib
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 import requests
 
@@ -17,8 +20,7 @@ def fetch(method_name, **params):
     if params.get('fields'):
         params['fields'] = convert_list2str(params.get('fields'))
 
-    params = urllib.urlencode(params)
-    res = requests.post(url + "?" + params)
+    res = requests.post(url + "?" + urlencode(params))
 
     try:
         data_json = res.json()
