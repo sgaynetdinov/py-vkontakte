@@ -1,4 +1,5 @@
 # coding=utf-8
+from .attachments import get_attachments
 from .base import VKObject
 from .fetch import fetch_items
 
@@ -19,7 +20,7 @@ class Comment(VKObject):
         comment.text = comment_json.get('text')
         comment.reply_to_user = comment_json.get('reply_to_user')
         comment.reply_to_comment = comment_json.get('reply_to_comment')
-        comment.attachments = comment_json.get('attachments')
+        comment.attachments = get_attachments(comment_json.get('attachments'))
         return comment
 
     @classmethod
