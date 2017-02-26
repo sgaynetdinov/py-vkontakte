@@ -246,6 +246,7 @@ class UserCareer(VKObject):
     @classmethod
     def _get_group(cls, group_id):
         if group_id:
+            from .groups import groups
             return groups(group_id)[0]
 
 
@@ -315,5 +316,4 @@ class UserUniversity(VKObject):
         return university
 
 
-from .groups import groups
 from .friends import Friends
