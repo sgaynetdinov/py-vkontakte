@@ -9,7 +9,7 @@ class Comment(VKObject):
     https://vk.com/dev/objects/comment
     """
 
-    __slots__ = ('id', 'owner_id', 'date', 'text', 'reply_to_user', 'reply_to_comment', 'attachments')
+    __slots__ = ('id', 'owner_id', 'date', 'text', 'reply_to_user', 'reply_to_comment', 'attachments', 'likes_count')
 
     @classmethod
     def from_json(cls, comment_json):
@@ -21,6 +21,7 @@ class Comment(VKObject):
         comment.reply_to_user = comment_json.get('reply_to_user')
         comment.reply_to_comment = comment_json.get('reply_to_comment')
         comment.attachments = get_attachments(comment_json.get('attachments'))
+        comment.likes_count = comment_json.get('likes').get('count')
         return comment
 
     @classmethod
@@ -32,7 +33,7 @@ class Comment(VKObject):
         """
         https://vk.com/dev/wall.getComments
         """
-        return fetch_items("wall.getComments", cls.from_json_items, count=100, owner_id=group_or_user_id, post_id=wall_id)
+        return fetch_items("wall.getComments", cls.from_json_items, count=100, owner_id=group_or_user_id, post_id=wall_id, need_likes=1)
 
     @classmethod
     def get_comments_count(cls, group_or_user_id, wall_id):
