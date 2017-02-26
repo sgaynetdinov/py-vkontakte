@@ -41,6 +41,18 @@ def fetch(method_name, **params):
         return data_json.get('response')
 
 
+def fetch_items(method_name, constructor_vkobject, count, **params):
+    offset = 0
+    while True:
+        res = fetch(method_name, count=count, offset=offset, **params)
+        items = res['items']
+        if not items:
+            raise StopIteration
+        for obj in constructor_vkobject(items):
+            yield obj
+        offset += count
+
+
 def convert_list2str(fields):
     """
     :param fields: ('bdate', 'domain')

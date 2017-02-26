@@ -3,7 +3,7 @@ from datetime import datetime
 
 from .attachments import get_attachments
 from .base import VKObject
-from .fetch import fetch
+from .fetch import fetch, fetch_items
 
 
 class Wall(VKObject):
@@ -56,17 +56,7 @@ class Wall(VKObject):
 
     @staticmethod
     def get_wall(owner_id):
-        MAX_COUNT = 100
-
-        offset = 0
-        while True:
-            res = fetch("wall.get", owner_id=owner_id, count=MAX_COUNT, offset=offset)
-            wall_items = res['items']
-            if not wall_items:
-                raise StopIteration
-            for user in (Wall.from_json(wall_json) for wall_json in wall_items):
-                yield user
-            offset += MAX_COUNT
+        return fetch_items("wall.get", Wall.get_walls, 100, owner_id=owner_id)
 
     @staticmethod
     def get_wall_by_id(owner_id, wall_id):
@@ -81,3 +71,7 @@ class Wall(VKObject):
         response = fetch("wall.get", owner_id=owner_id, count=1)
         wall_count = response.get('count')
         return wall_count
+
+    @classmethod
+    def get_walls(cls, wall_items):
+        return (cls.from_json(wall_json) for wall_json in wall_items)

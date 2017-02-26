@@ -1,6 +1,6 @@
 # coding=utf-8
 from .base import VKObject
-from .fetch import fetch
+from .fetch import fetch, fetch_items
 from .users import get_users
 from .wall import Wall
 
@@ -40,17 +40,7 @@ class Group(VKObject):
         """
         Docs: https://vk.com/dev/groups.getMembers
         """
-        MAX_COUNT = 1000
-
-        offset = 0
-        while True:
-            res = fetch("groups.getMembers", group_id=self.id, count=MAX_COUNT, offset=offset)
-            user_ids = res['items']
-            if not user_ids:
-                raise StopIteration
-            for user in get_users(user_ids):
-                yield user
-            offset += MAX_COUNT
+        return fetch_items("groups.getMembers", get_users, 100, group_id=self.id)
 
     def get_members_count(self):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")
