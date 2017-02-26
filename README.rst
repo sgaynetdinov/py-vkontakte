@@ -1,6 +1,8 @@
-.. image:: https://img.shields.io/pypi/l/py-vkontakte.svg   :target:
-.. image:: https://img.shields.io/pypi/wheel/py-vkontakte.svg   :target:
-.. image:: https://img.shields.io/pypi/pyversions/py-vkontakte.svg   :target:
+|ImageLink|_
+
+.. |ImageLink| image:: https://img.shields.io/pypi/l/py-vkontakte.svg
+.. |ImageLink| image:: https://img.shields.io/pypi/wheel/py-vkontakte.svg
+.. |ImageLink| image:: https://img.shields.io/pypi/pyversions/py-vkontakte.svg
 
 Install
 =======
