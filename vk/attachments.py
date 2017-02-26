@@ -1,4 +1,7 @@
 # coding=utf-8
+from .polls import Poll
+
+
 def get_attachments(attachments_json):
     if not attachments_json:
         return None
@@ -6,8 +9,13 @@ def get_attachments(attachments_json):
     attachment_items = []
 
     for attachment_json in attachments_json:
-        if attachment_json.get("type") == "photo":
+        _attachments_type = attachment_json.get("type")
+
+        if _attachments_type == "photo":
             attachment_items.append(AttachmentPhoto.from_json(attachment_json.get("photo")))
+
+        elif _attachments_type == "poll":
+            attachment_items.append(Poll.from_json(attachment_json.get("poll")))
 
     return attachment_items
 
