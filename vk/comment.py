@@ -1,7 +1,7 @@
 # coding=utf-8
 from .attachments import get_attachments
 from .base import VKObject
-from .fetch import fetch_items
+from .fetch import fetch, fetch_items
 
 
 class Comment(VKObject):
@@ -33,3 +33,11 @@ class Comment(VKObject):
         https://vk.com/dev/wall.getComments
         """
         return fetch_items("wall.getComments", cls.from_json_items, count=100, owner_id=group_or_user_id, post_id=wall_id)
+
+    @classmethod
+    def get_comments_count(cls, group_or_user_id, wall_id):
+        """
+        https://vk.com/dev/wall.getComments
+        """
+        response = fetch("wall.getComments", count=100, owner_id=group_or_user_id, post_id=wall_id)
+        return response.get('count')

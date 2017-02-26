@@ -47,6 +47,9 @@ class Wall(VKObject):
     def get_comments(self):
         return Comment.get_comments(group_or_user_id=self.owner_id, wall_id=self.id)
 
+    def get_comments_count(self):
+        return Comment.get_comments_count(group_or_user_id=self.owner_id, wall_id=self.id)
+
     @property
     def geo(self):
         raise NotImplementedError
