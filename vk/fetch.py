@@ -50,11 +50,20 @@ def fetch_items(method_name, constructor_vkobject, count, **params):
     offset = 0
     while True:
         res = fetch(method_name, count=count, offset=offset, **params)
-        items = res['items']
+
+        if isinstance(res, list) and len(res) == 1:
+            res = res[0]
+            if res.get('users'):
+                items = res['users']['items']
+        elif isinstance(res, dict):
+            items = res['items']
+
         if not items:
             raise StopIteration
+
         for obj in constructor_vkobject(items):
             yield obj
+
         offset += count
 
 

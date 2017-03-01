@@ -1,6 +1,6 @@
 # coding=utf-8
 from .base import VKObject
-from .fetch import fetch
+from .fetch import fetch_items
 
 
 class Poll(VKObject):
@@ -52,7 +52,6 @@ class PollAnswer(VKObject):
         """
         https://vk.com/dev/polls.getVoters
         """
-        response = fetch("polls.getVoters", owner_id=owner_id, poll_id=poll_id, answer_ids=answer_id)
-        user_items = response[0].get("users").get("items")
-        for user in user_items:
-            yield user
+        from .users import get_users
+
+        return fetch_items("polls.getVoters", get_users, count=100, owner_id=owner_id, poll_id=poll_id, answer_ids=answer_id)
