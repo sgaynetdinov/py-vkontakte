@@ -54,4 +54,5 @@ class PollAnswer(VKObject):
         """
         response = fetch("polls.getVoters", owner_id=owner_id, poll_id=poll_id, answer_ids=answer_id)
         user_items = response[0].get("users").get("items")
-        yield user_items
+        for user in user_items:
+            yield user
