@@ -55,7 +55,7 @@ class User(VKObject):
     Docs: https://vk.com/dev/objects/user
     """
     USER_FIELDS = ('bdate', 'domain', 'sex',
-                   'maiden_name', 'nickname', 'verified')
+                   'maiden_name', 'nickname', 'verified', 'last_seen', 'platform')
     __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate', 'domain', 'screen_name', 'sex',
                  'maiden_name', 'nickname', 'is_verified')
 
@@ -79,6 +79,8 @@ class User(VKObject):
         user.bdate = json_obj.get('bdate')
         user.sex = cls._sex(json_obj.get('sex'))
         user.is_verified = bool(json_obj.get('verified'))
+        user.last_seen = cls._last_seen(json_obj.get('last_seen'))
+        user.platform = cls._platform(json_obj.get('last_seen'))
 
         return user
 
@@ -127,6 +129,29 @@ class User(VKObject):
             2: 'male'
         }
         return sex_items.get(sex)
+
+    @classmethod
+    def _last_seen(cls, last_seen):
+        if last_seen:
+            return last_seen.get('time')
+        return None
+
+    @classmethod
+    def _platform(cls, last_seen):
+        if not last_seen:
+            return None
+        platform_id = last_seen.get('platform')
+
+        platform = {
+            1: "m.vk.com",
+            2: "iPhone app",
+            3: "iPad app",
+            4: "Android app",
+            5: "Windows Phone app",
+            6: "Windows 8 app",
+            7: "web (vk.com)"
+        }
+        return platform.get(platform_id)
 
     def get_games(self):
         response = fetch("users.get", user_ids=self.id, fields="games")[0]
