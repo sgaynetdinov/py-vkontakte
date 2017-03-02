@@ -36,11 +36,12 @@ class Group(VKObject):
         response = fetch("groups.getById", group_ids=self.id, fields="description")
         return response[0]['description']
 
-    def get_members(self):
+    def get_members(self, sort='id_asc'):
         """
+        :param: sort {id_asc, id_desc, time_asc, time_desc} string
         Docs: https://vk.com/dev/groups.getMembers
         """
-        return fetch_items("groups.getMembers", get_users, 100, group_id=self.id)
+        return fetch_items("groups.getMembers", get_users, 100, group_id=self.id, sort=sort)
 
     def get_members_count(self):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")
