@@ -23,6 +23,8 @@ def fetch(method_name, **params):
     if params.get('fields'):
         params['fields'] = convert_list2str(params.get('fields'))
 
+    params = {key: value for key, value in params.items() if value is not None}
+
     res = requests.post(url + "?" + urlencode(params))
 
     try:
