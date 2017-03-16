@@ -72,7 +72,8 @@ class Group(VKObject):
 def groups(group_ids):
     group_id_items = ",".join((str(group_id) for group_id in group_ids))
 
-    fields = ("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
-              "photo_50", "photo_100", "photo_200", "status", "verified", "site")
-    response = fetch("groups.getById", group_ids=group_id_items, fields=",".join(fields))
+    fields = ",".join(("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
+                       "photo_50", "photo_100", "photo_200", "status", "verified", "site"))
+
+    response = fetch("groups.getById", group_ids=group_id_items, fields=fields)
     return (Group.from_json(group_json) for group_json in response)
