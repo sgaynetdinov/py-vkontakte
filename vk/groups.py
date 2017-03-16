@@ -69,10 +69,10 @@ class Group(VKObject):
         raise NotImplementedError
 
 
-def groups(*group_ids):
-    group_ids = ",".join((str(i) for i in group_ids))
+def groups(group_ids):
+    group_id_items = ",".join((str(group_id) for group_id in group_ids))
 
     fields = ("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
               "photo_50", "photo_100", "photo_200", "status", "verified", "site")
-    response = fetch("groups.getById", group_ids=group_ids, fields=",".join(fields))
+    response = fetch("groups.getById", group_ids=group_id_items, fields=",".join(fields))
     return (Group.from_json(group_json) for group_json in response)
