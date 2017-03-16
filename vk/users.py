@@ -1,5 +1,8 @@
 # coding=utf-8
-import itertools
+try:
+    from itertools import izip_longest as zip_longest
+except ImportError:
+    from itertools import zip_longest
 
 from .base import VKObject
 from .database import City, Country
@@ -15,7 +18,7 @@ def grouper(iterable, n):
     https://docs.python.org/3/library/itertools.html#itertools-recipes
     """
     args = [iter(iterable)] * n
-    grouper_items = list(itertools.izip_longest(*args))
+    grouper_items = list(zip_longest(*args))
 
     last_items = grouper_items[-1]
     if last_items[-1] is None:
