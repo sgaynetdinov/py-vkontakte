@@ -75,4 +75,4 @@ def groups(*group_ids):
     fields = ("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
               "photo_50", "photo_100", "photo_200", "status", "verified", "site")
     response = fetch("groups.getById", group_ids=group_ids, fields=",".join(fields))
-    return [Group.from_json(group_json) for group_json in response]
+    return (Group.from_json(group_json) for group_json in response)
