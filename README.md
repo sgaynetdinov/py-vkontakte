@@ -19,7 +19,7 @@ print(user.first_name)
 ```python
 >>> import vk
 >>> vk.groups([1, 'devclub'])  # return generator
->>> group for group in groups_items]
+>>> [group for group in groups_items]
 [<Group apiclub>, <Group devclub>]
 ```
 
