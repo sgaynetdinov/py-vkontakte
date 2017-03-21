@@ -6,7 +6,7 @@
 pip install py-vkontakte
 ```
 
-### Simple usage
+# Simple usage
 
 ```python
 import vk
@@ -14,14 +14,14 @@ user = vk.get_user('durov')
 print(user.first_name)
 ```
 
-### Group
+# Group
 
 ```python
 >>> import vk
 >>> vk.groups([1, 'devclub'])
 ```
 
-### Access token
+# Access token
 
 ```python
 >>> import vk
