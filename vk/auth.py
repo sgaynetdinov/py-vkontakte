@@ -1,5 +1,8 @@
 # coding=utf-8
-import urllib
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 import requests
 
@@ -40,7 +43,7 @@ def get_url_implicit_flow_user(client_id, scope,
     }
 
     params = {key: value for key, value in params.items() if value is not None}
-    return u"{url}?{params}".format(url=url, params=urllib.urlencode(params))
+    return u"{url}?{params}".format(url=url, params=urlencode(params))
 
 
 def create_url_get_code(client_id, redirect_uri, display="page", scope=None, response_type="code", version=None, state=None):
@@ -61,7 +64,7 @@ def create_url_get_code(client_id, redirect_uri, display="page", scope=None, res
     if state:
         params['state'] = state
 
-    return u"{url}?{params}".format(url=url, params=urllib.urlencode(params))
+    return u"{url}?{params}".format(url=url, params=urlencode(params))
 
 
 def create_access_token(client_id, client_secret, redirect_uri, code):
