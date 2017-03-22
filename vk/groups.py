@@ -1,7 +1,7 @@
 # coding=utf-8
 from .base import VKObject
 from .fetch import fetch, fetch_items
-from .users import get_users
+from .users import User
 from .wall import Wall
 
 __all__ = ("groups",)
@@ -41,7 +41,7 @@ class Group(VKObject):
         :param: sort {id_asc, id_desc, time_asc, time_desc} string
         Docs: https://vk.com/dev/groups.getMembers
         """
-        return fetch_items("groups.getMembers", get_users, 100, group_id=self.id, sort=sort)
+        return fetch_items("groups.getMembers", User.from_json_items, 100, group_id=self.id, sort=sort, fields=User.__slots__ + User.USER_FIELDS)
 
     def get_members_count(self):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")

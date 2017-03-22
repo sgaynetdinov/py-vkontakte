@@ -87,6 +87,10 @@ class User(VKObject):
 
         return user
 
+    @classmethod
+    def from_json_items(cls, user_json_items):
+        return (cls.from_json(user_json) for user_json in user_json_items)
+
     def get_about(self):
         response = fetch("users.get", user_ids=self.id, fields="about")[0]
         return response.get('about')
