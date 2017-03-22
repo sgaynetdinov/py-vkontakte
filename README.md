@@ -29,3 +29,12 @@ print(user.first_name)
 >>> import vk
 >>> vk.set_access_token('YOUR_ACCESS_TOKEN')
 ```
+
+
+# Update PyPi
+
+```sh
+python3 setup.py sdist
+python3 setup.py bdist_wheel --universal
+twine upload dist/*
+```
