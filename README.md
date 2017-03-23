@@ -14,8 +14,8 @@ pip install py-vkontakte
 >>> user_items = vk.get_users([1, 's.gaynetdinov'])  # yield one or many User objects
 ```
 
-| User object |
-| ------ | ------ |
+| User object | - |
+| ----------- | - |
 | `User.id` | vk.com/id1 – 1 is id |
 | `User.first_name` | First name |
 | `User.last_name` | Last name |
