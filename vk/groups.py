@@ -32,6 +32,10 @@ class Group(VKObject):
         group.site = group_json.get("site")
         return group
 
+    @classmethod
+    def from_json_items(cls, group_json_items):
+        return (cls.from_json(group_json) for group_json in group_json_items)
+
     def get_description(self):
         response = fetch("groups.getById", group_ids=self.id, fields="description")
         return response[0]['description']
@@ -58,6 +62,15 @@ class Group(VKObject):
     def get_wall_count(self):
         gid = self.id * (-1)
         return Wall.get_wall_count(owner_id=gid)
+
+    @classmethod
+    def get_user_groups(cls, user_id):
+        """
+        https://vk.com/dev/groups.get
+        """
+        return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, extended=1,
+                           fields=",".join(("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
+                                            "photo_50", "photo_100", "photo_200", "status", "verified", "site")))
 
     def __hash__(self):
         class_name = type(self).__name__
