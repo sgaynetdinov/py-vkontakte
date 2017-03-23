@@ -19,7 +19,7 @@ pip install py-vkontakte
 
 | User object | - |
 | ----------- | - |
-| `User.id` | unique id |
+| `User.id` | id |
 | `User.first_name` | First name |
 | `User.last_name` | Last name |
 | `User.maiden_name` | Maiden name |
