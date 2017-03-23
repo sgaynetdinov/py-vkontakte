@@ -62,9 +62,9 @@ class Group(VKObject):
         gid = self.id * (-1)
         return Wall.get_wall(owner_id=gid, wall_id=wall_id)
 
-    def get_wall_count(self):
+    def get_walls_count(self):
         gid = self.id * (-1)
-        return Wall.get_wall_count(owner_id=gid)
+        return Wall.get_walls_count(owner_id=gid)
 
     @classmethod
     def get_user_groups(cls, user_id, filter):

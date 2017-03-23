@@ -246,8 +246,8 @@ class User(VKObject):
     def get_wall(self, wall_id):
         return Wall.get_wall(self.id, wall_id)
 
-    def get_wall_count(self):
-        return Wall.get_wall_count(owner_id=self.id)
+    def get_walls_count(self):
+        return Wall.get_walls_count(owner_id=self.id)
 
     def get_groups(self, filter=None):
         from .groups import Group

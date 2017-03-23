@@ -61,7 +61,7 @@ pip install py-vkontakte
 | `User.get_universities()` | get_universities |
 | `User.get_walls()` | yield `Wall` object |
 | `User.get_wall(wall_id)` | return `Wall` object |
-| `User.get_wall_count()` | return count `Wall` in current user |
+| `User.get_walls_count()` | return count `Wall` in current user |
 | `User.get_groups()` | yield `Group` |
 
 # Group

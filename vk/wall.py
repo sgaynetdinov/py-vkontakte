@@ -63,7 +63,7 @@ class Wall(VKObject):
         return fetch_items("wall.get", Wall.from_json_items, 100, owner_id=owner_id)
 
     @staticmethod
-    def get_wall_count(owner_id):
+    def get_walls_count(owner_id):
         response = fetch("wall.get", owner_id=owner_id, count=1)
         wall_count = response.get('count')
         return wall_count
