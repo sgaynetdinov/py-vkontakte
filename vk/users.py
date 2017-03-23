@@ -240,8 +240,8 @@ class User(VKObject):
             return [UserUniversity.from_json(university_json) for university_json in response.get('universities')]
         return []
 
-    def get_wall(self):
-        return Wall.get_wall(owner_id=self.id)
+    def get_walls(self):
+        return Wall.get_walls(owner_id=self.id)
 
     def get_wall_by_id(self, wall_id):
         return Wall.get_wall_by_id(self.id, wall_id)

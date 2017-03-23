@@ -54,9 +54,9 @@ class Group(VKObject):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")
         return response[0]['members_count']
 
-    def get_wall(self):
+    def get_walls(self):
         gid = self.id * (-1)
-        return Wall.get_wall(owner_id=gid)
+        return Wall.get_walls(owner_id=gid)
 
     def get_wall_by_id(self, wall_id):
         gid = self.id * (-1)

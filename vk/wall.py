@@ -66,7 +66,7 @@ class Wall(VKObject):
         return 'https://vk.com/wall{0}_{1}'.format(self.owner_id, self.id)
 
     @staticmethod
-    def get_wall(owner_id):
+    def get_walls(owner_id):
         return fetch_items("wall.get", Wall.from_json_items, 100, owner_id=owner_id)
 
     @staticmethod
