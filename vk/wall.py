@@ -36,6 +36,10 @@ class Wall(VKObject):
         wall.signer_id = wall_json.get("signer_id")
         return wall
 
+    @classmethod
+    def from_json_items(cls, wall_json_items):
+        return (cls.from_json(wall_json) for wall_json in wall_json_items)
+
     def pin(self):
         response = fetch("wall.pin", owner_id=self.owner_id, post_id=self.id)
         return bool(response)
@@ -63,7 +67,7 @@ class Wall(VKObject):
 
     @staticmethod
     def get_wall(owner_id):
-        return fetch_items("wall.get", Wall.get_walls, 100, owner_id=owner_id)
+        return fetch_items("wall.get", Wall.from_json_items, 100, owner_id=owner_id)
 
     @staticmethod
     def get_wall_by_id(owner_id, wall_id):
@@ -78,7 +82,3 @@ class Wall(VKObject):
         response = fetch("wall.get", owner_id=owner_id, count=1)
         wall_count = response.get('count')
         return wall_count
-
-    @classmethod
-    def get_walls(cls, wall_items):
-        return (cls.from_json(wall_json) for wall_json in wall_items)
