@@ -12,11 +12,13 @@ pip install py-vkontakte
 >>> import vk
 >>> user = vk.get_user('durov')  # return single User object
 >>> user_items = vk.get_users([1, 's.gaynetdinov'])  # yield one or many User objects
+>>> [user.id for user in user_items]
+[1, 23768217]
 ```
 
 | User object | - |
 | ----------- | - |
-| `User.id` | vk.com/id1 – 1 is id |
+| `User.id` | unique id |
 | `User.first_name` | First name |
 | `User.last_name` | Last name |
 | `User.maiden_name` | Maiden name |
