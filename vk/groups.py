@@ -11,6 +11,9 @@ class Group(VKObject):
     """
     Docs: https://vk.com/dev/objects/groups
     """
+    GROUP_FIELDS = ("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
+                    "photo_50", "photo_100", "photo_200", "status", "verified", "site")
+
     __slots__ = ("id", "name", "screen_name", "is_closed", "is_deactivated", "type", "has_photo",
                  "photo_50", "photo_100", "photo_200", "status", "is_verified", "site")
 
@@ -69,8 +72,7 @@ class Group(VKObject):
         https://vk.com/dev/groups.get
         """
         return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, extended=1,
-                           fields=",".join(("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
-                                            "photo_50", "photo_100", "photo_200", "status", "verified", "site")))
+                           fields=",".join(cls.GROUP_FIELDS))
 
     def __hash__(self):
         class_name = type(self).__name__
@@ -85,8 +87,7 @@ class Group(VKObject):
 def groups(group_ids):
     group_id_items = ",".join((str(group_id) for group_id in group_ids))
 
-    fields = ",".join(("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
-                       "photo_50", "photo_100", "photo_200", "status", "verified", "site"))
+    fields = ",".join(Group.GROUP_FIELDS)
 
     response = fetch("groups.getById", group_ids=group_id_items, fields=fields)
     return (Group.from_json(group_json) for group_json in response)
