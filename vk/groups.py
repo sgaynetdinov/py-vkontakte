@@ -4,7 +4,7 @@ from .fetch import fetch, fetch_items
 from .users import User
 from .wall import Wall
 
-__all__ = ("get_groups",)
+__all__ = ("get_groups", "get_group")
 
 
 class Group(VKObject):
@@ -93,3 +93,9 @@ def get_groups(group_ids):
 
     response = fetch("groups.getById", group_ids=group_id_items, fields=fields)
     return (Group.from_json(group_json) for group_json in response)
+
+
+def get_group(group_id):
+    fields = ",".join(Group.GROUP_FIELDS)
+    response = fetch("groups.getById", group_ids=group_id, fields=fields)
+    return Group.from_json(response[0])
