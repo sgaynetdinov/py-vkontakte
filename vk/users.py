@@ -59,6 +59,7 @@ class User(VKObject):
     """
     USER_FIELDS = ('bdate', 'domain', 'sex',
                    'maiden_name', 'nickname', 'verified', 'last_seen', 'platform')
+
     __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate', 'domain', 'screen_name', 'sex',
                  'maiden_name', 'nickname', 'is_verified')
 
