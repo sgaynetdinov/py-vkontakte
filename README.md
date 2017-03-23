@@ -6,13 +6,59 @@
 pip install py-vkontakte
 ```
 
-# Simple usage
+# User
 
 ```python
-import vk
-user = vk.get_user('durov')
-print(user.first_name)
+>>> import vk
+>>> user = vk.get_user('durov')
 ```
+
+| User object ||
+| ------ | ------ |
+| `User.id` | vk.com/id1 – 1 is id |
+| `User.first_name` | First name |
+| `User.last_name` | Last name |
+| `User.maiden_name` | Maiden name |
+| `User.nickname` | Nickname |
+| `User.is_deactivated` | *True* or *False* |
+| `User.is_deleted` | *True* or *False* |
+| `User.is_banned` | *True* or *False* |
+| `User.is_hidden` | *True* or *False* |
+| `User.domain` | domain |
+| `User.screen_name` | screen_name |
+| `User.bdate` | bdate |
+| `User.sex` | *female*, *male* or *None* |
+| `User.is_verified` | is_verified |
+| `User.last_seen` | last_seen |
+| `User.platform` | platform |
+| `User.get_about()` | get_about |
+| `User.get_activities()` | get_activities |
+| `User.get_books()` | get_books |
+| `User.get_career()` | get_career |
+| `User.get_city()` | get_city |
+| `User.get_country()` | get_country |
+| `User.get_games()` | get_games |
+| `User.get_followers_count()` | get_followers_count |
+| `User.get_friends()` | get_friends |
+| `User.get_friends_count()` | get_friends_count |
+| `User.get_military()` | get_military |
+| `User.get_movies()` | get_movies |
+| `User.get_music()` | get_music |
+| `User.get_occupation()` | get_occupation |
+| `User.is_online` | is_online |
+| `User.get_personal()` | get_personal |
+| `User.get_photos()` | get_photos |
+| `User.get_quotes()` | get_quotes |
+| `User.get_relatives()` | get_relatives |
+| `User.get_schools()` | get_schools |
+| `User.get_site()` | get_site |
+| `User.get_status()` | get_status |
+| `User.get_tv()` | get_tv |
+| `User.get_universities()` | get_universities |
+| `User.get_wall()` | yield `Wall` object |
+| `User.get_wall_by_id(wall_id)` | return `Wall` object |
+| `User.get_wall_count()` | return count `Wall` in current user |
+| `User.get_groups()` | yield `Group` |
 
 # Group
 
