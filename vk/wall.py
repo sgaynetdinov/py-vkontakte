@@ -12,14 +12,13 @@ class Wall(VKObject):
     Docs: https://vk.com/dev/objects/post
     """
 
-    __slots__ = ('attachments', 'comments_count', 'date', 'friends_only', 'from_id', 'id', 'is_ads', 'is_pinned', 'likes_count', 'owner_id',
+    __slots__ = ('attachments', 'date', 'friends_only', 'from_id', 'id', 'is_ads', 'is_pinned', 'likes_count', 'owner_id',
                  'post_type', 'reply_owner_id', 'reply_post_id', 'reposts_count', 'signer_id', 'text', 'unixtime')
 
     @classmethod
     def from_json(cls, wall_json):
         wall = cls()
         wall.attachments = get_attachments(wall_json.get("attachments"))
-        wall.comments_count = wall_json.get('comments')['count']
         wall.date = datetime.utcfromtimestamp(wall_json.get("date"))
         wall.friends_only = wall_json.get("friends_only")
         wall.from_id = wall_json.get("from_id")
