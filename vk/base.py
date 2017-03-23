@@ -4,6 +4,9 @@ class VKObject(object):
     def __repr__(self):
         if hasattr(self, 'screen_name'):
             vkobject_title = self.screen_name
-        else:
+        elif hasattr(self, 'id'):
             vkobject_title = "id{0}".format(self.id)
+        else:
+            vkobject_title = ''
+
         return u"<{0}: {1}>".format(self.__class__.__name__, vkobject_title)
