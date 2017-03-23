@@ -71,8 +71,7 @@ class Group(VKObject):
         """
         https://vk.com/dev/groups.get
         """
-        return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, extended=1,
-                           fields=",".join(cls.GROUP_FIELDS))
+        return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, extended=1, fields=",".join(cls.GROUP_FIELDS))
 
     def __hash__(self):
         class_name = type(self).__name__
