@@ -68,7 +68,7 @@ pip install py-vkontakte
 
 ```python
 >>> import vk
->>> groups_items = vk.groups([1, 'devclub'])  # return generator
+>>> groups_items = vk.get_groups([1, 'devclub'])  # return generator
 >>> [group for group in groups_items]
 [<Group apiclub>, <Group devclub>]
 ```

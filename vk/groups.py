@@ -4,7 +4,7 @@ from .fetch import fetch, fetch_items
 from .users import User
 from .wall import Wall
 
-__all__ = ("groups",)
+__all__ = ("get_groups",)
 
 
 class Group(VKObject):
@@ -86,7 +86,7 @@ class Group(VKObject):
         raise NotImplementedError
 
 
-def groups(group_ids):
+def get_groups(group_ids):
     group_id_items = ",".join((str(group_id) for group_id in group_ids))
 
     fields = ",".join(Group.GROUP_FIELDS)
