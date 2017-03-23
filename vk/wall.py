@@ -70,7 +70,7 @@ class Wall(VKObject):
         return fetch_items("wall.get", Wall.from_json_items, 100, owner_id=owner_id)
 
     @staticmethod
-    def get_wall_by_id(owner_id, wall_id):
+    def get_wall(owner_id, wall_id):
         posts = "{0}_{1}".format(owner_id, wall_id)
         response = fetch("wall.getById", posts=posts)
         if not response:
