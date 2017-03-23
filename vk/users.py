@@ -248,9 +248,9 @@ class User(VKObject):
     def get_wall_count(self):
         return Wall.get_wall_count(owner_id=self.id)
 
-    def get_groups(self):
+    def get_groups(self, filter=None):
         from .groups import Group
-        return Group.get_user_groups(self.id)
+        return Group.get_user_groups(self.id, filter=filter)
 
     def __hash__(self):
         class_name = type(self).__name__

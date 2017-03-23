@@ -67,11 +67,14 @@ class Group(VKObject):
         return Wall.get_wall_count(owner_id=gid)
 
     @classmethod
-    def get_user_groups(cls, user_id):
+    def get_user_groups(cls, user_id, filter):
         """
         https://vk.com/dev/groups.get
+
+        :param filter: {admin, editor, moder, groups, publics, events}
+        :yield: Groups
         """
-        return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, extended=1, fields=",".join(cls.GROUP_FIELDS))
+        return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, filter=filter, extended=1, fields=",".join(cls.GROUP_FIELDS))
 
     def __hash__(self):
         class_name = type(self).__name__
