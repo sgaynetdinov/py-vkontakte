@@ -281,8 +281,8 @@ class UserCareer(VKObject):
     @classmethod
     def _get_group(cls, group_id):
         if group_id:
-            from .groups import get_groups
-            return get_groups(group_id)[0]
+            from .groups import get_group
+            return get_group(group_id)
 
 
 class UserMilitary(VKObject):
