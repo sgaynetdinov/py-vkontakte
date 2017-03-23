@@ -41,14 +41,6 @@ class Wall(VKObject):
     def from_json_items(cls, wall_json_items):
         return (cls.from_json(wall_json) for wall_json in wall_json_items)
 
-    @property
-    def copy_history(self):
-        raise NotImplementedError
-
-    @property
-    def geo(self):
-        raise NotImplementedError
-
     def get_comments(self):
         return Comment.get_comments(group_or_user_id=self.owner_id, wall_id=self.id)
 
