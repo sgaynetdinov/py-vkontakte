@@ -13,7 +13,7 @@ class Wall(VKObject):
     """
 
     __slots__ = ('attachments', 'date', 'friends_only', 'from_id', 'id', 'is_ads', 'is_pinned', 'owner_id',
-                 'post_type', 'reply_owner_id', 'reply_post_id', 'reposts_count', 'signer_id', 'text', 'unixtime')
+                 'post_type', 'reply_owner_id', 'reply_post_id', 'signer_id', 'text', 'unixtime')
 
     @classmethod
     def from_json(cls, wall_json):
@@ -29,7 +29,6 @@ class Wall(VKObject):
         wall.post_type = wall_json.get("post_type")
         wall.reply_owner_id = wall_json.get("reply_owner_id")
         wall.reply_post_id = wall_json.get("reply_post_id")
-        wall.reposts_count = wall_json.get('reposts')['count']
         wall.signer_id = wall_json.get("signer_id")
         wall.text = wall_json.get("text")
         wall.unixtime = wall_json.get("date")
@@ -59,6 +58,17 @@ class Wall(VKObject):
         response = fetch('likes.getList', count=1, type='post', owner_id=self.from_id, item_id=self.id)
         likes_count = response.get('count')
         return likes_count
+
+    def get_reposts(self):
+        """
+        https://vk.com/dev/wall.getReposts
+        """
+        return fetch_items('wall.getReposts', self.from_json_items, count=1000, owner_id=self.from_id, post_id=self.id)
+
+    def get_reposts_count(self):
+        posts = "{0}_{1}".format(self.from_id, self.id)
+        response = fetch("wall.getById", posts=posts)
+        return response[0].get('reposts')['count']
 
     def get_url(self):
         return 'https://vk.com/wall{0}_{1}'.format(self.owner_id, self.id)
