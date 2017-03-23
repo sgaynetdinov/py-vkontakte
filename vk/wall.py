@@ -20,7 +20,7 @@ class Wall(VKObject):
         wall = cls()
         wall.attachments = get_attachments(wall_json.get("attachments"))
         wall.comments_count = wall_json.get('comments')['count']
-        wall.date = datetime.utcfromtimestamp(wall.unixtime)
+        wall.date = datetime.utcfromtimestamp(wall_json.get("date"))
         wall.friends_only = wall_json.get("friends_only")
         wall.from_id = wall_json.get("from_id")
         wall.id = wall_json.get("id")
