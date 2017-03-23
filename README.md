@@ -10,7 +10,8 @@ pip install py-vkontakte
 
 ```python
 >>> import vk
->>> user = vk.get_user('durov')  # return single User object
+>>> vk.get_user('durov')  # return single User object
+<User: durov>
 >>> user_items = vk.get_users([1, 's.gaynetdinov'])  # yield one or many User objects
 >>> [user.id for user in user_items]
 [1, 23768217]
