@@ -1,8 +1,9 @@
 # coding=utf-8
 from .base import VKObject
-from .fetch import fetch, fetch_items
+from .fetch import fetch, fetch_items, fetch_post
 from .users import User
 from .wall import Wall
+from .photos import Photo
 
 __all__ = ("get_groups", "get_group")
 
@@ -75,6 +76,14 @@ class Group(VKObject):
         :yield: Groups
         """
         return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, filter=filter, extended=1, fields=",".join(cls.GROUP_FIELDS))
+
+    def set_cover_photo(self, image_file):
+        upload_url = Photo.get_owner_cover_photo_upload_server(self.id)
+        files = {'photo': open(image_file, 'rb')}
+        response = fetch_post(upload_url, files=files)
+        response_json = response.json()
+
+        Photo.save_owner_cover_photo(response_json['hash'], response_json['photo'])
 
     def __hash__(self):
         class_name = type(self).__name__
