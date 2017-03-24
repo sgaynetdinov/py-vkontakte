@@ -77,3 +77,7 @@ def convert_list2str(fields):
     if isinstance(fields, tuple) or isinstance(fields, list):
         return ','.join(fields)
     return fields
+
+
+def fetch_post(url, **kwargs):
+    return requests.post(url, **kwargs)
