@@ -77,8 +77,8 @@ class Group(VKObject):
         """
         return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, filter=filter, extended=1, fields=",".join(cls.GROUP_FIELDS))
 
-    def set_cover_photo(self, image_file):
-        upload_url = Photo.get_owner_cover_photo_upload_server(self.id)
+    def set_cover_photo(self, image_file, width, height):
+        upload_url = Photo.get_owner_cover_photo_upload_server(self.id, crop_x2=width, crop_y2=height)
         files = {'photo': open(image_file, 'rb')}
         response = fetch_post(upload_url, files=files)
         response_json = response.json()
