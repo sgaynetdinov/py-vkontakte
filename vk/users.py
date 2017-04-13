@@ -118,6 +118,26 @@ class User(VKObject):
         if response.get('city'):
             return City.from_json(response.get('city'))
 
+    def get_connection_facebook(self):
+        response = fetch("users.get", user_ids=self.id, fields="connections")[0]
+        return response.get('facebook')
+
+    def get_connection_skype(self):
+        response = fetch("users.get", user_ids=self.id, fields="connections")[0]
+        return response.get('skype')
+
+    def get_connection_twitter(self):
+        response = fetch("users.get", user_ids=self.id, fields="connections")[0]
+        return response.get('twitter')
+
+    def get_connection_livejournal(self):
+        response = fetch("users.get", user_ids=self.id, fields="connections")[0]
+        return response.get('livejournal')
+
+    def get_connection_instagram(self):
+        response = fetch("users.get", user_ids=self.id, fields="connections")[0]
+        return response.get('instagram')
+
     def get_country(self):
         """
         :return: Country or None
