@@ -10,7 +10,7 @@ __all__ = ("get_groups", "get_group")
 
 class Group(VKObject):
     """
-    Docs: https://vk.com/dev/objects/groups
+    https://vk.com/dev/objects/groups
     """
     GROUP_FIELDS = ("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
                     "photo_50", "photo_100", "photo_200", "status", "verified", "site")

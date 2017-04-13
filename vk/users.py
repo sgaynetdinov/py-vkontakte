@@ -55,7 +55,7 @@ def get_users(user_ids):
 
 class User(VKObject):
     """
-    Docs: https://vk.com/dev/objects/user
+    https://vk.com/dev/objects/user
     """
     USER_FIELDS = ('bdate', 'domain', 'sex',
                    'maiden_name', 'nickname', 'verified', 'last_seen', 'platform')

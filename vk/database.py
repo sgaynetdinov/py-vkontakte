@@ -5,7 +5,7 @@ from .fetch import fetch
 
 class Country(VKObject):
     """
-    Docs: https://vk.com/dev/database.getCountriesById
+    https://vk.com/dev/database.getCountriesById
     """
     __slots__ = ('id', 'title')
 
@@ -24,7 +24,7 @@ class Country(VKObject):
 
 class City(VKObject):
     """
-    Docs: https://vk.com/dev/database.getCitiesById
+    https://vk.com/dev/database.getCitiesById
     """
     __slots__ = ('id', 'title')
 

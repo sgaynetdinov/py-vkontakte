@@ -9,7 +9,7 @@ from .fetch import fetch, fetch_items
 
 class Wall(VKObject):
     """
-    Docs: https://vk.com/dev/objects/post
+    https://vk.com/dev/objects/post
     """
 
     __slots__ = ('attachments', 'date', 'friends_only', 'from_id', 'id', 'is_ads', 'is_pinned', 'owner_id',
