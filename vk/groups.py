@@ -85,8 +85,8 @@ class Group(VKObject):
 
         Photo.save_owner_cover_photo(response_json['hash'], response_json['photo'])
 
-    def wall_post(self, message):
-        return Wall.wall_post(owner_id=self.id * -1, message=message)
+    def wall_post(self, message=None, attachments=None):
+        return Wall.wall_post(owner_id=self.id * -1, message=message, attachments=attachments)
 
     def __hash__(self):
         class_name = type(self).__name__
