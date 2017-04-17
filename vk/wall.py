@@ -98,3 +98,11 @@ class Wall(VKObject):
     def unpin(self):
         response = fetch("wall.unpin", owner_id=self.owner_id, post_id=self.id)
         return bool(response)
+
+    @classmethod
+    def wall_post(cls, owner_id, message=None, from_group=True):
+        """
+        https://vk.com/dev/wall.post
+        """
+        response = fetch("wall.post", owner_id=owner_id, message=message, from_group=from_group)
+        return response
