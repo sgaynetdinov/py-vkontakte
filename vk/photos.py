@@ -1,6 +1,6 @@
 # coding: utf-8
 from .base import VKObject
-from .fetch import fetch
+from .fetch import fetch, fetch_post
 
 
 class Photo(VKObject):
@@ -40,3 +40,17 @@ class Photo(VKObject):
 
         response = fetch("photos.saveWallPhoto", photo=photo, server=server, hash=hash, user_id=user_id, group_id=group_id)[0]
         return response['id'], response['owner_id']
+
+    @classmethod
+    def upload_wall_photos_for_group(cls, group_id, image_files):
+        upload_url = cls.get_wall_upload_server(group_id)
+
+        attachments = []
+        for image_fd in image_files:
+            response = fetch_post(upload_url, files={'photo': image_fd})
+            response_json = response.json()
+            photo, server, _hash = response_json['photo'], response_json['server'], response_json['hash']
+            photo_id, owner_id = cls.get_save_wall_photo(photo, server, _hash, group_id=group_id)
+            attachments.append("photo{0}_{1}".format(owner_id, photo_id))
+
+        return ",".join(attachments)
