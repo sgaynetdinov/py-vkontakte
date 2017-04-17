@@ -23,7 +23,7 @@ def get_access_token():
 
 
 def get_url_implicit_flow_user(client_id, scope,
-                               redirect_uri='https://oauth.vk.com/blank.html ', display='page',
+                               redirect_uri='https://oauth.vk.com/blank.html', display='page',
                                response_type='token', version=None, state=None, revoke=1):
     """
     https://vk.com/dev/implicit_flow_user
