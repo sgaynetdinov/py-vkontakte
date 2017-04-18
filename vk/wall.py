@@ -4,7 +4,8 @@ from datetime import datetime
 from .attachments import get_attachments
 from .base import VKObject
 from .comment import Comment
-from .fetch import fetch, fetch_items
+from .fetch import fetch, fetch_items, fetch_post
+from .photos import Photo
 
 
 class Wall(VKObject):
@@ -98,3 +99,12 @@ class Wall(VKObject):
     def unpin(self):
         response = fetch("wall.unpin", owner_id=self.owner_id, post_id=self.id)
         return bool(response)
+
+    @classmethod
+    def wall_post(cls, owner_id, message=None, attachments=None, from_group=True):
+        """
+        https://vk.com/dev/wall.post
+        attachments: "photo100172_166443618,photo-1_265827614"
+        """
+        response = fetch("wall.post", owner_id=owner_id, message=message, attachments=attachments, from_group=from_group)
+        return response
