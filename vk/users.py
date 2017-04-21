@@ -6,7 +6,7 @@ except ImportError:
 
 from .base import VKObject
 from .database import City, Country
-from .fetch import fetch
+from .fetch import fetch, fetch_items
 from .wall import Wall
 
 __all__ = ["get_user", "get_users"]
@@ -184,6 +184,13 @@ class User(VKObject):
     def get_games(self):
         response = fetch("users.get", user_ids=self.id, fields="games")[0]
         return response.get('games')
+
+    def get_followers(self):
+        """
+        https://vk.com/dev/users.getFollowers
+        """
+        response = fetch_items("users.getFollowers", self.from_json_items, count=1000, user_id=self.id, fields=self.USER_FIELDS)
+        return response
 
     def get_followers_count(self):
         response = fetch("users.get", user_ids=self.id, fields="followers_count")[0]
