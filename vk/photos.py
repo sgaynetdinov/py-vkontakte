@@ -30,6 +30,14 @@ class Photo(VKObject):
         return (cls.from_json(photo_json) for photo_json in photo_json_items)
 
     @classmethod
+    def get_photos(cls, user_or_group_id):
+        """
+        https://vk.com/dev/photos.getAll
+        """
+        response = fetch_items("photos.getAll", cls.from_json_items, count=200, owner_id=user_or_group_id)
+        return response
+
+    @classmethod
     def get_owner_cover_photo_upload_server(cls, group_id, crop_x=0, crop_y=0, crop_x2=795, crop_y2=200):
         """
         https://vk.com/dev/photos.getOwnerCoverPhotoUploadServer
