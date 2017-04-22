@@ -1,9 +1,33 @@
 # coding: utf-8
 from .base import VKObject
-from .fetch import fetch, fetch_post
+from .fetch import fetch, fetch_post, fetch_items
 
 
 class Photo(VKObject):
+
+    @classmethod
+    def from_json(cls, photo_json):
+        """
+        https://vk.com/dev/objects/photo
+        """
+        photo = cls()
+        photo.id = photo_json.get('id')
+        photo.album_id = photo_json.get('album_id')
+        photo.owner_id = photo_json.get('owner_id')
+        photo.user_id = photo_json.get('user_id')
+        photo.text = photo_json.get('text')
+        photo.date = photo_json.get('date')
+        photo.photo_75 = photo_json.get('photo_75')
+        photo.photo_130 = photo_json.get('photo_130')
+        photo.photo_604 = photo_json.get('photo_604')
+        photo.photo_807 = photo_json.get('photo_807')
+        photo.photo_1280 = photo_json.get('photo_1280')
+        photo.photo_2560 = photo_json.get('photo_2560')
+        return photo
+
+    @classmethod
+    def from_json_items(cls, photo_json_items):
+        return (cls.from_json(photo_json) for photo_json in photo_json_items)
 
     @classmethod
     def get_owner_cover_photo_upload_server(cls, group_id, crop_x=0, crop_y=0, crop_x2=795, crop_y2=200):
