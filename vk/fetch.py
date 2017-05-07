@@ -39,9 +39,10 @@ def fetch(method_name, **params):
         if error.get('redirect_uri'):
             error_msg += "\n{redirect_uri}".format(redirect_uri=error.get('redirect_uri'))
         raise VKError(
-            u"{error_msg}"
+            u"\nRequest: {url}"
+            u"\n{error_msg}"
             u"\nError code: {error_code}"
-            u"\nError page: https://vk.com/dev/errors".format(error_msg=error_msg, error_code=error_code)
+            u"\nError page: https://vk.com/dev/errors".format(url=res.url, error_msg=error_msg, error_code=error_code)
         )
 
     if 'response' in data_json:
