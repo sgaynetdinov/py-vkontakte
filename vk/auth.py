@@ -8,7 +8,7 @@ import requests
 
 from .error import VKError
 
-__all__ = ["set_access_token", "get_access_token", "get_url_implicit_flow_user", "create_access_token", "create_url_get_code"]
+__all__ = ["set_access_token", "get_access_token", "get_url_implicit_flow_user", "create_access_token_from_code", "create_url_get_code"]
 
 _ACCESS_TOKEN = None
 
@@ -67,7 +67,7 @@ def create_url_get_code(client_id, redirect_uri, display="page", scope=None, res
     return u"{url}?{params}".format(url=url, params=urlencode(params))
 
 
-def create_access_token(client_id, client_secret, redirect_uri, code):
+def create_access_token_from_code(client_id, client_secret, redirect_uri, code):
     url = "https://oauth.vk.com/access_token"
     params = {
         "client_id": client_id,
