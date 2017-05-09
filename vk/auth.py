@@ -49,10 +49,10 @@ def get_url_implicit_flow_user(client_id, scope,
 def create_url_get_code(client_id, redirect_uri, display="page", scope=None, response_type="code", version=None, state=None):
     url = "https://oauth.vk.com/authorize"
     params = {
-            "client_id":client_id,
-            "redirect_uri": redirect_uri,
-            "display": display,
-            "response_type": response_type
+        "client_id": client_id,
+        "redirect_uri": redirect_uri,
+        "display": display,
+        "response_type": response_type
     }
 
     if scope:
