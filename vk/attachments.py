@@ -25,8 +25,8 @@ class AttachmentPhoto(VKObject):
     """
     https://vk.com/dev/objects/photo
     """
-    __slots__ = ("id", "album_id", "owner_id", "user_id", "text", "type", "unixtime", "photo_75", "photo_130", "photo_604", "photo_807", "photo_1280",
-                 "photo_2560")
+    __slots__ = ("id", "album_id", "owner_id", "user_id", "text", "type", "unixtime",
+                 "photo_75", "photo_130", "photo_604", "photo_807", "photo_1280", "photo_2560")
 
     @classmethod
     def from_json(cls, attachment_json):
