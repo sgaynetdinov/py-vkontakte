@@ -4,8 +4,7 @@ from datetime import datetime
 from .attachments import get_attachments
 from .base import VKObject
 from .comment import Comment
-from .fetch import fetch, fetch_items, fetch_post
-from .photos import Photo
+from .fetch import fetch, fetch_items
 
 
 class Wall(VKObject):
