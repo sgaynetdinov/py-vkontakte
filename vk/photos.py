@@ -26,15 +26,11 @@ class Photo(VKBase):
         return photo
 
     @classmethod
-    def from_json_items(cls, photo_json_items):
-        return (cls.from_json(photo_json) for photo_json in photo_json_items)
-
-    @classmethod
     def get_photos(cls, user_or_group_id):
         """
         https://vk.com/dev/photos.getAll
         """
-        response = fetch_items("photos.getAll", cls.from_json_items, count=200, owner_id=user_or_group_id)
+        response = fetch_items("photos.getAll", cls.from_json, count=200, owner_id=user_or_group_id)
         return response
 
     @classmethod

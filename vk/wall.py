@@ -34,10 +34,6 @@ class Wall(VKBase):
         wall.unixtime = wall_json.get("date")
         return wall
 
-    @classmethod
-    def from_json_items(cls, wall_json_items):
-        return (cls.from_json(wall_json) for wall_json in wall_json_items)
-
     def get_comments(self):
         return Comment.get_comments(group_or_user_id=self.owner_id, wall_id=self.id)
 
@@ -63,7 +59,7 @@ class Wall(VKBase):
         """
         https://vk.com/dev/wall.getReposts
         """
-        return fetch_items('wall.getReposts', self.from_json_items, count=1000, owner_id=self.from_id, post_id=self.id)
+        return fetch_items('wall.getReposts', self.from_json, count=1000, owner_id=self.from_id, post_id=self.id)
 
     def get_reposts_count(self):
         posts = "{0}_{1}".format(self.from_id, self.id)
@@ -83,7 +79,7 @@ class Wall(VKBase):
 
     @staticmethod
     def get_walls(owner_id):
-        return fetch_items("wall.get", Wall.from_json_items, 100, owner_id=owner_id)
+        return fetch_items("wall.get", Wall.from_json, 100, owner_id=owner_id)
 
     @staticmethod
     def get_walls_count(owner_id):

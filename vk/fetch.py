@@ -51,7 +51,7 @@ def fetch(method_name, **params):
         return data_json.get('response')
 
 
-def fetch_items(method_name, constructor_vkobject, count, **params):
+def fetch_items(method_name, constructor_from_json, count, **params):
     offset = 0
     while True:
         res = fetch(method_name, count=count, offset=offset, **params)
@@ -66,8 +66,8 @@ def fetch_items(method_name, constructor_vkobject, count, **params):
         if not items:
             raise StopIteration
 
-        for obj in constructor_vkobject(items):
-            yield obj
+        for i in items:
+            yield constructor_from_json(i)
 
         offset += count
 

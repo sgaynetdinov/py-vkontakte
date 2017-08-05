@@ -36,10 +36,6 @@ class Group(VKBase):
         group.site = group_json.get("site")
         return group
 
-    @classmethod
-    def from_json_items(cls, group_json_items):
-        return (cls.from_json(group_json) for group_json in group_json_items)
-
     def get_description(self):
         response = fetch("groups.getById", group_ids=self.id, fields="description")
         return response[0]['description']
@@ -49,7 +45,7 @@ class Group(VKBase):
         :param: sort {id_asc, id_desc, time_asc, time_desc} string
         Docs: https://vk.com/dev/groups.getMembers
         """
-        return fetch_items("groups.getMembers", User.from_json_items, 100, group_id=self.id, sort=sort, fields=User.__slots__ + User.USER_FIELDS)
+        return fetch_items("groups.getMembers", User.from_json, 100, group_id=self.id, sort=sort, fields=User.__slots__ + User.USER_FIELDS)
 
     def get_members_count(self):
         response = fetch("groups.getById", group_ids=self.id, fields="members_count")
@@ -75,7 +71,7 @@ class Group(VKBase):
         :param filter: {admin, editor, moder, groups, publics, events}
         :yield: Groups
         """
-        return fetch_items('groups.get', cls.from_json_items, count=1000, user_id=user_id, filter=filter, extended=1, fields=",".join(cls.GROUP_FIELDS))
+        return fetch_items('groups.get', cls.from_json, count=1000, user_id=user_id, filter=filter, extended=1, fields=",".join(cls.GROUP_FIELDS))
 
     def set_cover_photo(self, file_like, width, height):
         upload_url = Photo.get_owner_cover_photo_upload_server(self.id, crop_x2=width, crop_y2=height)

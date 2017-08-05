@@ -25,15 +25,11 @@ class Comment(VKBase):
         return comment
 
     @classmethod
-    def from_json_items(cls, comment_json_items):
-        return (cls.from_json(comment_json) for comment_json in comment_json_items)
-
-    @classmethod
     def get_comments(cls, group_or_user_id, wall_id):
         """
         https://vk.com/dev/wall.getComments
         """
-        return fetch_items("wall.getComments", cls.from_json_items, count=100, owner_id=group_or_user_id, post_id=wall_id, need_likes=1)
+        return fetch_items("wall.getComments", cls.from_json, count=100, owner_id=group_or_user_id, post_id=wall_id, need_likes=1)
 
     @classmethod
     def get_comments_count(cls, group_or_user_id, wall_id):

@@ -89,10 +89,6 @@ class User(VKBase):
 
         return user
 
-    @classmethod
-    def from_json_items(cls, user_json_items):
-        return (cls.from_json(user_json) for user_json in user_json_items)
-
     def get_about(self):
         response = fetch("users.get", user_ids=self.id, fields="about")[0]
         return response.get('about')
@@ -190,7 +186,7 @@ class User(VKBase):
         """
         https://vk.com/dev/users.getFollowers
         """
-        response = fetch_items("users.getFollowers", self.from_json_items, count=1000, user_id=self.id, fields=self.USER_FIELDS)
+        response = fetch_items("users.getFollowers", self.from_json, count=1000, user_id=self.id, fields=self.USER_FIELDS)
         return response
 
     def get_followers_count(self):
