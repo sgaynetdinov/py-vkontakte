@@ -53,6 +53,6 @@ class PollAnswer(VKBase):
         """
         https://vk.com/dev/polls.getVoters
         """
-        from .users import _get_users
+        from .users import User
 
-        return session.fetch_items("polls.getVoters", _get_users, count=100, owner_id=owner_id, poll_id=poll_id, answer_ids=answer_id)
+        return session.fetch_items("polls.getVoters", User._get_users, count=100, owner_id=owner_id, poll_id=poll_id, answer_ids=answer_id)

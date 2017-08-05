@@ -9,49 +9,6 @@ from .database import City, Country
 from .friends import Friends
 from .wall import Wall
 
-__all__ = ["_get_user", "_get_users"]
-
-
-def grouper(iterable, n):
-    """
-    grouper([0,1,2,3,4], 3) --> [(0,1,2), (3,4)]
-    https://docs.python.org/3/library/itertools.html#itertools-recipes
-    """
-    args = [iter(iterable)] * n
-    grouper_items = list(zip_longest(*args))
-
-    last_items = grouper_items[-1]
-    if last_items[-1] is None:
-        last_items_without_None = (i for i in last_items if i is not None)
-        without_last_items = grouper_items[:-1]
-        without_last_items.append(tuple(last_items_without_None))
-        return without_last_items
-
-    return grouper_items
-
-
-def _get_user(session, slug_or_user_id):
-    """
-    :param slug_or_user_id: str or int
-    :return: User
-    """
-    user_json_items = session.fetch('users.get', user_ids=slug_or_user_id, fields=User.USER_FIELDS)
-    return User.from_json(session, user_json_items[0])
-
-
-def _get_users(session, user_ids):
-    if not user_ids:
-        raise StopIteration
-
-    for user_id_items in grouper(user_ids, 300):
-        if not user_id_items:
-            raise StopIteration
-
-        user_id_items_str_inline = ",".join([str(i) for i in user_id_items])
-        user_json_items = session.fetch('users.get', user_ids=user_id_items_str_inline, fields=User.USER_FIELDS)
-        for user in [User.from_json(session, user_json) for user_json in user_json_items]:
-            yield user
-
 
 class User(VKBase):
     """
@@ -277,6 +234,47 @@ class User(VKBase):
     def get_groups(self, filter=None):
         from .groups import Group
         return Group._get_user_groups(self._session, self.id, filter=filter)
+
+    @staticmethod
+    def _get_user(session, slug_or_user_id):
+        """
+        :param slug_or_user_id: str or int
+        :return: User
+        """
+        user_json_items = session.fetch('users.get', user_ids=slug_or_user_id, fields=User.USER_FIELDS)
+        return User.from_json(session, user_json_items[0])
+
+    @staticmethod
+    def _get_users(session, user_ids):
+        if not user_ids:
+            raise StopIteration
+
+        for user_id_items in grouper(user_ids, 300):
+            if not user_id_items:
+                raise StopIteration
+
+            user_id_items_str_inline = ",".join([str(i) for i in user_id_items])
+            user_json_items = session.fetch('users.get', user_ids=user_id_items_str_inline, fields=User.USER_FIELDS)
+            for user in [User.from_json(session, user_json) for user_json in user_json_items]:
+                yield user
+
+
+def grouper(iterable, n):
+    """
+    grouper([0,1,2,3,4], 3) --> [(0,1,2), (3,4)]
+    https://docs.python.org/3/library/itertools.html#itertools-recipes
+    """
+    args = [iter(iterable)] * n
+    grouper_items = list(zip_longest(*args))
+
+    last_items = grouper_items[-1]
+    if last_items[-1] is None:
+        last_items_without_None = (i for i in last_items if i is not None)
+        without_last_items = grouper_items[:-1]
+        without_last_items.append(tuple(last_items_without_None))
+        return without_last_items
+
+    return grouper_items
 
 
 class UserCareer(VKBase):
