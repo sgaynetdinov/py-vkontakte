@@ -1,5 +1,5 @@
 # coding=utf-8
-class VKObject(object):
+class VKBase(object):
 
     def __repr__(self):
         if hasattr(self, 'screen_name'):

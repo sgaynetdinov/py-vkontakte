@@ -1,9 +1,9 @@
 # coding: utf-8
-from .base import VKObject
+from .base import VKBase
 from .fetch import fetch, fetch_post, fetch_items
 
 
-class Photo(VKObject):
+class Photo(VKBase):
 
     @classmethod
     def from_json(cls, photo_json):

@@ -1,10 +1,10 @@
 # coding=utf-8
 from .attachments import get_attachments
-from .base import VKObject
+from .base import VKBase
 from .fetch import fetch, fetch_items
 
 
-class Comment(VKObject):
+class Comment(VKBase):
     """
     https://vk.com/dev/objects/comment
     """

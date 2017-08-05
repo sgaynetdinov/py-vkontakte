@@ -2,12 +2,12 @@
 from datetime import datetime
 
 from .attachments import get_attachments
-from .base import VKObject
+from .base import VKBase
 from .comment import Comment
 from .fetch import fetch, fetch_items
 
 
-class Wall(VKObject):
+class Wall(VKBase):
     """
     https://vk.com/dev/objects/post
     """

@@ -1,9 +1,9 @@
 # coding=utf-8
-from .base import VKObject
+from .base import VKBase
 from .fetch import fetch
 
 
-class Country(VKObject):
+class Country(VKBase):
     """
     https://vk.com/dev/database.getCountriesById
     """
@@ -22,7 +22,7 @@ class Country(VKObject):
         return cls.from_json(country_json)
 
 
-class City(VKObject):
+class City(VKBase):
     """
     https://vk.com/dev/database.getCitiesById
     """

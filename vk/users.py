@@ -4,7 +4,7 @@ try:
 except ImportError:
     from itertools import zip_longest
 
-from .base import VKObject
+from .base import VKBase
 from .database import City, Country
 from .fetch import fetch, fetch_items
 from .friends import Friends
@@ -54,7 +54,7 @@ def get_users(user_ids):
             yield user
 
 
-class User(VKObject):
+class User(VKBase):
     """
     https://vk.com/dev/objects/user
     """
@@ -283,7 +283,7 @@ class User(VKObject):
         return Group.get_user_groups(self.id, filter=filter)
 
 
-class UserCareer(VKObject):
+class UserCareer(VKBase):
     __slots__ = ('group', 'company', 'country', 'city', 'start', 'end', 'position')
 
     @classmethod
@@ -305,7 +305,7 @@ class UserCareer(VKObject):
             return get_group(group_id)
 
 
-class UserMilitary(VKObject):
+class UserMilitary(VKBase):
     __slots__ = ('unit', 'unit_id', 'country_id', 'start', 'finish')
 
     @classmethod
@@ -319,7 +319,7 @@ class UserMilitary(VKObject):
         return military
 
 
-class UserOccupation(VKObject):
+class UserOccupation(VKBase):
     __slots__ = ('type', 'id', 'name')
 
     @classmethod
@@ -331,7 +331,7 @@ class UserOccupation(VKObject):
         return occupation
 
 
-class UserSchool(VKObject):
+class UserSchool(VKBase):
     __slots__ = ('id', 'country', 'city', 'name', 'year_start', 'year_finish', 'year_graduated', 'class_letter', 'speciality', 'type', 'type_str')
 
     @classmethod
@@ -351,7 +351,7 @@ class UserSchool(VKObject):
         return school
 
 
-class UserUniversity(VKObject):
+class UserUniversity(VKBase):
     __slots__ = ('id', 'country', 'city', 'name', 'faculty', 'faculty_name', 'chair', 'chair_name', 'graduation', 'education_form', 'education_status')
 
     @classmethod

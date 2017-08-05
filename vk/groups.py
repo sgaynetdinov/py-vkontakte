@@ -1,5 +1,5 @@
 # coding=utf-8
-from .base import VKObject
+from .base import VKBase
 from .fetch import fetch, fetch_items, fetch_post
 from .users import User
 from .wall import Wall
@@ -8,7 +8,7 @@ from .photos import Photo
 __all__ = ("get_groups", "get_group")
 
 
-class Group(VKObject):
+class Group(VKBase):
     """
     https://vk.com/dev/objects/groups
     """

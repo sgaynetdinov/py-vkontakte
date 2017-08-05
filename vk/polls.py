@@ -1,9 +1,9 @@
 # coding=utf-8
-from .base import VKObject
+from .base import VKBase
 from .fetch import fetch_items
 
 
-class Poll(VKObject):
+class Poll(VKBase):
     """
     https://vk.com/dev/objects/poll
     """
@@ -23,7 +23,7 @@ class Poll(VKObject):
         return poll
 
 
-class PollAnswer(VKObject):
+class PollAnswer(VKBase):
     __slots__ = ('id', 'text', 'count_votes', 'rate', 'users')
 
     @classmethod

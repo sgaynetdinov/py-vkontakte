@@ -1,11 +1,11 @@
 # coding=utf-8
 import random
 
-from .base import VKObject
+from .base import VKBase
 from .fetch import fetch
 
 
-class Message(VKObject):
+class Message(VKBase):
     """
     https://vk.com/dev/objects/message
     """

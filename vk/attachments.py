@@ -1,5 +1,5 @@
 # coding=utf-8
-from .base import VKObject
+from .base import VKBase
 from .polls import Poll
 
 
@@ -21,7 +21,7 @@ def get_attachments(attachments_json):
     return attachment_items
 
 
-class AttachmentPhoto(VKObject):
+class AttachmentPhoto(VKBase):
     """
     https://vk.com/dev/objects/photo
     """
