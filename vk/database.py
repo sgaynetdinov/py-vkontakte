@@ -19,7 +19,7 @@ class Country(VKBase):
     @staticmethod
     def _get_country_by_id(session, country_id):
         country_json = session.fetch('database.getCountriesById', country_ids=country_id)[0]
-        return Country.from_json(country_json)
+        return Country.from_json(session, country_json)
 
 
 class City(VKBase):
@@ -39,4 +39,4 @@ class City(VKBase):
     @staticmethod
     def _get_city_by_id(session, city_id):
         city_json = session.fetch('database.getCitiesById', city_ids=city_id)[0]
-        return City.from_json(city_json)
+        return City.from_json(session, city_json)
