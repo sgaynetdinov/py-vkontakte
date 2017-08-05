@@ -8,8 +8,6 @@ import requests
 
 from .error import VKError
 
-__all__ = ["get_url_implicit_flow_user", "create_access_token_from_code", "get_url_authcode_flow_user"]
-
 
 def get_url_implicit_flow_user(client_id, scope,
                                redirect_uri='https://oauth.vk.com/blank.html', display='page',
