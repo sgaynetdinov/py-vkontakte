@@ -3,13 +3,13 @@ class VKBase(object):
 
     def __repr__(self):
         if hasattr(self, 'screen_name'):
-            vkobject_title = self.screen_name
+            object_title = self.screen_name
         elif hasattr(self, 'id'):
-            vkobject_title = "id{0}".format(self.id)
+            object_title = "id{0}".format(self.id)
         else:
-            vkobject_title = ''
+            object_title = ''
 
-        return u"<{0}: {1}>".format(self.__class__.__name__, vkobject_title)
+        return u"<{0}: {1}>".format(self.__class__.__name__, object_title)
 
     def __hash__(self):
         class_name = type(self).__name__
