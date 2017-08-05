@@ -72,18 +72,17 @@ class User(VKBase):
         user.last_name = json_obj.get('last_name')
         user.maiden_name = json_obj.get('maiden_name')
         user.nickname = json_obj.get('nickname')
+        user.bdate = json_obj.get('bdate')
+        user.sex = cls._sex(json_obj.get('sex'))
 
         user.is_deactivated = bool(json_obj.get('deactivated'))
         user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
         user.is_banned = bool(json_obj.get('deactivated') == 'banned')
         user.is_hidden = bool(json_obj.get('hidden'))
+        user.is_verified = bool(json_obj.get('verified'))
 
         user.domain = json_obj.get('domain')
         user.screen_name = user.domain
-
-        user.bdate = json_obj.get('bdate')
-        user.sex = cls._sex(json_obj.get('sex'))
-        user.is_verified = bool(json_obj.get('verified'))
         user.last_seen = cls._last_seen(json_obj.get('last_seen'))
         user.platform = cls._platform(json_obj.get('last_seen'))
 
