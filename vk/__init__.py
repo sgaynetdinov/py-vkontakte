@@ -1,7 +1,4 @@
 # coding=utf-8
+from .api import Api
 from .auth import *
 from .error import VKError
-from .groups import *
-from .likes import *
-from .messages import *
-from .users import *

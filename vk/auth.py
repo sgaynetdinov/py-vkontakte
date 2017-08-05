@@ -8,18 +8,7 @@ import requests
 
 from .error import VKError
 
-__all__ = ["set_access_token", "get_access_token", "get_url_implicit_flow_user", "create_access_token_from_code", "get_url_authcode_flow_user"]
-
-_ACCESS_TOKEN = None
-
-
-def set_access_token(access_token):
-    global _ACCESS_TOKEN
-    _ACCESS_TOKEN = access_token
-
-
-def get_access_token():
-    return _ACCESS_TOKEN
+__all__ = ["get_url_implicit_flow_user", "create_access_token_from_code", "get_url_authcode_flow_user"]
 
 
 def get_url_implicit_flow_user(client_id, scope,

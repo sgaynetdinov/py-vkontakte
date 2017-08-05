@@ -1,6 +1,5 @@
 # coding=utf-8
 from .base import VKBase
-from .fetch import fetch, fetch_items, fetch_post
 from .users import User
 from .wall import Wall
 from .photos import Photo
@@ -16,10 +15,10 @@ class Group(VKBase):
                     "photo_50", "photo_100", "photo_200", "status", "verified", "site")
 
     __slots__ = ("id", "name", "screen_name", "is_closed", "is_deactivated", "type", "has_photo",
-                 "photo_50", "photo_100", "photo_200", "status", "is_verified", "site")
+                 "photo_50", "photo_100", "photo_200", "status", "is_verified", "site", "_session")
 
     @classmethod
-    def from_json(cls, group_json):
+    def from_json(cls, session, group_json):
         group = cls()
         group.id = group_json.get("id")
         group.name = group_json.get("name")
@@ -34,10 +33,11 @@ class Group(VKBase):
         group.status = group_json.get("status")
         group.is_verified = bool(group_json.get("verified"))
         group.site = group_json.get("site")
+        group._session = session
         return group
 
     def get_description(self):
-        response = fetch("groups.getById", group_ids=self.id, fields="description")
+        response = self._session.fetch("groups.getById", group_ids=self.id, fields="description")
         return response[0]['description']
 
     def get_members(self, sort='id_asc'):
@@ -45,56 +45,56 @@ class Group(VKBase):
         :param: sort {id_asc, id_desc, time_asc, time_desc} string
         Docs: https://vk.com/dev/groups.getMembers
         """
-        return fetch_items("groups.getMembers", User.from_json, 100, group_id=self.id, sort=sort, fields=User.__slots__ + User.USER_FIELDS)
+        return self._session.fetch_items("groups.getMembers", User.from_json, 100, group_id=self.id, sort=sort, fields=User.__slots__ + User.USER_FIELDS)
 
     def get_members_count(self):
-        response = fetch("groups.getById", group_ids=self.id, fields="members_count")
+        response = self._session.fetch("groups.getById", group_ids=self.id, fields="members_count")
         return response[0]['members_count']
 
     def get_walls(self):
         gid = self.id * (-1)
-        return Wall.get_walls(owner_id=gid)
+        return Wall._get_walls(self._session, owner_id=gid)
 
     def get_wall(self, wall_id):
         gid = self.id * (-1)
-        return Wall.get_wall(owner_id=gid, wall_id=wall_id)
+        return Wall._get_wall(self._session, owner_id=gid, wall_id=wall_id)
 
     def get_walls_count(self):
         gid = self.id * (-1)
-        return Wall.get_walls_count(owner_id=gid)
+        return Wall._get_walls_count(self._session, owner_id=gid)
 
-    @classmethod
-    def get_user_groups(cls, user_id, filter):
+    def set_cover_photo(self, file_like, width, height):
+        upload_url = Photo._get_owner_cover_photo_upload_server(self._session, self.id, crop_x2=width, crop_y2=height)
+        files = {'photo': file_like}
+        response = self._session.fetch_post(upload_url, files=files)
+        response_json = response.json()
+
+        Photo._save_owner_cover_photo(self._session, response_json['hash'], response_json['photo'])
+
+    def wall_post(self, message=None, attachments=None):
+        return Wall._wall_post(self._session, owner_id=self.id * -1, message=message, attachments=attachments)
+
+    @staticmethod
+    def _get_user_groups(session, user_id, filter):
         """
         https://vk.com/dev/groups.get
 
         :param filter: {admin, editor, moder, groups, publics, events}
         :yield: Groups
         """
-        return fetch_items('groups.get', cls.from_json, count=1000, user_id=user_id, filter=filter, extended=1, fields=",".join(cls.GROUP_FIELDS))
+        return session.fetch_items('groups.get', Group.from_json, count=1000, user_id=user_id, filter=filter, extended=1, fields=",".join(Group.GROUP_FIELDS))
 
-    def set_cover_photo(self, file_like, width, height):
-        upload_url = Photo.get_owner_cover_photo_upload_server(self.id, crop_x2=width, crop_y2=height)
-        files = {'photo': file_like}
-        response = fetch_post(upload_url, files=files)
-        response_json = response.json()
+    @staticmethod
+    def _get_groups(session, group_ids):
+        group_id_items = ",".join((str(group_id) for group_id in group_ids))
 
-        Photo.save_owner_cover_photo(response_json['hash'], response_json['photo'])
+        fields = ",".join(Group.GROUP_FIELDS)
 
-    def wall_post(self, message=None, attachments=None):
-        return Wall.wall_post(owner_id=self.id * -1, message=message, attachments=attachments)
+        response = session.fetch("groups.getById", group_ids=group_id_items, fields=fields)
+        return (Group.from_json(session, group_json) for group_json in response)
 
-
-def get_groups(group_ids):
-    group_id_items = ",".join((str(group_id) for group_id in group_ids))
-
-    fields = ",".join(Group.GROUP_FIELDS)
-
-    response = fetch("groups.getById", group_ids=group_id_items, fields=fields)
-    return (Group.from_json(group_json) for group_json in response)
-
-
-def get_group(group_id):
-    fields = ",".join(Group.GROUP_FIELDS)
-    response = fetch("groups.getById", group_ids=group_id, fields=fields)
-    return Group.from_json(response[0])
+    @staticmethod
+    def _get_group(session, group_id):
+        fields = ",".join(Group.GROUP_FIELDS)
+        response = session.fetch("groups.getById", group_ids=group_id, fields=fields)
+        return Group.from_json(session, response[0])

@@ -2,7 +2,6 @@
 import random
 
 from .base import VKBase
-from .fetch import fetch
 
 
 class Message(VKBase):
@@ -10,10 +9,10 @@ class Message(VKBase):
     https://vk.com/dev/objects/message
     """
     __slots__ = ('id', 'user_id', 'from_id', 'date', 'read_state', 'out', 'title', 'body', 'geo', 'attachments', 'fwd_messages', 'emoji', 'important',
-                 'deleted', 'random_id')
+                 'deleted', 'random_id', '_session')
 
     @classmethod
-    def from_json(cls, message_json):
+    def from_json(cls, session, message_json):
         message = cls()
         message.id = message_json.get('id')
         message.user_id = message_json.get('user_id')
@@ -30,21 +29,22 @@ class Message(VKBase):
         message.important = message_json.get('important')
         message.deleted = message_json.get('deleted')
         message.random_id = message_json.get('random_id')
+        message._session = session
         return message
 
-    @classmethod
-    def get_messages(cls, unread=True):
+    @staticmethod
+    def get_messages(session, unread=True):
         """
         https://vk.com/dev/messages.getDialogs
         """
-        response = fetch("messages.getDialogs", unread=unread)
+        response = session.fetch("messages.getDialogs", unread=unread)
         dialog_json_items = response["items"]
-        return (cls.from_json(dialog_json["message"]) for dialog_json in dialog_json_items)
+        return (Message.from_json(session, dialog_json["message"]) for dialog_json in dialog_json_items)
 
-    @classmethod
-    def send_message(cls, user_id, message):
+    @staticmethod
+    def send_message(session, user_id, message):
         """
         https://vk.com/dev/messages.send
         """
-        message_id = fetch("messages.send", user_id=user_id, message=message, random_id=random.randint(1, 10**6))
+        message_id = session.fetch("messages.send", user_id=user_id, message=message, random_id=random.randint(1, 10**6))
         return message_id
