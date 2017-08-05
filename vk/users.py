@@ -7,6 +7,7 @@ except ImportError:
 from .base import VKObject
 from .database import City, Country
 from .fetch import fetch, fetch_items
+from .friends import Friends
 from .wall import Wall
 
 __all__ = ["get_user", "get_users"]
@@ -197,7 +198,8 @@ class User(VKObject):
         return response.get('followers_count')
 
     def get_friends(self):
-        return Friends.get_friends(user_id=self.id)
+        raw_user_items = Friends.get_friends(user_id=self.id)
+        return get_users(raw_user_items)
 
     def get_friends_count(self):
         return Friends.get_friends_count(user_id=self.id)
@@ -376,6 +378,3 @@ class UserUniversity(VKObject):
         university.education_form = university_json.get("education_form")
         university.education_status = university_json.get("education_status")
         return university
-
-
-from .friends import Friends
