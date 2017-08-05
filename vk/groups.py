@@ -88,15 +88,6 @@ class Group(VKObject):
     def wall_post(self, message=None, attachments=None):
         return Wall.wall_post(owner_id=self.id * -1, message=message, attachments=attachments)
 
-    def __hash__(self):
-        class_name = type(self).__name__
-        return hash(class_name) ^ hash(self.id)
-
-    def __eq__(self, other):
-        if isinstance(other, type(self)):
-            return hash(self) == hash(other)
-        raise NotImplementedError
-
 
 def get_groups(group_ids):
     group_id_items = ",".join((str(group_id) for group_id in group_ids))

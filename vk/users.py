@@ -282,15 +282,6 @@ class User(VKObject):
         from .groups import Group
         return Group.get_user_groups(self.id, filter=filter)
 
-    def __hash__(self):
-        class_name = type(self).__name__
-        return hash(class_name) ^ hash(self.id)
-
-    def __eq__(self, other):
-        if isinstance(other, type(self)):
-            return hash(self) == hash(other)
-        raise NotImplementedError
-
 
 class UserCareer(VKObject):
     __slots__ = ('group', 'company', 'country', 'city', 'start', 'end', 'position')
