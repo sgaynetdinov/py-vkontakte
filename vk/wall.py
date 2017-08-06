@@ -44,8 +44,8 @@ class Wall(VKBase):
         """
         https://vk.com/dev/likes.getList
         """
-        from .users import get_users
-        return self._session.fetch_items('likes.getList', get_users, count=100, type='post', owner_id=self.from_id, item_id=self.id)
+        from .users import User
+        return self._session.fetch_items('likes.getList', User._get_users, count=100, type='post', owner_id=self.from_id, item_id=self.id)
 
     def get_likes_count(self):
         """

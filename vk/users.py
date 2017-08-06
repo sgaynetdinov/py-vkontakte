@@ -152,7 +152,7 @@ class User(VKBase):
 
     def get_friends(self):
         raw_user_items = Friends._get_friends(self._session, user_id=self.id)
-        return _get_users(self._session, raw_user_items)
+        return User._get_users(self._session, raw_user_items)
 
     def get_friends_count(self):
         return Friends._get_friends_count(self._session, user_id=self.id)
