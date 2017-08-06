@@ -3,6 +3,8 @@ from .base import VKBase
 
 
 class Photo(VKBase):
+    __slots__ = ("id", "album_id", "owner_id", "user_id", "text", "type", "date",
+                 "photo_75", "photo_130", "photo_604", "photo_807", "photo_1280", "photo_2560", "_session")
 
     @classmethod
     def from_json(cls, session, photo_json):
@@ -15,6 +17,7 @@ class Photo(VKBase):
         photo.owner_id = photo_json.get('owner_id')
         photo.user_id = photo_json.get('user_id')
         photo.text = photo_json.get('text')
+        photo.type = "photo"
         photo.date = photo_json.get('date')
         photo.photo_75 = photo_json.get('photo_75')
         photo.photo_130 = photo_json.get('photo_130')
@@ -24,6 +27,9 @@ class Photo(VKBase):
         photo.photo_2560 = photo_json.get('photo_2560')
         photo._session = session
         return photo
+
+    def get_url(self):
+        return 'https://vk.com/{type}{owner_id}_{id}'.format(type=self.type, owner_id=self.owner_id, id=self.id)
 
     @staticmethod
     def _get_photos(session, user_or_group_id):
