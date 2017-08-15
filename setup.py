@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='py-vkontakte',
-    version='5.53.3',
+    version='5.53.4',
     packages=['vk'],
     url='https://github.com/sgaynetdinov/py-vkontakte',
     license='MIT License',
