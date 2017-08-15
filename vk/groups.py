@@ -3,6 +3,7 @@ from .base import VKBase
 from .users import User
 from .wall import Wall
 from .photos import Photo
+from .messages import Message
 
 __all__ = ("get_groups", "get_group")
 
@@ -76,6 +77,10 @@ class Group(VKBase):
 
     def wall_post(self, message=None, attachments=None):
         return Wall._wall_post(self._session, owner_id=self.id * -1, message=message, attachments=attachments)
+
+    def send_messages(self, user_id, message=None, image_files=None):
+        message_id = Message._send_message(self._session, user_id, message, image_files)
+        return message_id
 
     @staticmethod
     def _get_user_groups(session, user_id, filter):

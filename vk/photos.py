@@ -88,3 +88,33 @@ class Photo(VKBase):
             attachments.append("photo{0}_{1}".format(owner_id, photo_id))
 
         return ",".join(attachments)
+
+    @staticmethod
+    def _get_messages_upload_server(session, peer_id):
+        """
+        https://vk.com/dev/photos.getMessagesUploadServer
+        """
+        response = session.fetch("photos.getMessagesUploadServer", peer_id=peer_id)
+        return response['upload_url']
+
+    @staticmethod
+    def _get_save_messages_photo(session, photo, server, hash):
+        """
+        https://vk.com/dev/photos.saveMessagesPhoto
+        """
+        response = session.fetch("photos.saveMessagesPhoto", photo=photo, server=server, hash=hash)[0]
+        return response['id'], response['owner_id']
+
+    @staticmethod
+    def _upload_messages_photos_for_group(session, user_id, image_files):
+        upload_url = Photo._get_messages_upload_server(session, user_id)
+
+        attachments = []
+        for image_fd in image_files:
+            response = session.fetch_post(upload_url, files={'photo': image_fd})
+            response_json = response.json()
+            photo, server, _hash = response_json['photo'], response_json['server'], response_json['hash']
+            photo_id, owner_id = Photo._get_save_messages_photo(session, photo, server, _hash)
+            attachments.append("photo{0}_{1}".format(owner_id, photo_id))
+
+        return ",".join(attachments)

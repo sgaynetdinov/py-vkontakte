@@ -2,6 +2,7 @@
 import random
 
 from .base import VKBase
+from .photos import Photo
 
 
 class Message(VKBase):
@@ -42,9 +43,15 @@ class Message(VKBase):
         return (Message.from_json(session, dialog_json["message"]) for dialog_json in dialog_json_items)
 
     @staticmethod
-    def _send_message(session, user_id, message):
+    def _send_message(session, user_id, message=None, image_files=None):
         """
         https://vk.com/dev/messages.send
         """
-        message_id = session.fetch("messages.send", user_id=user_id, message=message, random_id=random.randint(1, 10**6))
+        assert any([message, image_files])
+
+        attachment_items = None
+        if image_files:
+            attachment_items = Photo._upload_messages_photos_for_group(session, user_id, image_files)
+
+        message_id = session.fetch("messages.send", user_id=user_id, message=message, attachment=attachment_items, random_id=random.randint(1, 10**6))
         return message_id
