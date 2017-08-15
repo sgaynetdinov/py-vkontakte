@@ -33,7 +33,7 @@ class Message(VKBase):
         return message
 
     @staticmethod
-    def get_messages(session, unread=True):
+    def _get_messages(session, unread=True):
         """
         https://vk.com/dev/messages.getDialogs
         """
@@ -42,7 +42,7 @@ class Message(VKBase):
         return (Message.from_json(session, dialog_json["message"]) for dialog_json in dialog_json_items)
 
     @staticmethod
-    def send_message(session, user_id, message):
+    def _send_message(session, user_id, message):
         """
         https://vk.com/dev/messages.send
         """
