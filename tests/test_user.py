@@ -16,3 +16,21 @@ class UserTestCase(unittest.TestCase):
     def test_return_None_when_unixtime_is_None(self):
         last_seen_in_datetime = User._last_seen(self.unixtime_is_none)
         self.assertIsNone(last_seen_in_datetime)
+
+    def test_transform_sex(self):
+        sex_items = {
+            1: 'female',
+            2: 'male'
+        }
+
+        sex = User._sex(1)
+        self.assertEqual(sex, sex_items[1])
+
+        sex = User._sex(2)
+        self.assertEqual(sex, sex_items[2])
+
+        sex = User._sex(3)
+        self.assertIsNone(sex)
+
+        sex = User._sex(None)
+        self.assertIsNone(sex)
