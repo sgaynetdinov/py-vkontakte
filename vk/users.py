@@ -3,6 +3,7 @@ try:
     from itertools import izip_longest as zip_longest
 except ImportError:
     from itertools import zip_longest
+import datetime
 
 from .base import VKBase
 from .database import City, Country
@@ -115,7 +116,8 @@ class User(VKBase):
     @classmethod
     def _last_seen(cls, last_seen):
         if last_seen:
-            return last_seen.get('time')
+            time = last_seen.get('time')
+            return datetime.datetime.utcfromtimestamp(time)
         return None
 
     @classmethod
