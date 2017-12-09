@@ -106,3 +106,9 @@ class Group(VKBase):
         fields = ",".join(Group.GROUP_FIELDS)
         response = session.fetch("groups.getById", group_ids=group_id, fields=fields)
         return Group.from_json(session, response[0])
+
+    def __contains__(self, user_instance):
+        if not isinstance(user_instance, User):
+            raise TypeError("object {0} is not `User`".format(user_instance))
+
+        return bool(self._session.fetch("groups.isMember", group_id=self.id, user_id=user_instance.id))

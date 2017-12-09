@@ -73,6 +73,10 @@ pip install py-vkontakte
 >>> groups_items = api.get_groups([1, 'devclub'])  # return generator
 >>> [group for group in groups_items]
 [<Group apiclub>, <Group devclub>]
+
+>>> user = api.get_user('durov')
+>>> group = api.get_group('telegram')
+>>> user in group  # checking a user is a member of a current group
 ```
 
 # Update PyPi
