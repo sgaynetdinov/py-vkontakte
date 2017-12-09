@@ -55,3 +55,10 @@ class Message(VKBase):
 
         message_id = session.fetch("messages.send", user_id=user_id, message=message, attachment=attachment_items, random_id=random.randint(1, 10**6))
         return message_id
+
+    @staticmethod
+    def set_typing(session, user_id):
+        """
+        https://vk.com/dev/messages.setActivity
+        """
+        session.fetch("messages.setActivity", user_id=user_id, type="typing")

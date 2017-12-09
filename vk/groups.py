@@ -82,6 +82,9 @@ class Group(VKBase):
         message_id = Message._send_message(self._session, user_id, message, image_files)
         return message_id
 
+    def messages_set_typing(self, user):
+        Message.set_typing(self._session, user_id=user.id)
+
     @staticmethod
     def _get_user_groups(session, user_id, filter):
         """
