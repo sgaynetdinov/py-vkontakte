@@ -2,10 +2,10 @@
 
 # Table of contents
 
-- [Install](install)
-- [Method](method)
-  - [User](user)
-  - [Group](group)
+- [Install](#install)
+- [Method](#method)
+  - [User](#user)
+  - [Group](#group)
 
 
 
