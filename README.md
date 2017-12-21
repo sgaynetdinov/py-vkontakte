@@ -1,5 +1,14 @@
 [![Build Status](https://travis-ci.org/sgaynetdinov/py-vkontakte.svg?branch=master)](https://travis-ci.org/sgaynetdinov/py-vkontakte) ![N|Solid](https://img.shields.io/pypi/l/py-vkontakte.svg) ![N|Solid](https://img.shields.io/pypi/wheel/py-vkontakte.svg) ![N|Solid](https://img.shields.io/pypi/pyversions/py-vkontakte.svg)
 
+# Table of contents
+
+- [Install](install)
+- [Method](method)
+  - [User](user)
+  - [Group](group)
+
+
+
 # Install
 
 ```sh
