@@ -85,6 +85,9 @@ class Group(VKBase):
     def messages_set_typing(self, user):
         Message.set_typing(self._session, user_id=user.id)
 
+    def get_dialog(self, unread=False, important=False, unanswered=False):
+        return Message.get_dialog(self._session, unread=unread, important=important, unanswered=unanswered)
+
     @staticmethod
     def _get_user_groups(session, user_id, filter):
         """

@@ -34,15 +34,6 @@ class Message(VKBase):
         return message
 
     @staticmethod
-    def _get_messages(session, unread=True):
-        """
-        https://vk.com/dev/messages.getDialogs
-        """
-        response = session.fetch("messages.getDialogs", unread=unread)
-        dialog_json_items = response["items"]
-        return (Message.from_json(session, dialog_json["message"]) for dialog_json in dialog_json_items)
-
-    @staticmethod
     def _send_message(session, user_id, message=None, image_files=None):
         """
         https://vk.com/dev/messages.send
@@ -62,3 +53,12 @@ class Message(VKBase):
         https://vk.com/dev/messages.setActivity
         """
         session.fetch("messages.setActivity", user_id=user_id, type="typing")
+
+    @staticmethod
+    def get_dialog(session, unread=False, important=False, unanswered=False):
+        """
+        https://vk.com/dev/messages.getDialogs
+        """
+        response = session.fetch("messages.getDialogs", unread=unread, important=important, unanswered=unanswered)
+        dialog_json_items = response["items"]
+        return (Message.from_json(session, dialog_json["message"]) for dialog_json in dialog_json_items)
