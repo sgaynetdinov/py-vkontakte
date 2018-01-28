@@ -5,8 +5,6 @@ from .wall import Wall
 from .photos import Photo
 from .messages import Message
 
-__all__ = ("get_groups", "get_group")
-
 
 class Group(VKBase):
     """
