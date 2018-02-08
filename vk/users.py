@@ -145,7 +145,7 @@ class User(VKBase):
         """
         https://vk.com/dev/users.getFollowers
         """
-        response = self._session.fetch_items("users.getFollowers", self.from_json,self._session,  count=1000, user_id=self.id, fields=self.USER_FIELDS)
+        response = self._session.fetch_items("users.getFollowers", self.from_json, self._session,  count=1000, user_id=self.id, fields=self.USER_FIELDS)
         return response
 
     def get_followers_count(self):
