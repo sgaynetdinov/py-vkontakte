@@ -83,7 +83,7 @@ class Wall(VKBase):
         response = session.fetch("wall.getById", posts=posts)
         if not response:
             return None
-        return Wall.from_json(response[0])
+        return Wall.from_json(session, response[0])
 
     @staticmethod
     def _get_walls(session, owner_id):
