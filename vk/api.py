@@ -20,8 +20,5 @@ class Api(object):
     def get_groups(self, group_ids):
         return Group._get_groups(self.session, group_ids)
 
-    def __str__(self):
-        return "<Api token({0}...{1})>".format(self.session.access_token[:4], self.session.access_token[-4:])
-
     def __repr__(self):
-        return self.__str__()
+        return "<Api token({0}...{1})>".format(self.session.access_token[:4], self.session.access_token[-4:])
