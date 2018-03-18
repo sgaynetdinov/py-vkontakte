@@ -112,6 +112,9 @@ class Group(VKBase):
         return Group.from_json(session, response[0])
 
     def __contains__(self, user_instance):
+        """
+        https://vk.com/dev/groups.isMember
+        """
         if not isinstance(user_instance, User):
             raise TypeError("object {0} is not `User`".format(user_instance))
 
