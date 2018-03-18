@@ -80,8 +80,8 @@ class Group(VKBase):
         message_id = Message._send_message(self._session, user_id, message, image_files)
         return message_id
 
-    def messages_set_typing(self, user):
-        Message.set_typing(self._session, user_id=user.id)
+    def messages_set_typing(self, user_id):
+        Message.set_typing(self._session, user_id=user_id)
 
     def get_dialog(self, unread=False, important=False, unanswered=False):
         return Message.get_dialog(self._session, unread=unread, important=important, unanswered=unanswered)
