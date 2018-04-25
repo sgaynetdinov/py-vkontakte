@@ -1,8 +1,4 @@
 # coding=utf-8
-try:
-    from itertools import izip_longest as zip_longest
-except ImportError:
-    from itertools import zip_longest
 import datetime
 
 from .base import VKBase
@@ -264,19 +260,9 @@ class User(VKBase):
 def grouper(iterable, n):
     """
     grouper([0,1,2,3,4], 3) --> [(0,1,2), (3,4)]
-    https://docs.python.org/3/library/itertools.html#itertools-recipes
     """
-    args = [iter(iterable)] * n
-    grouper_items = list(zip_longest(*args))
-
-    last_items = grouper_items[-1]
-    if last_items[-1] is None:
-        last_items_without_None = (i for i in last_items if i is not None)
-        without_last_items = grouper_items[:-1]
-        without_last_items.append(tuple(last_items_without_None))
-        return without_last_items
-
-    return grouper_items
+    for i in range(0, len(iterable), n):
+        yield iterable[i:i+n]
 
 
 class UserCareer(VKBase):
