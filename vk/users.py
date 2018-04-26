@@ -12,10 +12,10 @@ class User(VKBase):
     https://vk.com/dev/objects/user
     """
     USER_FIELDS = ('bdate', 'domain', 'sex',
-                   'maiden_name', 'nickname', 'verified', 'last_seen', 'platform')
+                   'maiden_name', 'nickname', 'verified', 'last_seen', 'platform', 'status')
 
     __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate', 'domain', 'screen_name', 'sex',
-                 'maiden_name', 'nickname', 'is_verified', '_session')
+                 'maiden_name', 'nickname', 'is_verified', 'status', '_session')
 
     @classmethod
     def from_json(cls, session, json_obj):
@@ -27,6 +27,7 @@ class User(VKBase):
         user.nickname = json_obj.get('nickname')
         user.bdate = json_obj.get('bdate')
         user.sex = cls._sex(json_obj.get('sex'))
+        user.status = cls._status(json_obj)
 
         user.is_deactivated = bool(json_obj.get('deactivated'))
         user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
@@ -96,6 +97,10 @@ class User(VKBase):
         response = self._session.fetch("users.get", user_ids=self.id, fields="country")[0]
         if response.get('country'):
             return Country.from_json(self._session, response.get('country'))
+
+    @classmethod
+    def _status(cls, user_json):
+        return user_json.get('status', '')
 
     @classmethod
     def _sex(cls, sex):
@@ -205,10 +210,6 @@ class User(VKBase):
     def get_site(self):
         response = self._session.fetch("users.get", user_ids=self.id, fields="site")[0]
         return response.get('site')
-
-    def get_status(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="status")[0]
-        return response.get('status')
 
     def get_tv(self):
         response = self._session.fetch("users.get", user_ids=self.id, fields="tv")[0]
