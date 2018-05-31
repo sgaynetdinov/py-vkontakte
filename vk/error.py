@@ -1,6 +1,8 @@
 # coding=utf-8
 class VKError(Exception):
-    pass
+    def __init__(self, message, code):
+        super(VKError, self).__init__(message)
+        self.code = code
 
 
 class VKParseJsonError(Exception):
