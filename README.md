@@ -15,11 +15,16 @@
 pip install py-vkontakte
 ```
 
-# User
+# First start
 
 ```python
 >>> import vk
->>> api = vk.Api()
+>>> api = vk.Api('YOUR_TOKEN')
+```
+
+# User
+
+```python
 >>> api.get_user('durov')  # return single User object
 <User: durov>
 >>> user_items = api.get_users([1, 's.gaynetdinov'])  # yield one or many User objects
@@ -30,8 +35,6 @@ pip install py-vkontakte
 # Group
 
 ```python
->>> import vk
->>> api = vk.Api()
 >>> groups_items = api.get_groups([1, 'devclub'])  # return generator
 >>> [group for group in groups_items]
 [<Group: apiclub>, <Group: devclub>]
