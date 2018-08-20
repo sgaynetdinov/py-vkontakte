@@ -25,9 +25,14 @@ pip install py-vkontakte
 # User
 
 ```python
->>> api.get_user('durov')  # return single User object
+# return single User object
+>>> api.get_user('durov')
 <User: durov>
->>> user_items = api.get_users([1, 's.gaynetdinov'])  # yield one or many User objects
+```
+
+```python
+# yield one or many User objects
+>>> user_items = api.get_users([1, 's.gaynetdinov'])
 >>> [user.id for user in user_items]
 [1, 23768217]
 ```
@@ -38,10 +43,13 @@ pip install py-vkontakte
 >>> groups_items = api.get_groups([1, 'devclub'])  # return generator
 >>> [group for group in groups_items]
 [<Group: apiclub>, <Group: devclub>]
+```
 
+```python
+# checking a user is a member of a current group
 >>> user = api.get_user('durov')
 >>> group = api.get_group('telegram')
->>> user in group  # checking a user is a member of a current group
+>>> user in group
 ```
 
 # Update PyPi
