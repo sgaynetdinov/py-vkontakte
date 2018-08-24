@@ -47,7 +47,7 @@ class Group(VKBase):
         return self._session.fetch_items("groups.getMembers", User.from_json, 1000, group_id=self.id, sort=sort, fields=User.__slots__ + User.USER_FIELDS)
 
     def get_members_only_id(self):
-        return self._session.fetch_items("groups.getMembers", lambda _, y: y, 1000, group_id=self.id)
+        return self._session.fetch_items("groups.getMembers", lambda _, user_id: user_id, 1000, group_id=self.id)
 
     def get_members_count(self):
         response = self._session.fetch("groups.getById", group_ids=self.id, fields="members_count")
