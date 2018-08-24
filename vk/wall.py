@@ -19,7 +19,7 @@ class Wall(VKBase):
         wall = cls()
         wall.attachments = get_attachments(session, wall_json.get("attachments"))
         wall.date = datetime.utcfromtimestamp(wall_json.get("date"))
-        wall.friends_only = wall_json.get("friends_only")
+        wall.friends_only = bool(wall_json.get("friends_only"))
         wall.from_id = wall_json.get("from_id")
         wall.id = wall_json.get("id")
         wall.is_ads = bool(wall_json.get("marked_as_ads"))
