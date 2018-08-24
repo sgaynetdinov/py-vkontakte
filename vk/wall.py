@@ -31,7 +31,7 @@ class Wall(VKBase):
         wall.signer_id = wall_json.get("signer_id")
         wall.text = wall_json.get("text")
         wall.unixtime = wall_json.get("date")
-        wall.views = wall_json.get("views").get('count')
+        wall.views = cls._views(wall_json.get("views"))
         wall._session = session
         return wall
 
@@ -85,6 +85,11 @@ class Wall(VKBase):
         if not response:
             return None
         return Wall.from_json(session, response[0])
+
+    @classmethod
+    def _views(cls, views):
+        if views:
+            return views['count']
 
     @staticmethod
     def _get_walls(session, owner_id):
