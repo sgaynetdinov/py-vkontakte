@@ -12,7 +12,7 @@ class Wall(VKBase):
     """
 
     __slots__ = ('attachments', 'date', 'friends_only', 'from_id', 'id', 'is_ads', 'is_pinned', 'owner_id',
-                 'post_type', 'reply_owner_id', 'reply_post_id', 'signer_id', 'text', 'unixtime', '_session')
+                 'post_type', 'reply_owner_id', 'reply_post_id', 'signer_id', 'text', 'unixtime', 'views', '_session')
 
     @classmethod
     def from_json(cls, session, wall_json):
@@ -31,6 +31,7 @@ class Wall(VKBase):
         wall.signer_id = wall_json.get("signer_id")
         wall.text = wall_json.get("text")
         wall.unixtime = wall_json.get("date")
+        wall.views = wall_json.get("views").get('count')
         wall._session = session
         return wall
 
