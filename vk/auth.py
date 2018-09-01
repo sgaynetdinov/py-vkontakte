@@ -1,10 +1,9 @@
 # coding=utf-8
+import json
 try:
     from urllib.parse import urlencode
 except ImportError:
-    from urllib import urlencode
-
-import requests
+    from urllib import urlencode, urlopen
 
 from .error import VKError
 
@@ -85,8 +84,8 @@ def create_access_token_from_code(client_id, client_secret, redirect_uri, code):
         "redirect_uri": redirect_uri,
         "code": code
     }
-    res = requests.post(url, params=params)
-    res_json = res.json()
+    res = urlopen(url, data=params)
+    res_json = json.loads(res.read())
 
     if 'access_token' not in res_json:
         raise VKError()

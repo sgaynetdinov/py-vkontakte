@@ -1,10 +1,10 @@
 # coding=utf-8
+import json
 try:
     from urllib.parse import urlencode
+    from urllib.request import urlopen
 except ImportError:
-    from urllib import urlencode
-
-import requests
+    from urllib import urlencode, urlopen
 
 from .error import VKError, VKParseJsonError
 
@@ -26,10 +26,10 @@ class Session(object):
 
         params = {key: value for key, value in params.items() if value is not None}
 
-        res = requests.post(url + "?" + urlencode(params))
+        res = urlopen(url + "?" + urlencode(params), data={})
 
         try:
-            data_json = res.json()
+            data_json = json.loads(res.read())
         except ValueError:
             raise VKParseJsonError
 
@@ -70,7 +70,8 @@ class Session(object):
             offset += count
 
     def fetch_post(self, url, **kwargs):
-        return requests.post(url, **kwargs)
+        res = urlopen(url, data=kwargs)
+        return json.loads(res.read())
 
     def _convert_list2str(self, fields):
         """

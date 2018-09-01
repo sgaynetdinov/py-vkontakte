@@ -81,8 +81,7 @@ class Photo(VKBase):
 
         attachments = []
         for image_fd in image_files:
-            response = session.fetch_post(upload_url, files={'photo': image_fd})
-            response_json = response.json()
+            response_json = session.fetch_post(upload_url, files={'photo': image_fd})
             photo, server, _hash = response_json['photo'], response_json['server'], response_json['hash']
             photo_id, owner_id = Photo._get_save_wall_photo(session, photo, server, _hash, group_id=group_id)
             attachments.append("photo{0}_{1}".format(owner_id, photo_id))
@@ -111,8 +110,7 @@ class Photo(VKBase):
 
         attachments = []
         for image_fd in image_files:
-            response = session.fetch_post(upload_url, files={'photo': image_fd})
-            response_json = response.json()
+            response_json = session.fetch_post(upload_url, files={'photo': image_fd})
             photo, server, _hash = response_json['photo'], response_json['server'], response_json['hash']
             photo_id, owner_id = Photo._get_save_messages_photo(session, photo, server, _hash)
             attachments.append("photo{0}_{1}".format(owner_id, photo_id))
