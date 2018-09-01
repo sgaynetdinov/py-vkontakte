@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "first_name": "Павел",
+  "last_name": "Дуров",
+  "sex": 2,
+  "nickname": "",
+  "domain": "durov",
+  "screen_name": "durov",
+  "bdate": "10.10.1984",
+  "status": "&#36947;&#24503;&#32147;",
+  "last_seen": {
+    "time": 1535548834,
+    "platform": 7
+  },
+  "verified": 1
+}

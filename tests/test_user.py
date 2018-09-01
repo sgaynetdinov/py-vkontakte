@@ -1,36 +1,61 @@
-import unittest
 import datetime
+
+import pytest
+
 from vk.users import User
 
 
-class UserTestCase(unittest.TestCase):
+def test_user(factory):
+    user = User.from_json(None, factory('./factory/user.json'))
 
-    def setUp(self):
-        self.unixtime = {'time': 1506187303}
-        self.unixtime_is_none = None
+    assert user.id == 1
+    assert user.first_name == 'Павел'
+    assert user.last_name == 'Дуров'
+    assert user.sex == 'male'
+    assert user.nickname == ''
+    assert user.screen_name == 'durov'
+    assert user.domain == 'durov'
+    assert user.bdate == '10.10.1984'
+    assert user.status == '&#36947;&#24503;&#32147;'
+    assert not user.is_deactivated
+    assert not user.is_deleted
+    assert not user.is_banned
+    assert not user.is_hidden
+    assert user.is_verified
+    assert user.last_seen == datetime.datetime.utcfromtimestamp(1535548834)
+    assert user.platform == 'web (vk.com)'
 
-    def test_fail_if_not_convert_unixtime_to_datetime_UTC(self):
-        last_seen_in_datetime = User._last_seen(self.unixtime)
-        self.assertEqual(last_seen_in_datetime, datetime.datetime(2017, 9, 23, 17, 21, 43))
 
-    def test_return_None_when_unixtime_is_None(self):
-        last_seen_in_datetime = User._last_seen(self.unixtime_is_none)
-        self.assertIsNone(last_seen_in_datetime)
+def test_user_is_deleted(factory):
+    user = User.from_json(None, factory('./factory/user_is_deleted.json'))
 
-    def test_transform_sex(self):
-        sex_items = {
-            1: 'female',
-            2: 'male'
-        }
+    assert user.id == 3
+    assert user.is_deactivated
+    assert user.is_deleted
+    assert not user.is_banned
+    assert not user.is_hidden
 
-        sex = User._sex(1)
-        self.assertEqual(sex, sex_items[1])
 
-        sex = User._sex(2)
-        self.assertEqual(sex, sex_items[2])
+@pytest.mark.parametrize('index, name', [
+    (1, 'female'),
+    (2, 'male'),
+    (4, None),
+    (None, None),
+])
+def test_transform_sex(index, name):
+    sex = User._sex(index)
+    assert sex == name
 
-        sex = User._sex(3)
-        self.assertIsNone(sex)
 
-        sex = User._sex(None)
-        self.assertIsNone(sex)
+@pytest.mark.parametrize('index, name', [
+    (1, "m.vk.com"),
+    (2, "iPhone app"),
+    (3, "iPad app"),
+    (4, "Android app"),
+    (5, "Windows Phone app"),
+    (6, "Windows 8 app"),
+    (7, "web (vk.com)")
+])
+def test_platform(index, name):
+    platform = User._platform({"time": 1535548834, "platform": index})
+    assert platform == name
