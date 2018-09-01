@@ -15,6 +15,18 @@ class Session(object):
         self.lang = lang
         self.version_api = version_api
 
+    @staticmethod
+    def url_open(url, data=None):
+        data = data or {}
+        res = urlopen(url, data=data)
+
+        try:
+            data_json = json.loads(res.read())
+        except ValueError:
+            raise VKParseJsonError
+
+        return data_json
+
     def fetch(self, method_name, **params):
         url = "https://api.vk.com/method/{method_name}".format(method_name=method_name)
         params['v'] = self.version_api
@@ -26,12 +38,9 @@ class Session(object):
 
         params = {key: value for key, value in params.items() if value is not None}
 
-        res = urlopen(url + "?" + urlencode(params), data={})
+        url = url + "?" + urlencode(params)
 
-        try:
-            data_json = json.loads(res.read())
-        except ValueError:
-            raise VKParseJsonError
+        data_json = self.url_open(url)
 
         if 'error' in data_json:
             error = data_json['error']
@@ -70,8 +79,7 @@ class Session(object):
             offset += count
 
     def fetch_post(self, url, **kwargs):
-        res = urlopen(url, data=kwargs)
-        return json.loads(res.read())
+        return self.url_open(url, data=kwargs)
 
     def _convert_list2str(self, fields):
         """
