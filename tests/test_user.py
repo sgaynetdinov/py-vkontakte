@@ -6,7 +6,7 @@ from vk.users import User
 
 
 def test_user(factory):
-    user = User.from_json(None, factory('./factory/user.json'))
+    user = User.from_json(None, factory('user.json'))
 
     assert user.id == 1
     assert user.first_name == 'Павел'
@@ -27,7 +27,7 @@ def test_user(factory):
 
 
 def test_user_is_deleted(factory):
-    user = User.from_json(None, factory('./factory/user_is_deleted.json'))
+    user = User.from_json(None, factory('user_is_deleted.json'))
 
     assert user.id == 3
     assert user.is_deactivated
