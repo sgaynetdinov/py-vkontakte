@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import datetime
 
 import pytest
@@ -9,14 +10,14 @@ def test_user(factory):
     user = User.from_json(None, factory('user.json'))
 
     assert user.id == 1
-    assert user.first_name == 'Павел'
-    assert user.last_name == 'Дуров'
+    assert user.first_name == u'Павел'
+    assert user.last_name == u'Дуров'
     assert user.sex == 'male'
     assert user.nickname == ''
     assert user.screen_name == 'durov'
     assert user.domain == 'durov'
     assert user.bdate == '10.10.1984'
-    assert user.status == '&#36947;&#24503;&#32147;'
+    assert user.status == u'&#36947;&#24503;&#32147;'
     assert not user.is_deactivated
     assert not user.is_deleted
     assert not user.is_banned
