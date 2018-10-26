@@ -6,4 +6,5 @@ python:
 install:
   - pip install -r requirements-dev.txt
 script:
+  - isort
   - pytest
