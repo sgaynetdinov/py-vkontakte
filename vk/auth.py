@@ -1,11 +1,12 @@
 # coding=utf-8
 import json
+
+from .error import VKError
+
 try:
     from urllib.parse import urlencode
 except ImportError:
     from urllib import urlencode, urlopen
-
-from .error import VKError
 
 
 def get_url_implicit_flow_user(client_id, scope,

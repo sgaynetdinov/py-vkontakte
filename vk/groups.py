@@ -1,9 +1,9 @@
 # coding=utf-8
 from .base import VKBase
+from .messages import Message
+from .photos import Photo
 from .users import User
 from .wall import Wall
-from .photos import Photo
-from .messages import Message
 
 
 class Group(VKBase):
