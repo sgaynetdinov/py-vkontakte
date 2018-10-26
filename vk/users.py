@@ -11,11 +11,47 @@ class User(VKBase):
     """
     https://vk.com/dev/objects/user
     """
-    USER_FIELDS = ('bdate', 'domain', 'sex',
-                   'maiden_name', 'nickname', 'verified', 'last_seen', 'platform', 'status')
+    USER_FIELDS = (
+        'about',
+        'activities',
+        'bdate',
+        'books',
+        'career',
+        'city',
+        'connections',
+        'counters',
+        'country',
+        'domain',
+        'education',
+        'exports',
+        'games',
+        'sex',
+        'maiden_name',
+        'nickname',
+        'verified',
+        'last_seen',
+        'platform',
+        'status',
+    )
 
-    __slots__ = ('id', 'first_name', 'last_name', 'is_deactivated', 'is_deleted', 'is_banned', 'is_hidden', 'bdate', 'domain', 'screen_name', 'sex',
-                 'maiden_name', 'nickname', 'is_verified', 'status', '_session')
+    __slots__ = (
+        'id',
+        'first_name',
+        'last_name',
+        'is_deactivated',
+        'is_deleted',
+        'is_banned',
+        'is_hidden',
+        'bdate',
+        'domain',
+        'screen_name',
+        'sex',
+        'maiden_name',
+        'nickname',
+        'is_verified',
+        'status',
+        '_session',
+    )
 
     @classmethod
     def from_json(cls, session, json_obj):
@@ -28,6 +64,8 @@ class User(VKBase):
         user.bdate = json_obj.get('bdate')
         user.sex = cls._sex(json_obj.get('sex'))
         user.status = cls._status(json_obj)
+
+        user.about = json_obj.get('about')
 
         user.is_deactivated = bool(json_obj.get('deactivated'))
         user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
