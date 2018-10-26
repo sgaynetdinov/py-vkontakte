@@ -1,12 +1,14 @@
 # coding=utf-8
 import json
+
+from .error import VKError, VKParseJsonError
+
 try:
     from urllib.parse import urlencode
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlencode, urlopen
 
-from .error import VKError, VKParseJsonError
 
 
 class Session(object):
