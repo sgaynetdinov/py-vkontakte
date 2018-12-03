@@ -67,8 +67,7 @@ class Group(VKBase):
 
     def set_cover_photo(self, file_like, width, height):
         upload_url = Photo._get_owner_cover_photo_upload_server(self._session, self.id, crop_x2=width, crop_y2=height)
-        files = {'photo': file_like}
-        response_json = self._session.fetch_post(upload_url, files=files)
+        response_json = self._session.fetch_photo(upload_url, file_like)
 
         Photo._save_owner_cover_photo(self._session, response_json['hash'], response_json['photo'])
 

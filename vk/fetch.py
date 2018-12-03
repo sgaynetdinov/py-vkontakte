@@ -1,14 +1,15 @@
 # coding=utf-8
+import io
 import json
+import uuid
 
 from .error import VKError, VKParseJsonError
 
 try:
     from urllib.parse import urlencode
-    from urllib.request import urlopen
+    from urllib.request import urlopen, Request
 except ImportError:
     from urllib import urlencode, urlopen
-
 
 
 class Session(object):
@@ -16,18 +17,6 @@ class Session(object):
         self.access_token = access_token
         self.lang = lang
         self.version_api = version_api
-
-    @staticmethod
-    def url_open(url, data=None):
-        data = data or {}
-        res = urlopen(url, data=data)
-
-        try:
-            data_json = json.loads(res.read())
-        except ValueError:
-            raise VKParseJsonError
-
-        return data_json
 
     def fetch(self, method_name, **params):
         url = "https://api.vk.com/method/{method_name}".format(method_name=method_name)
@@ -40,9 +29,13 @@ class Session(object):
 
         params = {key: value for key, value in params.items() if value is not None}
 
-        url = url + "?" + urlencode(params)
+        request = Request(url, data=urlencode(params).encode())
+        res = urlopen(request)
 
-        data_json = self.url_open(url)
+        try:
+            data_json = json.load(res)
+        except ValueError:
+            raise VKParseJsonError
 
         if 'error' in data_json:
             error = data_json['error']
@@ -80,8 +73,19 @@ class Session(object):
 
             offset += count
 
-    def fetch_post(self, url, **kwargs):
-        return self.url_open(url, data=kwargs)
+    def fetch_photo(self, url, file_obj):
+        data, boundary = self._file_upload(file_obj)
+
+        req = Request(url, data=data)
+        req.add_header('Content-type', 'multipart/form-data; boundary={0}'.format(boundary))
+        req.add_header('Content-length', len(data))
+
+        res = urlopen(req)
+
+        try:
+            return json.load(res)
+        except ValueError:
+            raise VKParseJsonError
 
     def _convert_list2str(self, fields):
         """
@@ -91,3 +95,17 @@ class Session(object):
         if isinstance(fields, tuple) or isinstance(fields, list):
             return ','.join(fields)
         return fields
+
+    def _file_upload(self, file_obj):
+        boundary = uuid.uuid4().hex
+
+        buffer = io.BytesIO()
+        buffer.write('--{0}\r\n'.format(boundary).encode())
+        buffer.write('Content-Disposition: file; name="photo"; filename="photo.jpg"\r\n'.encode())
+        buffer.write('Content-Type: application/octet-stream\r\n'.encode())
+        buffer.write(b'\r\n')
+        buffer.write(file_obj.read())
+        buffer.write(b'\r\n')
+        buffer.write('--{0}--\r\n'.format(boundary).encode())
+
+        return buffer.getvalue(), boundary
