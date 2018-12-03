@@ -10,7 +10,6 @@ except ImportError:
     from urllib import urlencode, urlopen
 
 
-
 class Session(object):
     def __init__(self, access_token=None, lang='ru', version_api='5.63'):
         self.access_token = access_token
