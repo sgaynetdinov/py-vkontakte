@@ -9,10 +9,12 @@ install:
 script:
   - isort -c
   - pytest
-
 deploy:
   provider: pypi
   user: "$PYPI_USERNAME"
-  password: "$PYPI_PASSWORD"
+  password:
+    secure: "$PYPI_PASSWORD"
   on:
     tags: true
+    distributions: sdist bdist_wheel
+    repo: sgaynetdinov/py-vkontakte
