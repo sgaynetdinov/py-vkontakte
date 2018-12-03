@@ -18,3 +18,4 @@ deploy:
     all_branches: true
     distributions: sdist bdist_wheel
     repo: sgaynetdinov/py-vkontakte
+    skip_cleanup: true
