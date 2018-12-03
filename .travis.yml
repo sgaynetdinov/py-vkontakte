@@ -9,3 +9,10 @@ install:
 script:
   - isort -c
   - pytest
+
+deploy:
+  provider: pypi
+  user: $PYPI_USERNAME
+  password: $PYPI_PASSWORD
+  on:
+    tags: true
