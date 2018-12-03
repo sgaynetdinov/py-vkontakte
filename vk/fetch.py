@@ -5,7 +5,7 @@ from .error import VKError, VKParseJsonError
 
 try:
     from urllib.parse import urlencode
-    from urllib.request import urlopen
+    from urllib.request import urlopen, Request
 except ImportError:
     from urllib import urlencode, urlopen
 
@@ -40,9 +40,13 @@ class Session(object):
 
         params = {key: value for key, value in params.items() if value is not None}
 
-        url = url + "?" + urlencode(params)
+        request = Request(url, data=urlencode(params).encode())
+        res = urlopen(request)
 
-        data_json = self.url_open(url)
+        try:
+            data_json = json.load(res)
+        except ValueError:
+            raise VKParseJsonError
 
         if 'error' in data_json:
             error = data_json['error']
