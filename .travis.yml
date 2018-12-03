@@ -11,9 +11,9 @@ script:
   - pytest
 deploy:
   provider: pypi
-  user: $PYPI_USERNAME
+  user: 10349hndsmfa90sdhfbn230
   password:
-    secure: $PYPI_PASSWORD
+    secure: FSua+w95Q/5F6mJw7NdtxyZgkw3uy8oNVqkRobLnu/Mr5CVu4HzAtx6EUCnJyEn0MRwIASlrw2tcve0+tR6/pc8lmBimfRU78xP1JkX3b1hMNp7+8FNhx2JZkYJJ+ym0/IS4AH3GCxtD+N2fh1DVnfVaGabBP5uFcDYOx+kon6Hu3idvHw1UX4cMvJIsje8Z+KrJBioMADz6Gcrfu+KKrYeWhjaZWRdCRSXNXqgaJIX8s1ZgzP02PY1C4LCY2p30cqdHUjuKkIEkKZQENpdMQDB8zcxWh0FUrh34ztx9I5ml3eGkl1r6ehQ1c90mM8Ck/EI7zpXEPmhtdRYdMwMnoJw7BXUmwoKFN+jMK+Ls5kJFdFWDy5ls65ZvythibDP48QXpFZDg+r0GqNVLvZaD2r736LbEF3zx8+SdCmaY4J5KWFlADMfdFWMEay0l5FQb9ILhOjecb0toXn5ad82y4+Ju3l8vYs87QkmKabPaewSF0zpqv6rzXe/MUXbdXZlm4MEE/Swdwg5dPEORQecVObftSbAuUC+dEjG94Wx1AVis6wSK4YrpxlN7q3x0vR+wky/WLOmIqCv0kfIyi0HnszoRYZSJgMafrHSX0NAOwWHcJ/xeK8YmRiVjDeijJ/2nJkXz5pvJxtm7/oo1b82lnGwo+M/bfKBbqQyhFJXRcDY=
   on:
     all_branches: true
     distributions: sdist bdist_wheel
