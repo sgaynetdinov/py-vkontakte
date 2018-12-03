@@ -100,12 +100,12 @@ class Session(object):
         boundary = uuid.uuid4().hex
 
         buffer = io.BytesIO()
-        buffer.write('--{0}\r\n'.format(boundary).encode('utf-8'))
-        buffer.write('Content-Disposition: file; name="photo"; filename="photo.jpg"\r\n'.encode('utf-8'))
-        buffer.write('Content-Type: application/octet-stream\r\n'.encode('utf-8'))
+        buffer.write('--{0}\r\n'.format(boundary).encode())
+        buffer.write('Content-Disposition: file; name="photo"; filename="photo.jpg"\r\n'.encode())
+        buffer.write('Content-Type: application/octet-stream\r\n'.encode())
         buffer.write(b'\r\n')
         buffer.write(file_obj.read())
         buffer.write(b'\r\n')
-        buffer.write('--{0}--\r\n'.format(boundary).encode('utf-8'))
+        buffer.write('--{0}--\r\n'.format(boundary).encode())
 
         return buffer.getvalue(), boundary
