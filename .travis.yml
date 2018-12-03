@@ -11,9 +11,9 @@ script:
   - pytest
 deploy:
   provider: pypi
-  user: "$PYPI_USERNAME"
+  user: $PYPI_USERNAME
   password:
-    secure: "$PYPI_PASSWORD"
+    secure: $PYPI_PASSWORD
   on:
     all_branches: true
     distributions: sdist bdist_wheel
