@@ -15,6 +15,6 @@ deploy:
   password:
     secure: "$PYPI_PASSWORD"
   on:
-    tags: true
+    all_branches: true
     distributions: sdist bdist_wheel
     repo: sgaynetdinov/py-vkontakte
