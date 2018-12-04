@@ -18,5 +18,5 @@ deploy:
     tags: true
     skip_cleanup: true
     skip_existing: true
-    distributions: sdist bdist_wheel
+    distributions: "sdist bdist_wheel"
     repo: sgaynetdinov/py-vkontakte
