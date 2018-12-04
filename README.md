@@ -51,11 +51,3 @@ pip install py-vkontakte
 >>> group = api.get_group('telegram')
 >>> user in group
 ```
-
-# Update PyPi
-
-```sh
-python3 setup.py sdist
-python3 setup.py bdist_wheel --universal
-twine upload dist/*
-```
