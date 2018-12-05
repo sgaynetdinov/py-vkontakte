@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sgaynetdinov/py-vkontakte.svg?branch=master)](https://travis-ci.org/sgaynetdinov/py-vkontakte) [![Coverage Status](https://coveralls.io/repos/github/sgaynetdinov/py-vkontakte/badge.svg?branch=master)](https://coveralls.io/github/sgaynetdinov/py-vkontakte?branch=master) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg) ![N|Solid](https://img.shields.io/pypi/wheel/py-vkontakte.svg) ![N|Solid](https://img.shields.io/pypi/pyversions/py-vkontakte.svg)
+[![Build Status](https://travis-ci.org/sgaynetdinov/py-vkontakte.svg?branch=master)](https://travis-ci.org/sgaynetdinov/py-vkontakte) [![codecov](https://codecov.io/gh/sgaynetdinov/py-vkontakte/branch/master/graph/badge.svg)](https://codecov.io/gh/sgaynetdinov/py-vkontakte) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg) ![N|Solid](https://img.shields.io/pypi/wheel/py-vkontakte.svg) ![N|Solid](https://img.shields.io/pypi/pyversions/py-vkontakte.svg)
 
 # Table of contents
 
