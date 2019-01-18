@@ -1,4 +1,3 @@
-# coding=utf-8
 from .photos import Photo
 from .polls import Poll
 

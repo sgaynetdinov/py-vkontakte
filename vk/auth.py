@@ -1,4 +1,3 @@
-# coding=utf-8
 import json
 
 from .error import VKError
@@ -35,27 +34,27 @@ def get_url_implicit_flow_user(client_id, scope,
 
 def get_url_authcode_flow_user(client_id, redirect_uri, display="page", scope=None, state=None):
     """Authorization Code Flow for User Access Token
-    
+
     Use Authorization Code Flow to run VK API methods from the server side of an application.
     Access token received this way is not bound to an ip address but set of permissions that can be granted is limited for security reasons.
-    
+
     Args:
-        client_id (int): Application id. 
-        redirect_uri (str): Address to redirect user after authorization. 
+        client_id (int): Application id.
+        redirect_uri (str): Address to redirect user after authorization.
         display (str): Sets authorization page appearance.
             Sets: {`page`, `popup`, `mobile`}
             Defaults to `page`
         scope (:obj:`str`, optional): Permissions bit mask, to check on authorization and request if necessary.
-            More scope: https://vk.com/dev/permissions 
-        state (:obj:`str`, optional): An arbitrary string that will be returned together with authorization result. 
+            More scope: https://vk.com/dev/permissions
+        state (:obj:`str`, optional): An arbitrary string that will be returned together with authorization result.
 
     Returns:
         str: Url
-    
+
     Examples:
         >>> vk.get_url_authcode_flow_user(1, 'http://example.com/', scope="wall,email")
         'https://oauth.vk.com/authorize?client_id=1&display=page&redirect_uri=http://example.com/&scope=wall,email&response_type=code
-        
+
     .. _Docs:
         https://vk.com/dev/authcode_flow_user
 

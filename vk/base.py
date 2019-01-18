@@ -1,4 +1,3 @@
-# coding=utf-8
 class VKBase(object):
 
     def __repr__(self):

@@ -1,6 +1,3 @@
-# coding=utf-8
-
-
 class Friends(object):
     @staticmethod
     def _get_friends(session, user_id):
