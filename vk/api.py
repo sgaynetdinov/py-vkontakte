@@ -1,4 +1,3 @@
-# coding=utf-8
 from .fetch import Session
 from .groups import Group
 from .users import User

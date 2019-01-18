@@ -1,4 +1,3 @@
-# coding=utf-8
 from .attachments import get_attachments
 from .base import VKBase
 

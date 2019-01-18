@@ -1,4 +1,3 @@
-# coding=utf-8
 from .base import VKBase
 from .messages import Message
 from .photos import Photo
