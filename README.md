@@ -13,20 +13,20 @@
 
 
 
-# Install
+### Install
 
 ```sh
 pip install py-vkontakte
 ```
 
-# First start
+### First start
 
 ```python
 >>> import vk
 >>> api = vk.Api('YOUR_TOKEN')
 ```
 
-# User
+### User
 
 ```python
 # return single User object
@@ -41,7 +41,7 @@ pip install py-vkontakte
 [1, 23768217]
 ```
 
-# Group
+### Group
 
 ```python
 >>> groups_items = api.get_groups([1, 'devclub'])  # return generator
