@@ -6,6 +6,7 @@
 # Table of contents
 
 - [Install](#install)
+- [First start](#first-start)
 - [Method](#method)
   - [User](#user)
   - [Group](#group)
