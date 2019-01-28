@@ -92,6 +92,9 @@ class Wall(VKBase):
 
     @staticmethod
     def _get_walls(session, owner_id):
+        """
+        https://vk.com/dev/wall.get
+        """
         return session.fetch_items("wall.get", Wall.from_json, 100, owner_id=owner_id)
 
     @staticmethod
