@@ -3,7 +3,7 @@
 **Package** | ![GitHub release](https://img.shields.io/github/release/sgaynetdinov/py-vkontakte.svg) ![Solid](https://img.shields.io/pypi/pyversions/py-vkontakte.svg) ![Solid](https://img.shields.io/pypi/wheel/py-vkontakte.svg)
 
 
-# Table of contents
+### Table of contents
 
 - [Install](#install)
 - [First start](#first-start)
