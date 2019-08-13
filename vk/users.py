@@ -31,6 +31,7 @@ class User(VKBase):
         'last_seen',
         'platform',
         'status',
+        'trending',
     )
 
     __slots__ = (
@@ -49,6 +50,7 @@ class User(VKBase):
         'nickname',
         'is_verified',
         'status',
+        'is_trending',
         '_session',
     )
 
@@ -71,6 +73,7 @@ class User(VKBase):
         user.is_banned = bool(json_obj.get('deactivated') == 'banned')
         user.is_hidden = bool(json_obj.get('hidden'))
         user.is_verified = bool(json_obj.get('verified'))
+        user.is_trending = bool(json_obj.get('trending'))
 
         user.domain = json_obj.get('domain')
         user.screen_name = user.domain

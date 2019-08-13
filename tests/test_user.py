@@ -24,6 +24,7 @@ def test_user(factory):
     assert user.is_verified
     assert user.last_seen == datetime.datetime.utcfromtimestamp(1535548834)
     assert user.platform == 'web (vk.com)'
+    assert not user.is_trending
 
 
 def test_user_is_deleted(factory):
