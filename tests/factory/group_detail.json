@@ -1,0 +1,14 @@
+{
+    "id": 1,
+    "name": "ВКонтакте API",
+    "screen_name": "apiclub",
+    "is_closed": 0,
+    "type": "group",
+    "is_admin": 0,
+    "is_member": 1,
+    "is_advertiser": 0,
+    "trending": 0,
+    "photo_50": "https://sun9-52.u...2DXpoO0h8.jpg?ava=1",
+    "photo_100": "https://sun9-6.us...mcXQP0V6c.jpg?ava=1",
+    "photo_200": "https://sun9-23.u...dFMmxSRyY.jpg?ava=1"
+}
