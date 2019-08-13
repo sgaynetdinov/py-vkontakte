@@ -10,10 +10,10 @@ class Group(VKBase):
     https://vk.com/dev/objects/group
     """
     GROUP_FIELDS = ("id", "name", "screen_name", "is_closed", "deactivated", "type", "has_photo",
-                    "photo_50", "photo_100", "photo_200", "status", "verified", "site")
+                    "photo_50", "photo_100", "photo_200", "status", "verified", "site", "trending")
 
     __slots__ = ("id", "name", "screen_name", "is_closed", "is_deactivated", "type", "has_photo",
-                 "photo_50", "photo_100", "photo_200", "status", "is_verified", "site", "_session")
+                 "photo_50", "photo_100", "photo_200", "status", "is_verified", "site", "is_trending", "_session")
 
     @classmethod
     def from_json(cls, session, group_json):
@@ -30,6 +30,7 @@ class Group(VKBase):
         group.photo_200 = group_json.get("photo_200")
         group.status = group_json.get("status")
         group.is_verified = bool(group_json.get("verified"))
+        group.is_trending = bool(group_json.get("trending"))
         group.site = group_json.get("site")
         group._session = session
         return group
