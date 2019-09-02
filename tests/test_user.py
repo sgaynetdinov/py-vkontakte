@@ -66,3 +66,13 @@ def test_platform(index, name, factory):
     user = User.from_json(None, user_json)
 
     assert user.platform == name
+
+
+def test_without_status(factory):
+    user_json = factory('user.json')
+    assert 'status' in user_json
+    del user_json['status']
+
+    user = User.from_json(None, user_json)
+
+    assert user.status == ''
