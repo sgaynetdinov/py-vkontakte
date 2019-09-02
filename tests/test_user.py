@@ -89,3 +89,19 @@ def test_maiden_name(factory):
     
     assert user.maiden_name == 'Maiden'
 
+def test_without_last_seen(factory):
+    user_json = factory('user.json')
+    del user_json['last_seen']
+
+    user = User.from_json(None, user_json)
+
+    assert user.last_seen is None
+
+
+def test_not_time_in_last_seen(factory):
+    user_json = factory('user.json')
+    del user_json['last_seen']['time']
+
+    user = User.from_json(None, user_json)
+
+    assert user.last_seen is None

@@ -156,10 +156,9 @@ class User(VKBase):
 
     @classmethod
     def _last_seen(cls, last_seen):
-        if last_seen:
+        if last_seen and 'time' in last_seen:
             time = last_seen.get('time')
             return datetime.datetime.utcfromtimestamp(time)
-        return None
 
     @classmethod
     def _platform(cls, last_seen):
