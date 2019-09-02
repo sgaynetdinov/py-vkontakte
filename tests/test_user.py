@@ -134,3 +134,12 @@ def test_get_about(mock, expected):
     mock.return_value = [{'about': expected}]
 
     assert user.get_about() == expected 
+
+
+@patch('vk.User._fetch')
+@pytest.mark.parametrize('expected', ['Activities', ''])
+def test_get_about(mock, expected):
+    user = User.from_json(None, {})
+    mock.return_value = [{'activities': expected}]
+
+    assert user.get_activities() == expected 
