@@ -32,12 +32,18 @@ def test_user(factory):
 def test_user_is_deleted(factory):
     user = User.from_json(None, factory('user_is_deleted.json'))
 
-    assert user.id == 3
     assert user.is_deactivated
     assert user.is_deleted
     assert not user.is_banned
-    assert not user.is_hidden
 
+def test_user_is_banned(factory):
+    user_json = factory('user_is_deleted.json')
+    user_json['deactivated'] = 'banned'
+    user = User.from_json(None, user_json)
+
+    assert user.is_deactivated
+    assert not user.is_deleted
+    assert user.is_banned
 
 @pytest.mark.parametrize('index, name', [
     (1, 'female'),
