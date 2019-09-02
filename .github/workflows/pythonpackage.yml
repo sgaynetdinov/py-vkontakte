@@ -25,3 +25,8 @@ jobs:
       run: isort -c
     - name: Test with pytest
       run: pytest
+    - name: Run code coverage
+      run: |
+        pip install codecov pytest-cov
+        pytest --cov=./vk
+        codecov
