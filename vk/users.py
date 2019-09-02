@@ -22,6 +22,7 @@ class User(VKBase):
         'platform',
         'status',
         'trending',
+        'site',
     )
 
     @classmethod
@@ -35,6 +36,7 @@ class User(VKBase):
         user.bdate = json_obj.get('bdate')
         user.sex = cls._sex(json_obj.get('sex'))
         user.status = cls._status(json_obj)
+        user.site = json_obj.get('site')
 
         user.facebook = json_obj.get('facebook')
         user.skype = json_obj.get('skype')
@@ -198,10 +200,6 @@ class User(VKBase):
         if response.get('schools'):
             return [UserSchool.from_json(self._session, school_json) for school_json in response.get('schools')]
         return []
-
-    def get_site(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="site")[0]
-        return response.get('site')
 
     def get_tv(self):
         response = self._session.fetch("users.get", user_ids=self.id, fields="tv")[0]

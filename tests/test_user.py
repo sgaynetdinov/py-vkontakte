@@ -30,6 +30,7 @@ def test_user(factory):
     assert user.twitter == 'durov'
     assert user.livejournal is None
     assert user.instagram == 'durov'
+    assert user.site == 'http://t.me/durov'
 
 
 def test_user_is_deleted(factory):
@@ -114,3 +115,12 @@ def test_not_time_in_last_seen(factory):
     user = User.from_json(None, user_json)
 
     assert user.last_seen is None
+
+
+def test_if_not_field_site(factory):
+    user_json = factory('user.json')
+    del user_json['site']
+
+    user = User.from_json(None, user_json)
+
+    assert user.site is None
