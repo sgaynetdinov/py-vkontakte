@@ -46,6 +46,12 @@ class User(VKBase):
         user.sex = cls._sex(json_obj.get('sex'))
         user.status = cls._status(json_obj)
 
+        user.facebook = json_obj.get('facebook')
+        user.skype = json_obj.get('skype')
+        user.twitter = json_obj.get('twitter')
+        user.livejournal = json_obj.get('livejournal')
+        user.instagram = json_obj.get('instagram')
+
         user.is_verified = bool(json_obj.get('verified'))
         user.is_trending = bool(json_obj.get('trending'))
         user.domain = json_obj.get('domain')
@@ -86,26 +92,6 @@ class User(VKBase):
         response = self._session.fetch("users.get", user_ids=self.id, fields="city")[0]
         if response.get('city'):
             return City.from_json(self._session, response.get('city'))
-
-    def get_connection_facebook(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('facebook')
-
-    def get_connection_skype(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('skype')
-
-    def get_connection_twitter(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('twitter')
-
-    def get_connection_livejournal(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('livejournal')
-
-    def get_connection_instagram(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('instagram')
 
     def get_country(self):
         """
