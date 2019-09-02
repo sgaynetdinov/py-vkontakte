@@ -127,7 +127,7 @@ class User(VKBase):
         return platform.get(platform_id)
 
     def get_games(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="games")[0]
+        response = self._fetch("games")[0]
         return response.get('games')
 
     def get_followers(self):
@@ -155,11 +155,11 @@ class User(VKBase):
         return []
 
     def get_movies(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="movies")[0]
+        response = self._fetch("movies")[0]
         return response.get('movies')
 
     def get_music(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="music")[0]
+        response = self._fetch("music")[0]
         return response.get('music')
 
     def get_occupation(self):
@@ -182,7 +182,7 @@ class User(VKBase):
         return {key: value for key, value in response.items() if key in PHOTOS_FIELDS}
 
     def get_quotes(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="quotes")[0]
+        response = self._fetch("quotes")[0]
         return response.get('quotes')
 
     def get_relatives(self):
@@ -196,7 +196,7 @@ class User(VKBase):
         return []
 
     def get_tv(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="tv")[0]
+        response = self._fetch("tv")[0]
         return response.get('tv')
 
     def get_universities(self):

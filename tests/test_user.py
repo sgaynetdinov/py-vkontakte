@@ -137,6 +137,21 @@ def test_if_not_field_site(factory):
 
     ('get_books', 'books', 'Book'),
     ('get_books', 'books', ''),
+
+    ('get_games', 'games', 'Games'),
+    ('get_games', 'games', ''),
+
+    ('get_movies', 'movies', 'Movies'),
+    ('get_movies', 'movies', ''),
+
+    ('get_music', 'music', 'Music'),
+    ('get_music', 'music', ''),
+
+    ('get_quotes', 'quotes', 'Quotes'),
+    ('get_quotes', 'quotes', ''),
+
+    ('get_tv', 'tv', 'TV'),
+    ('get_tv', 'tv', ''),
 ])
 def test_get(mock, method, field, expected):
     user = User.from_json(None, {})
