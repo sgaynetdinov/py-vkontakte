@@ -43,9 +43,12 @@ def test_user_is_deleted(factory):
     (4, None),
     (None, None),
 ])
-def test_transform_sex(index, name):
-    sex = User._sex(index)
-    assert sex == name
+def test_sex(index, name, factory):
+    user_json = factory('user.json')
+    user_json['sex'] = index
+    user = User.from_json(None, user_json)
+
+    assert user.sex == name
 
 
 @pytest.mark.parametrize('index, name', [
@@ -57,6 +60,9 @@ def test_transform_sex(index, name):
     (6, "Windows 8 app"),
     (7, "web (vk.com)")
 ])
-def test_platform(index, name):
-    platform = User._platform({"time": 1535548834, "platform": index})
-    assert platform == name
+def test_platform(index, name, factory):
+    user_json = factory('user.json')
+    user_json['last_seen']['platform'] = index 
+    user = User.from_json(None, user_json)
+
+    assert user.platform == name
