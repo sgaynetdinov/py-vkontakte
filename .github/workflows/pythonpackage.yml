@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements-dev.txt
     - name: Run isort
       run: isort -c
-    - name: Test with pytest
+    - name: Run pytest
       run: pytest
     - name: Run code coverage
       run: |
