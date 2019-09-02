@@ -11,19 +11,9 @@ class User(VKBase):
     https://vk.com/dev/objects/user
     """
     USER_FIELDS = (
-        'about',
-        'activities',
         'bdate',
-        'books',
-        'career',
-        'city',
         'connections',
-        'counters',
-        'country',
         'domain',
-        'education',
-        'exports',
-        'games',
         'sex',
         'maiden_name',
         'nickname',
@@ -32,25 +22,7 @@ class User(VKBase):
         'platform',
         'status',
         'trending',
-    )
-
-    __slots__ = (
-        'id',
-        'first_name',
-        'last_name',
-        'is_deactivated',
-        'is_deleted',
-        'is_banned',
-        'bdate',
-        'domain',
-        'screen_name',
-        'sex',
-        'maiden_name',
-        'nickname',
-        'is_verified',
-        'status',
-        'is_trending',
-        '_session',
+        'site',
     )
 
     @classmethod
@@ -64,34 +36,39 @@ class User(VKBase):
         user.bdate = json_obj.get('bdate')
         user.sex = cls._sex(json_obj.get('sex'))
         user.status = cls._status(json_obj)
+        user.site = json_obj.get('site')
 
-        user.about = json_obj.get('about')
+        user.facebook = json_obj.get('facebook')
+        user.skype = json_obj.get('skype')
+        user.twitter = json_obj.get('twitter')
+        user.livejournal = json_obj.get('livejournal')
+        user.instagram = json_obj.get('instagram')
 
-        user.is_deactivated = bool(json_obj.get('deactivated'))
-        user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
-        user.is_banned = bool(json_obj.get('deactivated') == 'banned')
         user.is_verified = bool(json_obj.get('verified'))
         user.is_trending = bool(json_obj.get('trending'))
-
         user.domain = json_obj.get('domain')
         user.screen_name = user.domain
         user.last_seen = cls._last_seen(json_obj.get('last_seen'))
         user.platform = cls._platform(json_obj.get('last_seen'))
+
+        user.is_deactivated = bool(json_obj.get('deactivated'))
+        user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
+        user.is_banned = bool(json_obj.get('deactivated') == 'banned')
 
         user._session = session
 
         return user
 
     def get_about(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="about")[0]
+        response = self._fetch("about")[0]
         return response.get('about')
 
     def get_activities(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="activities")[0]
+        response = self._fetch("activities")[0]
         return response.get('activities')
 
     def get_books(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="books")[0]
+        response = self._fetch("books")[0]
         return response.get('books')
 
     def get_career(self):
@@ -101,37 +78,11 @@ class User(VKBase):
         return []
 
     def get_city(self):
-        """
-        :return: City or None
-        """
         response = self._session.fetch("users.get", user_ids=self.id, fields="city")[0]
         if response.get('city'):
             return City.from_json(self._session, response.get('city'))
 
-    def get_connection_facebook(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('facebook')
-
-    def get_connection_skype(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('skype')
-
-    def get_connection_twitter(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('twitter')
-
-    def get_connection_livejournal(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('livejournal')
-
-    def get_connection_instagram(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="connections")[0]
-        return response.get('instagram')
-
     def get_country(self):
-        """
-        :return: Country or None
-        """
         response = self._session.fetch("users.get", user_ids=self.id, fields="country")[0]
         if response.get('country'):
             return Country.from_json(self._session, response.get('country'))
@@ -176,7 +127,7 @@ class User(VKBase):
         return platform.get(platform_id)
 
     def get_games(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="games")[0]
+        response = self._fetch("games")[0]
         return response.get('games')
 
     def get_followers(self):
@@ -204,11 +155,11 @@ class User(VKBase):
         return []
 
     def get_movies(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="movies")[0]
+        response = self._fetch("movies")[0]
         return response.get('movies')
 
     def get_music(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="music")[0]
+        response = self._fetch("music")[0]
         return response.get('music')
 
     def get_occupation(self):
@@ -231,7 +182,7 @@ class User(VKBase):
         return {key: value for key, value in response.items() if key in PHOTOS_FIELDS}
 
     def get_quotes(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="quotes")[0]
+        response = self._fetch("quotes")[0]
         return response.get('quotes')
 
     def get_relatives(self):
@@ -244,12 +195,8 @@ class User(VKBase):
             return [UserSchool.from_json(self._session, school_json) for school_json in response.get('schools')]
         return []
 
-    def get_site(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="site")[0]
-        return response.get('site')
-
     def get_tv(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="tv")[0]
+        response = self._fetch("tv")[0]
         return response.get('tv')
 
     def get_universities(self):
@@ -293,6 +240,9 @@ class User(VKBase):
             user_json_items = session.fetch('users.get', user_ids=user_id_items_str_inline, fields=User.USER_FIELDS)
             for user in [User.from_json(session, user_json) for user_json in user_json_items]:
                 yield user
+
+    def _fetch(self, fields):
+        return self._session.fetch("users.get", user_ids=self.id, fields=fields)
 
 
 def grouper(iterable, n):

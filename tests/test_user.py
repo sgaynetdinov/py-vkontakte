@@ -1,4 +1,5 @@
 import datetime
+from unittest.mock import patch
 
 import pytest
 
@@ -17,7 +18,7 @@ def test_user(factory):
     assert user.screen_name == 'durov'
     assert user.domain == 'durov'
     assert user.bdate == '10.10.1984'
-    assert user.status == '&#36947;&#24503;&#32147;'
+    assert user.status == '道德經';
     assert not user.is_deactivated
     assert not user.is_deleted
     assert not user.is_banned
@@ -25,7 +26,12 @@ def test_user(factory):
     assert user.last_seen == datetime.datetime.utcfromtimestamp(1535548834)
     assert user.platform == 'web (vk.com)'
     assert not user.is_trending
-    assert user.about == 'About'
+    assert user.facebook == '501012028'
+    assert user.skype is None
+    assert user.twitter == 'durov'
+    assert user.livejournal is None
+    assert user.instagram == 'durov'
+    assert user.site == 'http://t.me/durov'
 
 
 def test_user_is_deleted(factory):
@@ -110,3 +116,45 @@ def test_not_time_in_last_seen(factory):
     user = User.from_json(None, user_json)
 
     assert user.last_seen is None
+
+
+def test_if_not_field_site(factory):
+    user_json = factory('user.json')
+    del user_json['site']
+
+    user = User.from_json(None, user_json)
+
+    assert user.site is None
+
+
+@patch('vk.User._fetch')
+@pytest.mark.parametrize('method, field, expected', [
+    ('get_activities', 'activities', 'Activities'),
+    ('get_activities', 'activities', ''),
+    
+    ('get_about', 'about', 'About'),
+    ('get_about', 'about', ''),
+
+    ('get_books', 'books', 'Book'),
+    ('get_books', 'books', ''),
+
+    ('get_games', 'games', 'Games'),
+    ('get_games', 'games', ''),
+
+    ('get_movies', 'movies', 'Movies'),
+    ('get_movies', 'movies', ''),
+
+    ('get_music', 'music', 'Music'),
+    ('get_music', 'music', ''),
+
+    ('get_quotes', 'quotes', 'Quotes'),
+    ('get_quotes', 'quotes', ''),
+
+    ('get_tv', 'tv', 'TV'),
+    ('get_tv', 'tv', ''),
+])
+def test_get(mock, method, field, expected):
+    user = User.from_json(None, {})
+    mock.return_value = [{field: expected}]
+
+    assert getattr(user, method)() == expected 
