@@ -11,6 +11,7 @@ def test_user(factory):
     assert user.id == 1
     assert user.first_name == 'Павел'
     assert user.last_name == 'Дуров'
+    assert not user.maiden_name
     assert user.sex == 'male'
     assert user.nickname == ''
     assert user.screen_name == 'durov'
@@ -77,3 +78,14 @@ def test_without_status(factory):
     user = User.from_json(None, user_json)
 
     assert user.status == ''
+
+
+def test_maiden_name(factory):
+    user_json = factory('user.json')
+    assert 'maiden' not in user_json
+
+    user_json['maiden_name'] = 'Maiden'
+    user = User.from_json(None, user_json)
+    
+    assert user.maiden_name == 'Maiden'
+
