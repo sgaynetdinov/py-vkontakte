@@ -128,27 +128,18 @@ def test_if_not_field_site(factory):
 
 
 @patch('vk.User._fetch')
-@pytest.mark.parametrize('expected', ['About', ''])
-def test_get_about(mock, expected):
+@pytest.mark.parametrize('method, field, expected', [
+    ('get_activities', 'activities', 'Activities'),
+    ('get_activities', 'activities', ''),
+    
+    ('get_about', 'about', 'About'),
+    ('get_about', 'about', ''),
+
+    ('get_books', 'books', 'Book'),
+    ('get_books', 'books', ''),
+])
+def test_get(mock, method, field, expected):
     user = User.from_json(None, {})
-    mock.return_value = [{'about': expected}]
+    mock.return_value = [{field: expected}]
 
-    assert user.get_about() == expected 
-
-
-@patch('vk.User._fetch')
-@pytest.mark.parametrize('expected', ['Activities', ''])
-def test_get_about(mock, expected):
-    user = User.from_json(None, {})
-    mock.return_value = [{'activities': expected}]
-
-    assert user.get_activities() == expected 
-
-
-@patch('vk.User._fetch')
-@pytest.mark.parametrize('expected', ['Books', ''])
-def test_get_about(mock, expected):
-    user = User.from_json(None, {})
-    mock.return_value = [{'books': expected}]
-
-    assert user.get_books() == expected 
+    assert getattr(user, method)() == expected 
