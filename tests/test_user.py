@@ -17,7 +17,7 @@ def test_user(factory):
     assert user.screen_name == 'durov'
     assert user.domain == 'durov'
     assert user.bdate == '10.10.1984'
-    assert user.status == '&#36947;&#24503;&#32147;'
+    assert user.status == '道德經';
     assert not user.is_deactivated
     assert not user.is_deleted
     assert not user.is_banned
