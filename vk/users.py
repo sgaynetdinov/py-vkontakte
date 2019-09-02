@@ -11,19 +11,9 @@ class User(VKBase):
     https://vk.com/dev/objects/user
     """
     USER_FIELDS = (
-        'about',
-        'activities',
         'bdate',
-        'books',
-        'career',
-        'city',
         'connections',
-        'counters',
-        'country',
         'domain',
-        'education',
-        'exports',
-        'games',
         'sex',
         'maiden_name',
         'nickname',
