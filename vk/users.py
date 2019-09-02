@@ -60,7 +60,7 @@ class User(VKBase):
         return user
 
     def get_about(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="about")[0]
+        response = self._fetch("about")[0]
         return response.get('about')
 
     def get_activities(self):
@@ -78,17 +78,11 @@ class User(VKBase):
         return []
 
     def get_city(self):
-        """
-        :return: City or None
-        """
         response = self._session.fetch("users.get", user_ids=self.id, fields="city")[0]
         if response.get('city'):
             return City.from_json(self._session, response.get('city'))
 
     def get_country(self):
-        """
-        :return: Country or None
-        """
         response = self._session.fetch("users.get", user_ids=self.id, fields="country")[0]
         if response.get('country'):
             return Country.from_json(self._session, response.get('country'))
@@ -246,6 +240,9 @@ class User(VKBase):
             user_json_items = session.fetch('users.get', user_ids=user_id_items_str_inline, fields=User.USER_FIELDS)
             for user in [User.from_json(session, user_json) for user_json in user_json_items]:
                 yield user
+
+    def _fetch(self, fields):
+        return self._session.fetch("users.get", user_ids=self.id, fields=fields)
 
 
 def grouper(iterable, n):

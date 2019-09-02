@@ -1,4 +1,5 @@
 import datetime
+from unittest.mock import patch
 
 import pytest
 
@@ -124,3 +125,12 @@ def test_if_not_field_site(factory):
     user = User.from_json(None, user_json)
 
     assert user.site is None
+
+
+@patch('vk.User._fetch')
+@pytest.mark.parametrize('expected', ['About', ''])
+def test_get_about(mock, expected):
+    user = User.from_json(None, {})
+    mock.return_value = [{'about': expected}]
+
+    assert user.get_about() == expected 
