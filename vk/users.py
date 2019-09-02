@@ -68,7 +68,7 @@ class User(VKBase):
         return response.get('activities')
 
     def get_books(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="books")[0]
+        response = self._fetch("books")[0]
         return response.get('books')
 
     def get_career(self):
