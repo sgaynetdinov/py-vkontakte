@@ -34,25 +34,6 @@ class User(VKBase):
         'trending',
     )
 
-    __slots__ = (
-        'id',
-        'first_name',
-        'last_name',
-        'is_deactivated',
-        'is_deleted',
-        'is_banned',
-        'bdate',
-        'domain',
-        'screen_name',
-        'sex',
-        'maiden_name',
-        'nickname',
-        'is_verified',
-        'status',
-        'is_trending',
-        '_session',
-    )
-
     @classmethod
     def from_json(cls, session, json_obj):
         user = cls()
