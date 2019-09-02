@@ -41,7 +41,6 @@ class User(VKBase):
         'is_deactivated',
         'is_deleted',
         'is_banned',
-        'is_hidden',
         'bdate',
         'domain',
         'screen_name',
@@ -71,7 +70,6 @@ class User(VKBase):
         user.is_deactivated = bool(json_obj.get('deactivated'))
         user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
         user.is_banned = bool(json_obj.get('deactivated') == 'banned')
-        user.is_hidden = bool(json_obj.get('hidden'))
         user.is_verified = bool(json_obj.get('verified'))
         user.is_trending = bool(json_obj.get('trending'))
 

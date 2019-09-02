@@ -21,7 +21,6 @@ def test_user(factory):
     assert not user.is_deactivated
     assert not user.is_deleted
     assert not user.is_banned
-    assert not user.is_hidden
     assert user.is_verified
     assert user.last_seen == datetime.datetime.utcfromtimestamp(1535548834)
     assert user.platform == 'web (vk.com)'
