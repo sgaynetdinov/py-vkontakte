@@ -33,6 +33,7 @@ def test_user(factory):
     assert user.instagram == 'durov'
     assert user.site == 'http://t.me/durov'
     assert user.relation is None
+    assert user.relation_partner is None
 
 
 def test_user_is_deleted(factory):
@@ -189,3 +190,12 @@ def test_relation(factory, index, expected):
     user = User.from_json(None, user_json)
 
     assert user.relation == expected
+
+
+def test_relation_partner(factory):
+    user_json = factory('user.json')
+    user_json['relation_partner'] = {'id': 100500, 'first_name': 'Abc', 'last_name': 'Def'}
+
+    user = User.from_json(None, user_json)
+
+    assert user.relation_partner == 100500

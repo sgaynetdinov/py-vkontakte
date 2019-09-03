@@ -39,6 +39,7 @@ class User(VKBase):
         user.status = cls._status(json_obj)
         user.site = json_obj.get('site')
         user.relation = cls._relation(json_obj)
+        user.relation_partner = cls._relation_partner(json_obj)
 
         user.facebook = json_obj.get('facebook')
         user.skype = json_obj.get('skype')
@@ -148,6 +149,13 @@ class User(VKBase):
         }
 
         return relation.get(index)
+
+    @classmethod
+    def _relation_partner(cls, user_json):
+        if 'relation_partner' not in user_json:
+            return None
+
+        return user_json['relation_partner']['id']
 
     def get_games(self):
         response = self._fetch("games")[0]
