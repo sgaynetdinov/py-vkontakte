@@ -23,6 +23,7 @@ class User(VKBase):
         'status',
         'trending',
         'site',
+        'relation',
     )
 
     @classmethod
@@ -37,6 +38,7 @@ class User(VKBase):
         user.sex = cls._sex(json_obj.get('sex'))
         user.status = cls._status(json_obj)
         user.site = json_obj.get('site')
+        user.relation = cls._relation(json_obj)
 
         user.facebook = json_obj.get('facebook')
         user.skype = json_obj.get('skype')
@@ -125,6 +127,27 @@ class User(VKBase):
             7: "web (vk.com)"
         }
         return platform.get(platform_id)
+
+    @classmethod
+    def _relation(cls, user_json):
+        if 'relation' not in user_json:
+            return None
+
+        index = user_json['relation']
+
+        relation = {
+            0: None,
+            1: 'single',
+            2: 'in a relationship',
+            3: 'engaged',
+            4: 'married',
+            5: 'it\'s complicated',
+            6: 'actively searching',
+            7: 'in love',
+            8: 'in a civil union'
+        }
+
+        return relation.get(index)
 
     def get_games(self):
         response = self._fetch("games")[0]

@@ -32,6 +32,7 @@ def test_user(factory):
     assert user.livejournal is None
     assert user.instagram == 'durov'
     assert user.site == 'http://t.me/durov'
+    assert user.relation is None
 
 
 def test_user_is_deleted(factory):
@@ -158,3 +159,33 @@ def test_get(mock, method, field, expected):
     mock.return_value = [{field: expected}]
 
     assert getattr(user, method)() == expected 
+
+
+def test_not_relation(factory):
+    user_json = factory('user.json')
+    del user_json['relation']
+
+    user = User.from_json(None, user_json)
+
+    assert user.relation is None
+
+
+@pytest.mark.parametrize('index, expected', [
+    (0, None),
+    (1, 'single'),
+    (2, 'in a relationship'),
+    (3, 'engaged'),
+    (4, 'married'),
+    (5, 'it\'s complicated'),
+    (6, 'actively searching'),
+    (7, 'in love'),
+    (8, 'in a civil union'),
+    (9, None),
+])
+def test_relation(factory, index, expected):
+    user_json = factory('user.json')
+    user_json['relation'] = index
+
+    user = User.from_json(None, user_json)
+
+    assert user.relation == expected
