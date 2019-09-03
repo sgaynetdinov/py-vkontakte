@@ -31,9 +31,33 @@ pip install py-vkontakte
 ### User
 
 ```python
-# return single User object
->>> api.get_user('durov')
-<User: durov>
+# User object
+>>> user = api.get_user('durov')
+>>> user.id  # 1
+>>> user.first_name  # 'Павел'
+>>> user.last_name  # 'Дуров'
+>>> user.maiden_name  # None
+>>> user.nickname  # ''
+>>> user.bdate  # '10.10.1984'
+>>> user.sex  # 'male'
+>>> user.status  # '道德經'
+>>> user.site  # 'http://t.me/durov'
+>>> user.relation  # None
+>>> user.relation_partner  # None
+>>> user.facebook  # '501012028'
+>>> user.skype  # None
+>>> user.twitter  # 'durov'
+>>> user.livejournal  # None
+>>> user.instagram  # 'durov'
+>>> user.is_verified  # True
+>>> user.is_trending  # False
+>>> user.domain  # 'durov'
+>>> user.screen_name  # 'durov'
+>>> user.last_seen  # datetime.datetime
+>>> user.platform  # 'web (vk.com)'
+>>> user.is_deactivated  # False
+>>> user.is_deleted  # False
+>>> user.is_banned  # False
 ```
 
 ```python
