@@ -44,7 +44,7 @@ class Group(VKBase):
         :param: sort {id_asc, id_desc, time_asc, time_desc} string
         Docs: https://vk.com/dev/groups.getMembers
         """
-        return self._session.fetch_items("groups.getMembers", User.from_json, 1000, group_id=self.id, sort=sort, fields=User.__slots__ + User.USER_FIELDS)
+        return self._session.fetch_items("groups.getMembers", User.from_json, 1000, group_id=self.id, sort=sort, fields=User.USER_FIELDS)
 
     def get_members_only_id(self):
         return self._session.fetch_items("groups.getMembers", lambda _, user_id: user_id, 1000, group_id=self.id)
