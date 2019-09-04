@@ -75,7 +75,7 @@ class User(VKBase):
         return response.get('books')
 
     def get_career(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="career")[0]
+        response = self._fetch("career")[0]
         if response.get('career'):
             return [UserCareer.from_json(self._session, i) for i in response.get('career')]
         return []
@@ -285,26 +285,26 @@ def grouper(iterable, n):
 
 
 class UserCareer(VKBase):
-    __slots__ = ('group', 'company', 'country', 'city', 'start', 'end', 'position', '_session')
-
     @classmethod
     def from_json(cls, session, json_obj):
         career = cls()
-        career.group = cls._get_group(json_obj.get("group_id"))
+        career.group = json_obj.get("group_id")
         career.company = json_obj.get("company")
-        career.country = Country._get_country_by_id(session, json_obj.get("country_id"))
-        career.city = City._get_city_by_id(session, json_obj.get("city_id"))
+        career.country = json_obj.get("country_id")
+        career.city = json_obj.get("city_id")
+        career.city_name = json_obj.get("city_name")
         career.start = json_obj.get("from")
         career.end = json_obj.get("until")
         career.position = json_obj.get("position")
         career._session = session
         return career
 
-    @classmethod
-    def _get_group(cls, group_id):
-        if group_id:
-            from .groups import get_group
-            return get_group(group_id)
+    @property
+    def id(self):
+        if self.group is not None:
+            return self.group
+        else:
+            return hash(self.company)
 
 
 class UserMilitary(VKBase):

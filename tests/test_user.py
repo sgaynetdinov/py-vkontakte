@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-from vk.users import User
+from vk.users import User, UserCareer
 
 
 def test_user(factory):
@@ -199,3 +199,24 @@ def test_relation_partner(factory):
     user = User.from_json(None, user_json)
 
     assert user.relation_partner == 100500
+
+
+@patch('vk.User._fetch')
+def test_get_career(mock, factory):
+    user = User.from_json(None, {})
+    user_career = [UserCareer.from_json(None, career) for career in factory('user_career.json')['career']]
+    mock.return_value = [factory('user_career.json') ]
+
+    assert user.get_career() == user_career
+
+
+@patch('vk.User._fetch')
+@pytest.mark.parametrize('career, expected', [
+    ([{}], []),
+    ([{'career': []}], []),
+])
+def test_get_career_empty(mock, career, expected, factory):
+    user = User.from_json(None, {})
+    mock.return_value = career 
+
+    assert user.get_career() == expected
