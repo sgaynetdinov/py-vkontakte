@@ -11,6 +11,7 @@
 - [First start](#first-start)
 - [Method](#method)
   - [User](#user)
+  - [UserCareer](#usercareer)
   - [Group](#group)
 
 
@@ -62,7 +63,7 @@ pip install py-vkontakte
 >>> user.get_about()
 >>> user.get_activities()
 >>> user.get_books()
->>> user.get_career()
+>>> user.get_career()  # [UserCareer](#usercareer)
 >>> user.get_games()
 >>> user.get_movies()
 >>> user.get_music()
@@ -76,6 +77,21 @@ pip install py-vkontakte
 >>> [user.id for user in user_items]
 [1, 23768217]
 ```
+
+
+### UserCareer
+```python
+>>> career = user.get_career()
+>>> career.group
+>>> career.company
+>>> career.country
+>>> career.city
+>>> career.city_name
+>>> career.start
+>>> career.end
+>>> career.position
+```
+
 
 ### Group
 
