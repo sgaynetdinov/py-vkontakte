@@ -58,6 +58,16 @@ pip install py-vkontakte
 >>> user.is_deactivated  # False
 >>> user.is_deleted  # False
 >>> user.is_banned  # False
+
+>>> user.get_about()
+>>> user.get_activities()
+>>> user.get_books()
+>>> user.get_career()
+>>> user.get_games()
+>>> user.get_movies()
+>>> user.get_music()
+>>> user.get_quotes()
+>>> user.get_tv()
 ```
 
 ```python
