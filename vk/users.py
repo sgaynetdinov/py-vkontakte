@@ -75,7 +75,7 @@ class User(VKBase):
         return response.get('books')
 
     def get_career(self):
-        response = self._session.fetch("users.get", user_ids=self.id, fields="career")[0]
+        response = self._fetch("career")[0]
         if response.get('career'):
             return [UserCareer.from_json(self._session, i) for i in response.get('career')]
         return []
