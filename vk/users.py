@@ -299,6 +299,13 @@ class UserCareer(VKBase):
         career._session = session
         return career
 
+    @property
+    def id(self):
+        if self.group is not None:
+            return self.group
+        else:
+            return hash(self.company)
+
 
 class UserMilitary(VKBase):
     __slots__ = ('unit', 'unit_id', 'country_id', 'start', 'finish', '_session')

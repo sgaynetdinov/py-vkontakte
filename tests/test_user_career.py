@@ -16,6 +16,7 @@ def test_user_career(factory):
     assert career.start == 2006
     assert career.end == 2014
     assert career.position == 'Генеральный директор'
+    assert career.id == career.group
 
 
 def test_without_group_id(factory):
@@ -25,6 +26,7 @@ def test_without_group_id(factory):
     assert 'group_id' not in career_json
     assert career.group is None
     assert career.company == 'Telegram'
+    assert career.id == hash(career.company)
 
 
 def test_without_city_id(factory):
