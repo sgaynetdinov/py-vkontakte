@@ -199,3 +199,25 @@ def test_relation_partner(factory):
     user = User.from_json(None, user_json)
 
     assert user.relation_partner == 100500
+
+
+career = [{'career': [{
+        'group_id': 22822305,
+        'country_id': 1,
+        'city_id': 2,
+        'from': 2006,
+        'until': 2014,
+        'position': 'Генеральный директор'
+        },
+        {'company': 'Telegram',
+         'country_id': 65,
+         'city_id': 458,
+         'from': 2014,
+         'position': 'CEO'
+    }]}]
+@patch('vk.User._fetch')
+def test_get_career(mock):
+    user = User.from_json(None, {})
+    mock.return_value = career 
+
+    assert user.get_career() == career[0]['career']
