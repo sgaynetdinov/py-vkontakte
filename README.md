@@ -30,10 +30,15 @@ pip install py-vkontakte
 ```
 
 ### User
+```python
+>>> user = api.get_user('durov')  # single user
+>>> user_items = api.get_users([1, 's.gaynetdinov'])  # many user
+>>> [user.id for user in user_items]
+[1, 23768217]
+```
 
 ```python
 # User object
->>> user = api.get_user('durov')
 >>> user.id  # 1
 >>> user.first_name  # 'Павел'
 >>> user.last_name  # 'Дуров'
@@ -63,19 +68,12 @@ pip install py-vkontakte
 >>> user.get_about()
 >>> user.get_activities()
 >>> user.get_books()
->>> user.get_career()  # [UserCareer](#usercareer)
+>>> user.get_career()  # UserCareer
 >>> user.get_games()
 >>> user.get_movies()
 >>> user.get_music()
 >>> user.get_quotes()
 >>> user.get_tv()
-```
-
-```python
-# yield one or many User objects
->>> user_items = api.get_users([1, 's.gaynetdinov'])
->>> [user.id for user in user_items]
-[1, 23768217]
 ```
 
 
