@@ -11,6 +11,7 @@ setup(
     author_email='s.gaynetdinov@gmail.com',
     description='Python API wrapper around vk.com API',
     long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
     keywords='vk.com, vk, vkontakte, vk api',
     classifiers=[
         'License :: OSI Approved :: MIT License',
