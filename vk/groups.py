@@ -113,7 +113,9 @@ class Group(VKBase):
         """
         https://vk.com/dev/groups.isMember
         """
-        if not isinstance(user_instance, User):
+        if not isinstance(user_instance, (int, User)):
             raise TypeError("object {0} is not `User`".format(user_instance))
 
-        return bool(self._session.fetch("groups.isMember", group_id=self.id, user_id=user_instance.id))
+        user_id = user_instance.id if hasattr(user_instance, "id") else user_instance
+
+        return bool(self._session.fetch("groups.isMember", group_id=self.id, user_id=user_id))
