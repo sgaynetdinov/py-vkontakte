@@ -103,5 +103,5 @@ pip install py-vkontakte
 # checking a user is a member of a current group
 >>> user = api.get_user('durov')
 >>> group = api.get_group('telegram')
->>> user in group
+>>> user in group  # or 100500 in group
 ```
