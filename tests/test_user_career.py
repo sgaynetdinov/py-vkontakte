@@ -39,4 +39,3 @@ def test_without_city_id(factory):
     assert 'city_id' not in career_json
     assert career.city is None
     assert career.city_name == 'Moscow'
-

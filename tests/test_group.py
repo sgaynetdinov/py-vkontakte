@@ -37,4 +37,3 @@ def test_contains(factory, user):
     group = Group.from_json(session, factory('group_detail.json'))
 
     assert user in group
-

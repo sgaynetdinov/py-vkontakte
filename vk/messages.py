@@ -29,6 +29,7 @@ class Message(VKBase):
         message.important = message_json.get('important')
         message.deleted = message_json.get('deleted')
         message.random_id = message_json.get('random_id')
+        message.update_time = message_json.get('update_time')
         message._session = session
         return message
 
