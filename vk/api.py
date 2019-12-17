@@ -3,7 +3,7 @@ from .groups import Group
 from .users import User
 
 
-class Api(object):
+class Api:
     def __init__(self, access_token=None):
         self.session = Session(access_token)
 

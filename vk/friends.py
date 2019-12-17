@@ -1,4 +1,4 @@
-class Friends(object):
+class Friends:
     @staticmethod
     def _get_friends(session, user_id):
         """

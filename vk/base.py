@@ -1,4 +1,4 @@
-class VKBase(object):
+class VKBase:
 
     def __repr__(self):
         if hasattr(self, 'screen_name'):
