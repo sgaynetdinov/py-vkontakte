@@ -65,7 +65,7 @@ class Session:
                 items = res['items']
 
             if not items:
-                raise StopIteration
+                return None
 
             for i in items:
                 yield constructor_from_json(self, i)
