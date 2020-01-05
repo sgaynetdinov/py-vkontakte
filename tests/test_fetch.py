@@ -1,7 +1,10 @@
 import io
 
+import pytest
+
 import vk
 from vk.fetch import Session
+from vk.users import User
 
 
 def test_url_open(mocker):
@@ -29,3 +32,12 @@ def test_upload_photo():
     assert b'Content-Type: application/octet-stream' in data
     assert b'Python developer and blogger.' in data
     assert boundary.encode() in data
+
+def test_fetch_items_stop_iteration(mocker):
+    fetch = mocker.patch('vk.fetch.Session.fetch')
+    fetch.return_value = {'items': []}
+
+    got = Session().fetch_items('test', User.from_json, 10)
+
+    with pytest.raises(StopIteration):
+        next(got)
