@@ -22,6 +22,13 @@
 pip install py-vkontakte
 ```
 
+### Run tests
+
+```
+pip install -r requirements-dev.txt
+pytest
+```
+
 ### First start
 
 ```python
