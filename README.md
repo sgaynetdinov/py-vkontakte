@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Install](#install)
+- [Run tests](#run-tests)
 - [First start](#first-start)
 - [Method](#method)
   - [User](#user)
@@ -36,10 +37,12 @@ pytest
 >>> api = vk.Api('YOUR_TOKEN')
 ```
 
-### User
+### Method
+
+#### User
 ```python
 >>> user = api.get_user('durov')  # single user
->>> user_items = api.get_users([1, 's.gaynetdinov'])  # many user
+>>> user_items = api.get_users([1, 'sgaynetdinov'])  # many user
 >>> [user.id for user in user_items]
 [1, 23768217]
 ```
@@ -71,6 +74,7 @@ pytest
 >>> user.is_deactivated  # False
 >>> user.is_deleted  # False
 >>> user.is_banned  # False
+>>> user.can_write_private_message  # False
 
 >>> user.get_about()
 >>> user.get_activities()
@@ -84,7 +88,7 @@ pytest
 ```
 
 
-### UserCareer
+#### UserCareer
 ```python
 >>> career = user.get_career()
 >>> career.group
@@ -98,7 +102,7 @@ pytest
 ```
 
 
-### Group
+#### Group
 
 ```python
 >>> groups_items = api.get_groups([1, 'devclub'])  # return generator
