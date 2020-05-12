@@ -58,6 +58,8 @@ class User(VKBase):
         user.is_deleted = bool(json_obj.get('deactivated') == 'deleted')
         user.is_banned = bool(json_obj.get('deactivated') == 'banned')
 
+        user.can_write_private_message = bool(json_obj.get('can_write_private_message'))
+
         user._session = session
 
         return user
