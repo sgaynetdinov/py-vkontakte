@@ -82,11 +82,16 @@ def test_platform(index, name, factory):
 
     assert user.platform == name
 
-def test_can_write_private_message(factory):
+@pytest.mark.parametrize('value, expected', [
+    (0, False),
+    (1, True),
+])
+def test_can_write_private_message(factory, value, expected):
     user_json = factory('user.json')
+    user_json['can_write_private_message'] = value
     user = User.from_json(None, user_json)
 
-    assert user.can_write_private_message == 0
+    assert user.can_write_private_message is expected
 
 def test_without_status(factory):
     user_json = factory('user.json')
