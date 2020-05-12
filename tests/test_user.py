@@ -82,6 +82,11 @@ def test_platform(index, name, factory):
 
     assert user.platform == name
 
+def test_can_write_private_message(factory):
+    user_json = factory('user.json')
+    user = User.from_json(None, user_json)
+
+    assert user.can_write_private_message == 0
 
 def test_without_status(factory):
     user_json = factory('user.json')

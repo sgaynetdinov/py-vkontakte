@@ -15,5 +15,6 @@
     "verified": 1,
     "trending": 0,
     "site": "http://t.me/durov",
-    "relation": 0
+    "relation": 0,
+    "can_write_private_message": 0
 }
