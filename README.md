@@ -68,6 +68,7 @@ pip install py-vkontakte
 >>> user.is_deleted  # False
 >>> user.is_banned  # False
 >>> user.can_write_private_message  # False
+>>> user.is_friend  # False
 
 >>> user.get_about()
 >>> user.get_activities()

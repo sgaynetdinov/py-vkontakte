@@ -34,6 +34,7 @@ def test_user(factory):
     assert user.site == 'http://t.me/durov'
     assert user.relation is None
     assert user.relation_partner is None
+    assert user.is_friend is False
 
 
 def test_user_is_deleted(factory):
@@ -43,6 +44,7 @@ def test_user_is_deleted(factory):
     assert user.is_deleted
     assert not user.is_banned
 
+
 def test_user_is_banned(factory):
     user_json = factory('user_is_deleted.json')
     user_json['deactivated'] = 'banned'
@@ -51,6 +53,7 @@ def test_user_is_banned(factory):
     assert user.is_deactivated
     assert not user.is_deleted
     assert user.is_banned
+
 
 @pytest.mark.parametrize('index, name', [
     (1, 'female'),
@@ -77,10 +80,11 @@ def test_sex(index, name, factory):
 ])
 def test_platform(index, name, factory):
     user_json = factory('user.json')
-    user_json['last_seen']['platform'] = index 
+    user_json['last_seen']['platform'] = index
     user = User.from_json(None, user_json)
 
     assert user.platform == name
+
 
 @pytest.mark.parametrize('value, expected', [
     (0, False),
@@ -92,6 +96,7 @@ def test_can_write_private_message(factory, value, expected):
     user = User.from_json(None, user_json)
 
     assert user.can_write_private_message is expected
+
 
 def test_without_status(factory):
     user_json = factory('user.json')
@@ -109,8 +114,9 @@ def test_maiden_name(factory):
 
     user_json['maiden_name'] = 'Maiden'
     user = User.from_json(None, user_json)
-    
+
     assert user.maiden_name == 'Maiden'
+
 
 def test_without_last_seen(factory):
     user_json = factory('user.json')
@@ -143,7 +149,7 @@ def test_if_not_field_site(factory):
 @pytest.mark.parametrize('method, field, expected', [
     ('get_activities', 'activities', 'Activities'),
     ('get_activities', 'activities', ''),
-    
+
     ('get_about', 'about', 'About'),
     ('get_about', 'about', ''),
 
@@ -169,7 +175,7 @@ def test_get(mock, method, field, expected):
     user = User.from_json(None, {})
     mock.return_value = [{field: expected}]
 
-    assert getattr(user, method)() == expected 
+    assert getattr(user, method)() == expected
 
 
 def test_not_relation(factory):
@@ -215,7 +221,7 @@ def test_relation_partner(factory):
 def test_get_career(mock, factory):
     user = User.from_json(None, {})
     user_career = [UserCareer.from_json(None, career) for career in factory('user_career.json')['career']]
-    mock.return_value = [factory('user_career.json') ]
+    mock.return_value = [factory('user_career.json')]
 
     assert user.get_career() == user_career
 
@@ -227,6 +233,19 @@ def test_get_career(mock, factory):
 ])
 def test_get_career_empty(mock, career, expected, factory):
     user = User.from_json(None, {})
-    mock.return_value = career 
+    mock.return_value = career
 
     assert user.get_career() == expected
+
+
+@pytest.mark.parametrize('value, expected', [
+    (0, False),
+    (1, True),
+])
+def test_is_friend(factory, value, expected):
+    user_json = factory('user.json')
+    user_json['is_friend'] = value
+
+    user = User.from_json(None, user_json)
+
+    assert user.is_friend is expected
