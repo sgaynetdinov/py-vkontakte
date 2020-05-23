@@ -23,13 +23,6 @@
 pip install py-vkontakte
 ```
 
-### Run tests
-
-```
-pip install -r requirements-dev.txt
-pytest
-```
-
 ### First start
 
 ```python
@@ -115,4 +108,11 @@ pytest
 >>> user = api.get_user('durov')
 >>> group = api.get_group('telegram')
 >>> user in group  # or 100500 in group
+```
+
+### Run tests
+
+```
+pip install -r requirements-dev.txt
+pytest
 ```
