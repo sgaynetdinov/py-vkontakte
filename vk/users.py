@@ -24,6 +24,7 @@ class User(VKBase):
         'trending',
         'site',
         'relation',
+        'is_friend'
     )
 
     @classmethod
@@ -40,6 +41,7 @@ class User(VKBase):
         user.site = json_obj.get('site')
         user.relation = cls._relation(json_obj)
         user.relation_partner = cls._relation_partner(json_obj)
+        user.is_friend = bool(json_obj.get('is_friend'))
 
         user.facebook = json_obj.get('facebook')
         user.skype = json_obj.get('skype')

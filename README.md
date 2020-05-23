@@ -23,13 +23,6 @@
 pip install py-vkontakte
 ```
 
-### Run tests
-
-```
-pip install -r requirements-dev.txt
-pytest
-```
-
 ### First start
 
 ```python
@@ -75,6 +68,7 @@ pytest
 >>> user.is_deleted  # False
 >>> user.is_banned  # False
 >>> user.can_write_private_message  # False
+>>> user.is_friend  # False
 
 >>> user.get_about()
 >>> user.get_activities()
@@ -115,4 +109,11 @@ pytest
 >>> user = api.get_user('durov')
 >>> group = api.get_group('telegram')
 >>> user in group  # or 100500 in group
+```
+
+### Run tests
+
+```
+pip install -r requirements-dev.txt
+pytest
 ```
