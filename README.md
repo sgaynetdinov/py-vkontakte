@@ -8,13 +8,12 @@
 ### Table of contents
 
 - [Install](#install)
-- [Run tests](#run-tests)
 - [First start](#first-start)
 - [Method](#method)
   - [User](#user)
   - [UserCareer](#usercareer)
   - [Group](#group)
-
+- [Run tests](#run-tests)
 
 
 ### Install
@@ -34,13 +33,14 @@ pip install py-vkontakte
 
 #### User
 ```python
->>> user = api.get_user('durov')  # single user
->>> user_items = api.get_users([1, 'sgaynetdinov'])  # many user
+# Single user
+>>> user = api.get_user('durov')
+
+# Many user
+>>> user_items = api.get_users([1, 'sgaynetdinov'])  # Return generator
 >>> [user.id for user in user_items]
 [1, 23768217]
-```
 
-```python
 # User object
 >>> user.id  # 1
 >>> user.first_name  # 'Павел'
@@ -73,7 +73,7 @@ pip install py-vkontakte
 >>> user.get_about()
 >>> user.get_activities()
 >>> user.get_books()
->>> user.get_career()  # UserCareer
+>>> user.get_career()
 >>> user.get_games()
 >>> user.get_movies()
 >>> user.get_music()
@@ -84,31 +84,43 @@ pip install py-vkontakte
 
 #### UserCareer
 ```python
+# Get user career data
 >>> career = user.get_career()
->>> career.group
->>> career.company
->>> career.country
->>> career.city
->>> career.city_name
->>> career.start
->>> career.end
->>> career.position
+
+# Career object
+>>> career[0].group
+>>> career[0].company
+>>> career[0].country
+>>> career[0].city
+>>> career[0].city_name
+>>> career[0].start
+>>> career[0].end
+>>> career[0].position
 ```
 
 
 #### Group
 
 ```python
->>> groups_items = api.get_groups([1, 'devclub'])  # return generator
+# Single group
+>>> group = api.get_group('devclub')
+
+# Checking a user is a member of a current group
+>>> user = api.get_user('durov')
+>>> user in group  # or 100500 in group
+
+>>> user_items = [user for user in group.get_members()] # Get group members
+>>> user_id_items = [user_id for user_id in group.get_members_only_id()] # Get only group members ID
+
+>>> id_users = [] # List ID
+>>> for item in user_items: # We loop through all users
+...     if item.is_friend == True and item.is_online == True: # If the user is our friend and is online
+...     	id_users.append(item.id) # Add user ID to the list
+
+# Many group
+>>> groups_items = api.get_groups([1, 'devclub'])  # Return generator
 >>> [group for group in groups_items]
 [<Group: apiclub>, <Group: devclub>]
-```
-
-```python
-# checking a user is a member of a current group
->>> user = api.get_user('durov')
->>> group = api.get_group('telegram')
->>> user in group  # or 100500 in group
 ```
 
 ### Run tests
