@@ -13,6 +13,7 @@
   - [User](#user)
   - [UserCareer](#usercareer)
   - [Group](#group)
+- [Examples](#examples)
 - [Run tests](#run-tests)
 
 
@@ -112,15 +113,23 @@ pip install py-vkontakte
 >>> user_items = [user for user in group.get_members()] # Get group members
 >>> user_id_items = [user_id for user_id in group.get_members_only_id()] # Get only group members ID
 
->>> id_users = [] # List ID
->>> for item in user_items: # We loop through all users
-...     if item.is_friend == True and item.is_online == True: # If the user is our friend and is online
-...     	id_users.append(item.id) # Add user ID to the list
-
 # Many group
 >>> groups_items = api.get_groups([1, 'devclub'])  # Return generator
 >>> [group for group in groups_items]
 [<Group: apiclub>, <Group: devclub>]
+```
+
+### Examples
+
+```python
+>>> import vk
+>>> api = vk.Api('YOUR_TOKEN')
+>>> group = api.get_group('devclub') # Single group
+>>> user_items = [user for user in group.get_members()] # Get group members
+>>> id_users = [] # List ID
+>>> for item in user_items: # We loop through all users
+...     if item.is_friend is True and item.is_online is True: # If the user is our friend and is online
+...     	id_users.append(item.id) # Add user ID to the list
 ```
 
 ### Run tests
