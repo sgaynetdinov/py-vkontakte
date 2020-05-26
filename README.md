@@ -85,10 +85,8 @@ pip install py-vkontakte
 
 #### UserCareer
 ```python
-# Get user career data
 >>> career = user.get_career()
 
-# Career object
 >>> career[0].group
 >>> career[0].company
 >>> career[0].country
@@ -106,17 +104,19 @@ pip install py-vkontakte
 # Single group
 >>> group = api.get_group('devclub')
 
-# Checking a user is a member of a current group
->>> user = api.get_user('durov')
->>> user in group  # or 100500 in group
-
->>> user_items = [user for user in group.get_members()] # Get group members
->>> user_id_items = [user_id for user_id in group.get_members_only_id()] # Get only group members ID
-
 # Many group
 >>> groups_items = api.get_groups([1, 'devclub'])  # Return generator
 >>> [group for group in groups_items]
 [<Group: apiclub>, <Group: devclub>]
+
+# Checking a user is a member of a current group
+>>> user = api.get_user('durov')
+>>> user in group
+>>> user.id in group
+
+# Get group membeer
+>>> user_items = [user for user in group.get_members()]
+>>> user_id_items = [user_id for user_id in group.get_members_only_id()]
 ```
 
 ### Examples
@@ -124,12 +124,11 @@ pip install py-vkontakte
 ```python
 >>> import vk
 >>> api = vk.Api('YOUR_TOKEN')
->>> group = api.get_group('devclub') # Single group
->>> user_items = [user for user in group.get_members()] # Get group members
->>> id_users = [] # List ID
->>> for item in user_items: # We loop through all users
-...     if item.is_friend is True and item.is_online is True: # If the user is our friend and is online
-...     	id_users.append(item.id) # Add user ID to the list
+>>> group = api.get_group('devclub')
+>>> user_id_items = []
+>>> for user in group.get_members():
+...     if user.is_friend and user.is_online:
+...     	user_id_items.append(user.id)
 ```
 
 ### Run tests
