@@ -126,7 +126,7 @@ pip install py-vkontakte
 >>> api = vk.Api('YOUR_TOKEN')
 >>> group = api.get_group('devclub') # Single group
 >>> id_users = [] # List ID
->>> for item in user_items: # We loop through all users
+>>> for item in group.get_members():
 ...     if item.is_friend is True and item.is_online is True: # If the user is our friend and is online
 ...     	id_users.append(item.id) # Add user ID to the list
 ```
