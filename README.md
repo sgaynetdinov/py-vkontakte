@@ -108,7 +108,7 @@ pip install py-vkontakte
 
 # Checking a user is a member of a current group
 >>> user = api.get_user('durov')
->>> user in group  # or 100500 in group
+>>> user in group  # or user.id in group
 
 >>> user_items = [user for user in group.get_members()] # Get group members
 >>> user_id_items = [user_id for user_id in group.get_members_only_id()] # Get only group members ID
@@ -124,11 +124,11 @@ pip install py-vkontakte
 ```python
 >>> import vk
 >>> api = vk.Api('YOUR_TOKEN')
->>> group = api.get_group('devclub') # Single group
->>> id_users = [] # List ID
->>> for item in group.get_members():
-...     if item.is_friend is True and item.is_online is True: # If the user is our friend and is online
-...     	id_users.append(item.id) # Add user ID to the list
+>>> group = api.get_group('devclub')
+>>> user_id_items = []
+>>> for user in group.get_members():
+...     if user.is_friend and user.is_online:
+...     	user_id_items.append(user.id)
 ```
 
 ### Run tests
