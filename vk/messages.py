@@ -44,8 +44,13 @@ class Message(VKBase):
         if image_files:
             attachment_items = Photo._upload_messages_photos_for_group(session, user_id, image_files)
 
-        message_id = session.fetch("messages.send", user_id=user_id, message=message, attachment=attachment_items, random_id=random.randint(1, 10**6))
-        return message_id
+        return session.fetch(
+            "messages.send",
+            user_id=user_id,
+            message=message,
+            attachment=attachment_items,
+            random_id=random.randint(1, 10 ** 6),
+        )
 
     @staticmethod
     def set_typing(session, user_id):

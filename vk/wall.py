@@ -52,8 +52,7 @@ class Wall(VKBase):
         https://vk.com/dev/likes.getList
         """
         response = self._session.fetch('likes.getList', count=1, type='post', owner_id=self.from_id, item_id=self.id)
-        likes_count = response.get('count')
-        return likes_count
+        return response.get('count')
 
     def get_reposts(self):
         """
@@ -100,8 +99,7 @@ class Wall(VKBase):
     @staticmethod
     def _get_walls_count(session, owner_id):
         response = session.fetch("wall.get", owner_id=owner_id, count=1)
-        wall_count = response.get('count')
-        return wall_count
+        return response.get('count')
 
     @staticmethod
     def _wall_post(session, owner_id, message=None, attachments=None, from_group=True):
@@ -109,5 +107,10 @@ class Wall(VKBase):
         https://vk.com/dev/wall.post
         attachments: "photo100172_166443618,photo-1_265827614"
         """
-        response = session.fetch("wall.post", owner_id=owner_id, message=message, attachments=attachments, from_group=from_group)
-        return response
+        return session.fetch(
+            "wall.post",
+            owner_id=owner_id,
+            message=message,
+            attachments=attachments,
+            from_group=from_group,
+        )
