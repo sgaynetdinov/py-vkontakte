@@ -1,6 +1,6 @@
 # py-vkontakte — Python client for API vk.com
 
-**Build** | ![](https://github.com/sgaynetdinov/py-vkontakte/workflows/unittest/badge.svg) [![codecov](https://codecov.io/gh/sgaynetdinov/py-vkontakte/branch/master/graph/badge.svg)](https://codecov.io/gh/sgaynetdinov/py-vkontakte)
+**Build** | ![](https://github.com/sgaynetdinov/py-vkontakte/workflows/unittest/badge.svg) [![codecov](https://codecov.io/gh/sgaynetdinov/py-vkontakte/branch/master/graph/badge.svg)](https://codecov.io/gh/sgaynetdinov/py-vkontakte) [![Total alerts](https://img.shields.io/lgtm/alerts/g/sgaynetdinov/py-vkontakte.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sgaynetdinov/py-vkontakte/alerts/)
 :---   | :---  
 **Package** | ![GitHub release](https://img.shields.io/github/release/sgaynetdinov/py-vkontakte.svg) ![Solid](https://img.shields.io/pypi/pyversions/py-vkontakte.svg) ![Solid](https://img.shields.io/pypi/wheel/py-vkontakte.svg)
 
