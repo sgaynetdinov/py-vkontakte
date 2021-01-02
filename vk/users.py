@@ -169,8 +169,14 @@ class User(VKBase):
         """
         https://vk.com/dev/users.getFollowers
         """
-        response = self._session.fetch_items("users.getFollowers", self.from_json, self._session,  count=1000, user_id=self.id, fields=self.USER_FIELDS)
-        return response
+        return self._session.fetch_items(
+            "users.getFollowers",
+            self.from_json,
+            self._session,
+            count=1000,
+            user_id=self.id,
+            fields=self.USER_FIELDS,
+        )
 
     def get_followers_count(self):
         response = self._session.fetch("users.get", user_ids=self.id, fields="followers_count")[0]
@@ -271,10 +277,11 @@ class User(VKBase):
             if not user_id_items:
                 raise StopIteration
 
-            user_id_items_str_inline = ",".join([str(i) for i in user_id_items])
+            user_id_items_str_inline = ",".join(str(i) for i in user_id_items)
             user_json_items = session.fetch('users.get', user_ids=user_id_items_str_inline, fields=User.USER_FIELDS)
-            for user in [User.from_json(session, user_json) for user_json in user_json_items]:
-                yield user
+            yield from [
+                User.from_json(session, user_json) for user_json in user_json_items
+            ]
 
     def _fetch(self, fields):
         return self._session.fetch("users.get", user_ids=self.id, fields=fields)

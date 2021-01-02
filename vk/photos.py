@@ -35,8 +35,9 @@ class Photo(VKBase):
         """
         https://vk.com/dev/photos.getAll
         """
-        response = session.fetch_items("photos.getAll", Photo.from_json, count=200, owner_id=user_or_group_id)
-        return response
+        return session.fetch_items(
+            "photos.getAll", Photo.from_json, count=200, owner_id=user_or_group_id
+        )
 
     @staticmethod
     def _get_owner_cover_photo_upload_server(session, group_id, crop_x=0, crop_y=0, crop_x2=795, crop_y2=200):
@@ -52,8 +53,7 @@ class Photo(VKBase):
         """
         https://vk.com/dev/photos.saveOwnerCoverPhoto
         """
-        response = session.fetch('photos.saveOwnerCoverPhoto', hash=hash, photo=photo)
-        return response
+        return session.fetch('photos.saveOwnerCoverPhoto', hash=hash, photo=photo)
 
     @staticmethod
     def _get_wall_upload_server(session, group_id):
