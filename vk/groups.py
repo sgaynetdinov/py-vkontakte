@@ -21,8 +21,8 @@ class Group(VKBase):
         group.id = group_json.get("id")
         group.name = group_json.get("name")
         group.screen_name = group_json.get("screen_name")
-        group.is_closed = True if group_json.get("is_closed") else False
-        group.is_deactivated = True if group_json.get("deactivated") else False
+        group.is_closed = bool(group_json.get("is_closed"))
+        group.is_deactivated = bool(group_json.get("deactivated"))
         group.type = group_json.get("type")
         group.has_photo = bool(group_json.get("has_photo"))
         group.photo_50 = group_json.get("photo_50")
@@ -75,8 +75,7 @@ class Group(VKBase):
         return Wall._wall_post(self._session, owner_id=self.id * -1, message=message, attachments=attachments)
 
     def send_messages(self, user_id, message=None, image_files=None):
-        message_id = Message._send_message(self._session, user_id, message, image_files)
-        return message_id
+        return Message._send_message(self._session, user_id, message, image_files)
 
     def messages_set_typing(self, user_id):
         Message.set_typing(self._session, user_id=user_id)

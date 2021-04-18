@@ -18,12 +18,12 @@ def test_message(factory):
     message = Message.from_json(None, message_json)
 
     assert isinstance(message, Message)
-    assert message.date == 621734400 
+    assert message.date == 621734400
     assert message.id == 18000
     assert message.out == 1
     assert message.body == "Hello world"
     assert message.random_id == 597248445
-    assert message.update_time == None
+    assert message.update_time is None
 
 @pytest.mark.parametrize('update_time, expected', [
     (None, None),

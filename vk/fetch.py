@@ -91,7 +91,7 @@ class Session:
         :param fields: ('bdate', 'domain')
         :return: 'bdate,domain'
         """
-        if isinstance(fields, tuple) or isinstance(fields, list):
+        if isinstance(fields, (tuple, list)):
             return ','.join(fields)
         return fields
 
