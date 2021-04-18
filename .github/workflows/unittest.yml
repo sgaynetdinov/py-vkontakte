@@ -5,17 +5,16 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
-      max-parallel: 3
       matrix:
         python-version: [3.5, 3.6, 3.7]
 
+    name: Set up Python ${{ matrix.python-version }}
     steps:
-    - uses: actions/checkout@v1
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -25,7 +24,7 @@ jobs:
         pip install -r requirements-dev.txt
 
     - name: Run isort
-      run: isort -c
+      run: isort . --check
 
     - name: Run pytest
       run: pytest
@@ -35,3 +34,4 @@ jobs:
         pip install codecov pytest-cov
         pytest --cov=./vk
         codecov
+
