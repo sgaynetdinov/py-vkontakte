@@ -141,4 +141,4 @@ pytest
 
 ### Publish new release in PyPI
 - Edit field `version` in file `setup.py`
-- Create new release from github.com
+- Create new release from [github.com](https://github.com/sgaynetdinov/py-vkontakte/releases/new)
