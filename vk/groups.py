@@ -3,6 +3,7 @@ from .messages import Message
 from .photos import Photo
 from .users import User
 from .wall import Wall
+from .error import VKError
 
 
 class Group(VKBase):
@@ -82,6 +83,25 @@ class Group(VKBase):
 
     def get_dialog(self, unread=False, important=False, unanswered=False):
         return Message.get_dialog(self._session, unread=unread, important=important, unanswered=unanswered)
+
+    @property
+    def is_online(self):
+        response = self._session.fetch("groups.getOnlineStatus", group_id=self.id)
+        return False if response["status"] == "none" else True
+
+    def set_online(self):
+        self._online(True) 
+
+    def set_offline(self):
+        self._online(False) 
+
+    def _online(self, value):
+        command = "groups.enableOnline" if value else "groups.disableOnline"
+        try:
+            self._session.fetch(command, group_id=self.id)
+        except VKError as err:
+            if not ("online is already enabled" in err.message or "online is not enabled" in err.message):
+                raise
 
     @staticmethod
     def _get_user_groups(session, user_id, filter):
