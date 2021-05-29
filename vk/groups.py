@@ -87,7 +87,7 @@ class Group(VKBase):
     @property
     def is_online(self):
         response = self._session.fetch("groups.getOnlineStatus", group_id=self.id)
-        return False if response["status"] == "none" else True
+        return False if response["status"] != "online" else True
 
     def set_online(self):
         self._online(True) 
