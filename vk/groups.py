@@ -1,9 +1,9 @@
 from .base import VKBase
+from .error import VKError
 from .messages import Message
 from .photos import Photo
 from .users import User
 from .wall import Wall
-from .error import VKError
 
 
 class Group(VKBase):
