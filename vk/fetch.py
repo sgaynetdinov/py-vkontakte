@@ -12,7 +12,7 @@ except ImportError:
 
 
 class Session:
-    def __init__(self, access_token=None, lang='ru', version_api='5.70'):
+    def __init__(self, access_token=None, lang='ru', version_api='5.76'):
         self.access_token = access_token
         self.lang = lang
         self.version_api = version_api
