@@ -60,6 +60,9 @@ class Photo(VKBase):
         """
         https://vk.com/dev/photos.getWallUploadServer
         """
+        if group_id < 0:
+            group_id = abs(group_id)
+
         response = session.fetch("photos.getWallUploadServer", group_id=group_id)
         return response['upload_url']
 
